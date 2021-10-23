@@ -1,34 +1,30 @@
-/* Desafío 2
- * Se pide nombre de usuario y edad, se los valida que sean correctos.
- * Luego se analiza si el usuario es mayor de edad y se le comunica si su edad es par o impar.
+/* Desafío 3
+ * Se solicita al usuario que ingrese una cantidad X números por prompt, y se calcula la sumatoria y el promedio de dichos valores. 
+ * La cantidad X la elige el usuario.
+ * Se valida que cada valor ingresado sea mayor a 0, de lo contrario, debe volver a ingresarlo.
  */
 
-// Se solicita el nombre del usuario. Si no lo ingresa finaliza el programa.
-let nombre = prompt("Hola! Por favor, ingresá tu nombre.");
+alert("¡Bienvenido! Se calculará la sumatoria y el promedio de los números que ingreses a continuación.")
 
-if(nombre != ""){
-    let edad = parseInt(prompt("Bienvenido " + nombre + ". Por favor, ingresá tu edad."));
+let cantidadValores = parseInt(prompt("Por favor, indique cuantos valores quiere ingresar."))
+if(cantidadValores > 0){
 
-    // Se valida un rango de edad realista
-    if(edad <= 0 || edad > 100){
-        alert("La edad ingresada es incorrecta. Debe estar entre 1 y 100. Inténtalo de nuevo.")
-    }
-    else{
-        let esPar = (edad % 2 == 0);
+    let suma = 0;
+    for(let i=0; i<cantidadValores; i++){
 
-        // Se analiza la edad, y según el caso, se imprime un mensaje 
-        if(edad >= 18 && esPar){
-            alert("Eres mayor de edad, y tu edad es par.");
-        } else if (edad >= 18 && !esPar){
-            alert("Eres mayor de edad, y tu edad es impar.");
-        } else if (edad < 18 && esPar){
-            alert("Eres menor de edad, y tu edad es par.");
-        } else {
-            alert("Eres menor de edad, y tu edad es impar.");
+        let valor = parseInt(prompt("Por favor, ingrese un número mayor a 0."))
+        // Si ingresa un valor incorrecto, deberá volver a intentarlo hasta que sí lo sea.
+        while(valor <= 0){
+            valor = parseInt(prompt("El número ingresado es incorrecto. Por favor, ingrese un valor mayor a 0."))
         }
+        suma += valor
     }
+
+    // Calculo el promedio con 4 decimales
+    let promedio = (suma / cantidadValores).toFixed(4) 
+    alert("La sumatoria de los valores ingresados es: " + suma)
+    alert("El promedio de los valores ingresados es: " + promedio)
 }
 else {
-    alert("No has ingresado tu nombre. Recarga el sitio e inténtalo de nuevo.");
+    alert("La cantidad de valores debe ser mayor a cero. Por favor, recargue el sitio e inténtelo de nuevo.")
 }
-

@@ -3,8 +3,7 @@
  * Contará con la posibilidad de ver cotizaciones en vivo, cargar transacciones, 
  * y ver el balance de activos. También el usuario podrá registrarse e iniciar sesión.
  * 
- * Para este desafío se incluye un array de criptomonedas, y un array para almacenar las transacciones ingresadas.
- * Se adapta la funcionalidad existente a estos arrays. 
+ * Para este desafío se incluyen dos métodos de ordenamiento para el array de Transacciones. 
  */
 
 // Entidades del sistema.
@@ -22,9 +21,10 @@ class Criptomoneda {
 }
 
 class Transaccion {
-    constructor(criptomoneda, unidades){
+    constructor(criptomoneda, unidades, fechaCarga){
         this.criptomoneda = criptomoneda
         this.unidades = unidades
+        this.fechaCarga = fechaCarga
     }
 
     montoEnUSD(){
@@ -108,7 +108,7 @@ const ingresarMonto = criptomoneda => {
 // Carga de una transacción. El usuario ingresa un monto, se crea una transacción y se la guarda en un array.
 const registrarTransaccion = criptomoneda => {
     let unidades = ingresarMonto(criptomoneda)
-    let transaccion = new Transaccion(criptomoneda, unidades)
+    let transaccion = new Transaccion(criptomoneda, unidades, new Date())
     transacciones.push(transaccion)
 }
 
@@ -130,8 +130,35 @@ const cargarTransacciones = () => {
     }    
 }
 
+/** DESAFÍO COMPLEMENTARIO 
+ * Se agregan dos métodos de ordenamiento para las transacciones: 
+ * 1. Por fecha de carga de la más reciente a la más antigua.
+ * 2. Por monto en USD del mayor al menor.
+ * A modo de prueba, utilizo el criterio del monto.
+*/
+
+// Compara colocando en primer lugar al monto mayor.
+const compararPorMontoUSD = (tr1, tr2) => {
+    if (tr1.montoEnUSD() > tr2.montoEnUSD()) return -1
+    if (tr1.montoEnUSD() < tr2.montoEnUSD()) return 1
+    return 0
+}
+
+// Compara colocando en primer lugar la fecha más reciente.
+const compararPorFechaCarga = (tr1, tr2) => {
+    if (tr1.fechaCarga.getTime() > tr2.fechaCarga.getTime()) return -1
+    if (tr1.fechaCarga.getTime() < tr2.fechaCarga.getTime()) return 1
+    return 0
+}
+
+// Ordena un array de transacciones según un criterio recibido por parámetro.
+const ordenarTransacciones = (transacciones,criterio) => {
+    return transacciones.sort(criterio)
+}
+
 // Simulo el registro de transacciones y muestro balance de activos cuando el usuario termina la carga.
 let transacciones = []
 cargarTransacciones()
+ordenarTransacciones(transacciones,compararPorMontoUSD)
 imprimirTransacciones(transacciones)
 imprimirSaldos(transacciones)

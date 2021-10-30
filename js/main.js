@@ -1,7 +1,11 @@
-/* Proyecto Final - Entrega 1
+/* Desafío DOM
  * El proyecto consistirá en una plataforma de criptomonedas.
  * Contará con la posibilidad de ver cotizaciones en vivo, cargar transacciones, 
  * y ver el balance de activos. También el usuario podrá registrarse e iniciar sesión.
+ *
+ * Para esta entrega, incluyo el guardado del usuario registrado en el localStorage para
+ * permitir su login en futuras entregas.
+ * También se agregó manejo del DOM para imprimir en el HTML las transacciones y los saldos del usuario 
  */
 
 // Entidades del sistema.
@@ -33,13 +37,13 @@ class Transaccion {
 }
 
 class Usuario {
-    constructor(username, password){
-        this.username = username
-        this.password = password // TODO - Encriptar de alguna manera.
+    constructor(objeto){
+        this.username = objeto.username
+        this.password = objeto.password // TODO - Encriptar de alguna manera.
         this.transacciones = []
     }
 
-    // Agrega una transacción al array
+    // Agrega una transacción al array.
     agregarTransaccion(criptomoneda, unidades){
         this.transacciones.push(new Transaccion(criptomoneda, unidades, new Date()))
     }
@@ -47,44 +51,72 @@ class Usuario {
     // Ordena las transacciones del usuario según un criterio recibido por parámetro.
     ordenarTransacciones(criterio) {
         this.transacciones = this.transacciones.sort(criterio)
+        this.actualizarEstadoStorage()
     }
 
     // Imprime en el DOM las transacciones del usuario, mostrando la moneda cripto y el monto en USD de cada transacción.
     imprimirTransacciones() {
-        document.write(`<h3>TRANSACCIONES del usuario ${this.username.toUpperCase()}:</h3>`)
+        const transaccionesDiv = document.getElementById("listaMovimientos")
+        
+        // Si no hay transacciones se muestra una leyenda. Si hay, se las itera para imprimirlas en el documento.
         if(this.transacciones.length === 0){
-            document.write(`<h4>No se han cargado transacciones.</h4>`)
+            const h4 = document.createElement("h4")
+            h4.innerHTML = "No se registran movimientos."
+            transaccionesDiv.appendChild(h4)
         }
         else {
             this.transacciones.forEach(transaccion => {
-                document.write(
-                    `<div class="transaccion__container">
-                        <span class="transaccion">
-                            + ${formatoCripto(transaccion.unidades)} ${transaccion.criptomoneda.sigla} = ${formatoMoneda(transaccion.montoEnUSD())} USD
-                        </span>
-                    </div>`)
+                // Se crean elementos y se asignan sus clases de estilos.
+                const div = document.createElement("div")
+                div.className = "transaccion__container"
+                const span = document.createElement("span")
+                span.className = "transaccion"
+
+                // Guardo contenido con la transacción a imprimir.
+                span.innerHTML = `+ ${formatoCripto(transaccion.unidades)} ${transaccion.criptomoneda.sigla} = ${formatoMoneda(transaccion.montoEnUSD())} USD`
+                
+                // Agrego los elementos al DOM.
+                div.appendChild(span)
+                transaccionesDiv.appendChild(div)
             })
         }
     }
 
     // Imprime en el DOM el saldo del usuario en pesos argentinos y en dólares según sus transacciones registradas.
     imprimirSaldos() {
+        // Calculo el saldo
         let saldoUSD = this.transacciones.map(transaccion => transaccion.montoEnUSD())
                                          .reduce((x,y) => x + y, 0)
 
-        document.write(`<h3>SALDOS BILLETERA:</h3>
-                        <div class="saldos">
-                            <span class="pesos">Pesos (ARS): $${convertirAPesos(saldoUSD)}</span>
-                            <span class="dolares">Dólares (USD): $${formatoMoneda(saldoUSD)}</span>
-                        </div>`)
+        // Creo nodos para saldo en pesos y en dólares.
+        let pesos = document.createElement("span")
+        pesos.className = "pesos"
+        pesos.innerHTML = `Pesos (ARS): $${convertirAPesos(saldoUSD)}`
+        let dolares = document.createElement("span")
+        dolares.className = "dolares"
+        dolares.innerHTML = `Dólares (USD): $${formatoMoneda(saldoUSD)}`
+
+        // Agrego los elementos al DOM.
+        let saldosDiv = document.getElementById("listaSaldos")
+        saldosDiv.appendChild(pesos)
+        saldosDiv.appendChild(dolares)
+    }
+
+    // Actualiza el estado del Usuario en el Local Storage.
+    actualizarEstadoStorage() {
+        // Se reemplaza en el array de usuarios del storage, la nueva versión del usuario en lugar de la anterior.
+        let usuarios = obtenerUsuariosRegistrados()
+        let index = usuarios.findIndex(user => user.username === this.username)
+        usuarios[index] = this
+        localStorage.setItem('usuarios', JSON.stringify(usuarios))
     }
 }
 
-// Array para guardar los usuarios que se registren en el sistema y luego permitir su login.
-let usuarios = []
+// Inicializo array para guardar los usuarios que se registren en el sistema y luego permitir su login.
+localStorage.setItem('usuarios', JSON.stringify([]))
 
 // Precio DÓLAR en Pesos Argentinos.
-const COTIZACION_USD = 195
+const COTIZACION_USD = 200
 
 /* Criptomonedas disponibles. 
  * Las cotizaciones son en USD. 
@@ -143,6 +175,7 @@ const ingresarMonto = criptomoneda => {
 // Carga de todas las transacciones de un usuario vía prompt. Finaliza cuando el usuario elige la opción 'Finalizar carga'.
 const cargarTransacciones = usuario => {
     alert("Registro de transacciones en criptomonedas.")
+    // Se cargan las transacciones.
     let opcion = elegirOpcion()
     while(opcion !== "5"){
         switch(opcion){
@@ -157,9 +190,11 @@ const cargarTransacciones = usuario => {
         }
         opcion = elegirOpcion()
     }    
+    // Se persisten las transacciones en el storage.
+    usuario.actualizarEstadoStorage()
 }
 
-// Solicita nombre de usuario y contraseña. Crea un usuario y lo registra en el array de usuarios.
+// Solicita nombre de usuario y contraseña. Crea un usuario y lo guarda en el Local Storage
 const registrarUsuario = () => {
     let username = prompt("Por favor, ingresá tu nombre de usuario:")
     while(username.trim().length < 5){
@@ -169,8 +204,17 @@ const registrarUsuario = () => {
     while(password.trim().length < 6){
         password = prompt(`ERROR: Tu contraseña debe tener al menos 6 caracteres. Por favor, ingresá tu contraseña:`)
     }
-    usuarios.push(new Usuario(username,password));
+    // Guardo el usuario registrado en el Storage
+    let usuarios = obtenerUsuariosRegistrados()
+    usuarios.push(new Usuario({username,password}))
+    localStorage.setItem('usuarios', JSON.stringify(usuarios))
+
     alert(`¡Excelente, ${username}! Te registraste con éxito en Argencoin.`)
+}
+
+// Devuelve los datos de los usuarios registrados en el sitio
+const obtenerUsuariosRegistrados = () => {
+    return JSON.parse(localStorage.getItem('usuarios'))
 }
 
 /** Para esta entrega, se simula el registro de un usuario y la carga de transacciones. 
@@ -178,7 +222,7 @@ const registrarUsuario = () => {
 alert("¡Bienvenido a Argencoin!")
 registrarUsuario()
 // Para esta entrega, tomo el primer usuario (único registrado) como el usuario en sesión. A futuro se guardará en el navegador luego del login.
-let usuarioEnSesion = usuarios[0] 
+let usuarioEnSesion = new Usuario(obtenerUsuariosRegistrados()[0])
 cargarTransacciones(usuarioEnSesion)
 usuarioEnSesion.ordenarTransacciones(compararPorMontoUSD)
 usuarioEnSesion.imprimirTransacciones()

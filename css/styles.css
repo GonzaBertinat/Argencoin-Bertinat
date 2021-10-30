@@ -9,12 +9,12 @@ h3 {
     font-size: 30px;
 }
 
-.saldos {
+#listaSaldos {
     display: flex;
     justify-content: center;
 }
 
-.saldos span {
+#listaSaldos span {
     width: 40%;
     height: 30px;
     border: 2px solid black;
@@ -40,4 +40,14 @@ h3 {
 .transaccion {
     color: black;
     font-size: 25px;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;   
+    margin: 10px 0;
+}
+
+footer span {
+    margin: 0 auto;
 }

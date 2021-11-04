@@ -89,6 +89,19 @@ const filtrarMovimientos = evento => {
     renderizarMovimientos(username, filtroSeleccionado)
 }
 
+// Imprime en DOM las opciones para combos de criptomonedas, para la carga y filtrado de movimientos.
+const renderizarCombosMonedas = () => {
+    let combos = document.getElementsByClassName('comboCriptomonedas')
+    for(const combo of combos){
+        criptomonedas.forEach(c => {
+            const option = document.createElement('option')
+            option.value = c.sigla
+            option.innerHTML = c.nombreFormateado()
+            combo.appendChild(option)
+        })
+    }
+}
+
 // Inicialización del documento.
 const init = () => {
     // Carga de movimientos en 'Mis Movimientos'
@@ -107,6 +120,7 @@ const init = () => {
     }
 
     // Filtrar movimientos
+    renderizarCombosMonedas()
     let botonFiltrar = document.getElementById('buttonFiltroMovimientos')
     botonFiltrar.addEventListener('click',filtrarMovimientos)
 }

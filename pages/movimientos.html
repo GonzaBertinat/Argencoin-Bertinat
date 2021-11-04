@@ -51,12 +51,9 @@
                                 <h2>Movimientos</h2>
                                 <form>
                                     <div class="input-group mb-3">
-                                        <select id="selectFiltroMovimientos" class="custom-select">
+                                        <select id="selectFiltroMovimientos" class="comboCriptomonedas">
                                             <option value="TODOS">Todos los movimientos</option>
-                                            <option value="BTC">BTC</option>
-                                            <option value="ETH">ETH</option>
-                                            <option value="ADA">ADA</option>
-                                            <option value="USDT">USDT</option>
+                                            <!-- Se carga dinámicamente según las monedas existentes -->
                                         </select>
                                         <div class="input-group-prepend">
                                             <button id="buttonFiltroMovimientos" class="btn btn-primary" type="button">Filtrar</button>
@@ -86,11 +83,8 @@
                             <form id="cargar-movimiento-form">
                                 <div class="mb-3">
                                     <label for="selectCriptomoneda">Moneda:</label>
-                                    <select id="selectCriptomoneda">
-                                        <option value="BTC">Bitcoin</option>
-                                        <option value="ETH">Ethereum</option>
-                                        <option value="ADA">Cardano</option>
-                                        <option value="USDT">Tether</option>
+                                    <select id="selectCriptomoneda" class="comboCriptomonedas">
+                                        <!-- Se carga dinámicamente según las monedas existentes -->
                                     </select>
                                 </div>
                                 <div class="mb-3">

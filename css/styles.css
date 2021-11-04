@@ -91,10 +91,10 @@ footer .col-12 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(255, 107, 0);
+    background-color: rgb(165, 165, 161);
     border: 2px solid black;
     border-radius: 5%;
-    height: 300px;
+    margin: 5px;
 }
 
 .cotizacion__moneda {
@@ -102,7 +102,7 @@ footer .col-12 {
 }
 
 .cotizacion__logo {
-    width: 30%;
+    width: 100px;
 }
 
 .cotizacion__precio {

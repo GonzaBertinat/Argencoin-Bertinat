@@ -49,10 +49,15 @@ const COTIZACION_USD = 200
  * A futuro se obtendrán vía API, al igual que la cotización del dólar en pesos argentinos.
  */
 const criptomonedas = [
-    new Criptomoneda(1,'BTC','Bitcoin', 60000),
-    new Criptomoneda(2,'ETH', 'Ethereum', 4000),
-    new Criptomoneda(3,'ADA','Cardano', 2.15),
-    new Criptomoneda(4,'USDT','Tether', 1)
+    new Criptomoneda(1, 'BTC', 'Bitcoin', 62000),
+    new Criptomoneda(2, 'ETH', 'Ethereum', 4600),
+    new Criptomoneda(3, 'BNB', 'Binance Coin', 570),
+    new Criptomoneda(4, 'SOL', 'Solana', 242),
+    new Criptomoneda(5, 'USDT', 'Tether', 1),
+    new Criptomoneda(6, 'ADA', 'Cardano', 2.06),
+    new Criptomoneda(7, 'DOT', 'Polkadot', 53.5),
+    new Criptomoneda(8, 'DOGE', 'Dogecoin', 0.26),
+    new Criptomoneda(9, 'DAI', 'DAI', 1.01),
 ]
 
 /***  Funciones utilitarias y de conversión. ***/

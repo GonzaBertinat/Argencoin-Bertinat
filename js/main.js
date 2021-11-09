@@ -6,11 +6,12 @@
 
 // Entidades del sistema.
 class Criptomoneda {
-    constructor(id, sigla, nombre, cotizacion){
+    constructor(id, sigla, nombre, cotizacion, rutaImagen){
         this.id = id
         this.sigla = sigla
         this.nombre = nombre
         this.cotizacion = cotizacion
+        this.rutaImagen = rutaImagen
     }
 
     // Retorna el par Sigla + Nombre de la criptomoneda.
@@ -21,6 +22,7 @@ class Criptomoneda {
 
 class Movimiento {
     constructor(objeto){
+        this.id = objeto.id
         this.criptomoneda = objeto.criptomoneda
         this.unidades = objeto.unidades
         this.operacion = objeto.operacion
@@ -49,15 +51,15 @@ const COTIZACION_USD = 200
  * A futuro se obtendrán vía API, al igual que la cotización del dólar en pesos argentinos.
  */
 const criptomonedas = [
-    new Criptomoneda(1, 'BTC', 'Bitcoin', 62000),
-    new Criptomoneda(2, 'ETH', 'Ethereum', 4600),
-    new Criptomoneda(3, 'BNB', 'Binance Coin', 570),
-    new Criptomoneda(4, 'SOL', 'Solana', 242),
-    new Criptomoneda(5, 'USDT', 'Tether', 1),
-    new Criptomoneda(6, 'ADA', 'Cardano', 2.06),
-    new Criptomoneda(7, 'DOT', 'Polkadot', 53.5),
-    new Criptomoneda(8, 'DOGE', 'Dogecoin', 0.26),
-    new Criptomoneda(9, 'DAI', 'DAI', 1.01),
+    new Criptomoneda(1, 'BTC', 'Bitcoin', 62000, '../images/criptos/btc-logo.png'),
+    new Criptomoneda(2, 'ETH', 'Ethereum', 4600, '../images/criptos/eth-logo.png'),
+    new Criptomoneda(3, 'BNB', 'Binance Coin', 570, '../images/criptos/bnb-logo.png'),
+    new Criptomoneda(4, 'SOL', 'Solana', 242, '../images/criptos/sol-logo.png'),
+    new Criptomoneda(5, 'USDT', 'Tether', 1, '../images/criptos/usdt-logo.png'),
+    new Criptomoneda(6, 'ADA', 'Cardano', 2.06, '../images/criptos/ada-logo.png'),
+    new Criptomoneda(7, 'DOT', 'Polkadot', 53.5, '../images/criptos/dot-logo.png'),
+    new Criptomoneda(8, 'DOGE', 'Dogecoin', 0.26, '../images/criptos/doge-logo.png'),
+    new Criptomoneda(9, 'DAI', 'DAI', 1.01, '../images/criptos/dai-logo.png'),
 ]
 
 /***  Funciones utilitarias y de conversión. ***/

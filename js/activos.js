@@ -8,18 +8,11 @@ const renderizarSaldos = username => {
                             .map(m => m.montoEnUSD())
                             .reduce((x,y) => x + y, 0)
 
-    // Se crean nodos para saldo en pesos y en dólares.
-    let pesos = document.createElement("span")
-    pesos.className = "pesos"
-    pesos.innerHTML = `Pesos (ARS): $${convertirAPesos(saldoUSD)}`
-    let dolares = document.createElement("span")
-    dolares.className = "dolares"
-    dolares.innerHTML = `Dólares (USD): $${formatoMoneda(saldoUSD)}`
-
-    // Se agregan los elementos al DOM.
+    // Se agregan los saldos al DOM.
     let saldosDiv = document.getElementById("listaSaldos")
-    saldosDiv.appendChild(pesos)
-    saldosDiv.appendChild(dolares)
+    saldosDiv.innerHTML = 
+    `<span class="pesos">Pesos (ARS): $${convertirAPesos(saldoUSD)}</span>
+     <span class="dolares">Dólares (USD): $${formatoMoneda(saldoUSD)}</span>`
 }
 
 // Carga de saldos en 'Mis Activos'

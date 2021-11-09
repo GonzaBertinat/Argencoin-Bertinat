@@ -80,7 +80,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="cargar-movimiento-form">
+                            <form id="cargarMovimientoForm">
                                 <div class="mb-3">
                                     <label for="selectCriptomoneda">Moneda:</label>
                                     <select id="selectCriptomoneda" class="comboCriptomonedas">
@@ -100,6 +100,26 @@
                                 </div>
                                 <div class="modal-footer d-block">
                                     <button type="submit" class="btn btn-danger">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal para confimar eliminación de movimiento -->
+            <div class="modal fade" id="confirmarBorradoForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Eliminar movimiento</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="borrarMovimientoForm">
+                                <input id="movimientoId" type="hidden"></input>
+                                <span>¿Está seguro que desea borrar este movimiento?</span>
+                                <div class="modal-footer d-block">
+                                    <button type="submit" class="btn btn-danger">Confirmar</button>
                                 </div>
                             </form>
                         </div>

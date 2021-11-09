@@ -18,31 +18,26 @@ const renderizarMovimientos = (username, filtro) => {
         movimientosDiv.appendChild(span)
     }
     else {
+        // Se cargan los movimientos en la vista
         movimientos.forEach(m => {
             let movimiento = new Movimiento(m)
-            // Se crean elementos y se asignan sus clases de estilos.
             const div = document.createElement("div")
-            div.className = "movimiento__container"
-            const span = document.createElement("span")
-            span.className = "movimiento"
-
-            // Se agrega ícono para borrar movimiento.
-            const img = document.createElement("img")
-            img.className = "movimiento__deleteIcon"
-            img.src = "../images/eliminar-movimiento-icon.png"
-            const button = document.createElement("button")
-            button.className = "movimiento__deleteButton"
-            button.appendChild(img)
-
-            // Guardo contenido con el movimiento a imprimir.
-            span.innerHTML = `${movimiento.operacion === 'C' ? '+' : '-'} ${formatoCripto(movimiento.unidades)} ${movimiento.criptomoneda.sigla} = ${formatoMoneda(movimiento.montoEnUSD())} USD`
-            
-            // Agrego los elementos al DOM.
-            div.appendChild(span)
-            div.appendChild(button)
+            div.innerHTML =
+            `<div class="movimiento__container">
+                <span class="movimiento">${movimiento.operacion === 'C' ? '+' : '-'} ${formatoCripto(movimiento.unidades)} ${movimiento.criptomoneda.sigla} = ${formatoMoneda(movimiento.montoEnUSD())} USD</span>
+                <button onclick="asignarId(${movimiento.id})" type="button" class="movimiento__deleteButton btn" data-bs-toggle="modal" data-bs-target="#confirmarBorradoForm" data-toggle="tooltip" data-placement="left" title="Borrar movimiento">
+                    <img class="movimiento__deleteIcon" src="../images/eliminar-movimiento-icon.png">
+                </button>
+            </div>`
             movimientosDiv.appendChild(div)
         })
     }
+}
+
+// Asigna un id oculto al modal de confirmación para eliminar movimiento, en el momento de presionar el ícono de borrar.
+const asignarId = idMovimiento => {
+    let hiddenId = document.getElementById('movimientoId')
+    hiddenId.setAttribute("movimiento_id", idMovimiento)
 }
 
 // Crea un movimiento y lo guarda en el Local Storage.
@@ -53,7 +48,7 @@ const registrarMovimiento = movimiento => {
 }
 
 // Procesa formulario de carga de movimiento y lo registra.
-const procesarNuevoMovimiento = evento => {   
+const procesarNuevoMovimiento = () => {   
     // Se obtienen valores.
     let moneda = document.getElementById("selectCriptomoneda").value
     let operacion = document.getElementById("selectOperacion").value
@@ -63,8 +58,9 @@ const procesarNuevoMovimiento = evento => {
     let criptomoneda = criptomonedas.find(c => c.sigla === moneda)
     let username = sessionStorage.getItem('username')
 
-    // Se crea el movimiento y se lo persiste en el storage.
+    // Se crea el movimiento y se lo persiste en el Storage.
     registrarMovimiento({
+        id: new Date().getTime(),
         criptomoneda: criptomoneda,
         unidades: unidades,
         operacion: operacion,
@@ -76,14 +72,24 @@ const procesarNuevoMovimiento = evento => {
     renderizarMovimientos(username,'TODOS')
 }
 
-// TODO - Elimina un movimiento registrado por un usuario.
-const borrarMovimiento = evento => {
-    console.log('Borrando...')
-    alert('Funcionalidad aún no disponible.')
+// Elimina un movimiento registrado por un usuario.
+const borrarMovimiento = () => {
+    // Se obtiene id del movimiento a borrar.
+    let idMovimiento = parseInt(document.getElementById('movimientoId').getAttribute('movimiento_id'))
+ 
+    // Se elimina movimiento.
+    const movimientos = obtenerTodosLosMovimientos()
+    const index = movimientos.findIndex(m => m.id === idMovimiento)
+    movimientos.splice(index, 1)
+    localStorage.setItem('movimientos', JSON.stringify(movimientos))
+    
+    // Se actualiza la vista.
+    let username = sessionStorage.getItem('username')
+    renderizarMovimientos(username,'TODOS')
 }
 
 // Filtra en la vista movimientos según la opción elegida en el combo.
-const filtrarMovimientos = evento => {
+const filtrarMovimientos = () => {
     let filtroSeleccionado = document.getElementById('selectFiltroMovimientos').value
     let username = sessionStorage.getItem('username')
     renderizarMovimientos(username, filtroSeleccionado)
@@ -108,19 +114,19 @@ const init = () => {
     let username = sessionStorage.getItem('username')
     renderizarMovimientos(username, 'TODOS')
 
+    // Carga de combos de criptomonedas
+    renderizarCombosMonedas()
+
     /* Carga de eventos */
     // Registrar nuevo movimiento
-    let cargarMovimientoForm = document.getElementById('cargar-movimiento-form')
+    let cargarMovimientoForm = document.getElementById('cargarMovimientoForm')
     cargarMovimientoForm.addEventListener('submit', procesarNuevoMovimiento)
 
-    // Eliminar un movimiento
-    let botonesEliminar = document.getElementsByClassName('movimiento__deleteButton')
-    for(const boton of botonesEliminar){
-        boton.addEventListener('click', borrarMovimiento)
-    }
-
+    // Borrar un movimiento
+    let borrarMovimientoForm = document.getElementById('borrarMovimientoForm')
+    borrarMovimientoForm.addEventListener('submit', borrarMovimiento)
+    
     // Filtrar movimientos
-    renderizarCombosMonedas()
     let botonFiltrar = document.getElementById('buttonFiltroMovimientos')
     botonFiltrar.addEventListener('click',filtrarMovimientos)
 }

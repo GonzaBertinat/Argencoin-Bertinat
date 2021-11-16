@@ -9,13 +9,15 @@ const renderizarSaldos = username => {
                             .reduce((x,y) => x + y, 0)
 
     // Se agregan los saldos al DOM.
-    let saldosDiv = document.getElementById("listaSaldos")
-    saldosDiv.innerHTML = 
-    `<span class="pesos">Pesos (ARS): $${convertirAPesos(saldoUSD)}</span>
-     <span class="dolares">Dólares (USD): $${formatoMoneda(saldoUSD)}</span>`
+    $('#listaSaldos').append(    
+        `<span class="pesos">Pesos (ARS): $${convertirAPesos(saldoUSD)}</span>
+         <span class="dolares">Dólares (USD): $${formatoMoneda(saldoUSD)}</span>`
+    )
 }
 
 // Carga de saldos en 'Mis Activos'
-renderizarSaldos(sessionStorage.getItem('username'))
+$(document).ready(() => {
+    // TODO - Implementar muestra de saldos para cada una de las CRIPTOMONEDAS, además del total en pesos y USD.
+    renderizarSaldos(sessionStorage.getItem('username'))
+})
 
-// TODO - Implementar muestra de saldos para cada una de las CRIPTOMONEDAS, además del total en pesos y USD.

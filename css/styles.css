@@ -1,23 +1,266 @@
+/* Reseteo CSS*/
 html {
     margin: 0;
     padding: 0;
 }
 
-body {
-    background-color: #fafafa;
-}
-
-h1 {
-    font-size: 40px;
-    text-align: center;
-}
-h3 {
-    font-size: 30px;
-}
-
 nav {
     background-color: #0c88eb;
 }
+
+/*** Selectores comunes a todos los documentos del sitio ***/
+.fondoSeccion {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+}
+
+.encabezado__contenedorLogo {
+    width: 150px;
+}
+
+.encabezado__logo {
+    width: 100%;
+}
+
+.encabezado__enlaces {
+    display: flex;
+    justify-content: space-between;
+}
+
+.encabezado__grupoEnlaces {
+    margin-left: 50px;
+}
+
+.piePagina {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: #0c88eb;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.piePagina__contenido {
+    justify-content: center;
+    align-items: center;
+}
+
+.piePagina__seccion {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.piePagina__texto {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-right: 0rem;
+    padding-left: 0rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.piePagina__redes {
+    justify-content: center;
+}
+
+.piePagina__contenedorRedSocial {
+    width: 80px;
+}
+
+.piePagina__contenedorLogo {
+    width: 60%;
+    margin: 0 auto;
+}
+
+/*** Selectores para seccion de Inicio ***/
+.botonIndex {
+    text-decoration: none;
+    text-align: center;
+    margin: 0 auto;
+    padding: 5px 3px;
+    border-radius: 10px;
+}
+
+.fondoIndex {
+    background-image: url(../images/fondos/index.jpg);
+    display: flex;
+}
+
+.fondoIndex__contenedor {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    justify-content: center;
+    align-items:flex-end;
+    color: #ffcc3b;
+}
+
+.fondoIndex__titulo {
+    font-size: 4rem;
+}
+
+.fondoIndex__slogan {
+    font-size: 2rem;
+}
+
+/* Estilos para sección de Cotizaciones en Index*/
+.cotizacionesIndex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.cotizacionesIndex p {
+    width: 60%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.cotizacionesIndex__titulo {
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.cotizacionesIndex__contenedor {
+    display: flex;
+    justify-content: center;
+}
+
+.cotizacionesIndex__link {
+    color: white;
+    background-color: #0c88eb;
+    width: 20%;
+}
+
+/* Estilos para sección 'Gestioná tus activos' en Index */
+.opcionesIndex {
+    background-color: #0c88eb;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.opcionesIndex__titulo {
+    color: white;
+}
+
+.opcionesIndex__texto {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.opciones__contenedor {
+    display: flex;
+    justify-content: center;
+}
+
+.opcion {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.opcion__contenedorImagen {
+    background-color: #0c88eb;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.opcion__imagen {
+    width: 60%;
+}
+
+.opcion__titulo {
+    font-weight: bold;
+}
+
+.opcion__texto {
+    width: 80%;
+}
+
+/* Estilos para sección 'Comenzá ya!' en Index */
+.registroIndex {
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.registroIndex__imagen {
+    width: 100%;
+    height: 100%;
+    border: solid 2px black;
+}
+
+.registroIndex__contenedor {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.registroIndex__titulo {
+    font-weight: bold;
+}
+
+.registroIndex__texto {
+    width: 80%;
+}
+
+.registroIndex__link {
+    color: white;
+    background-color: black;
+    width: 33%;
+}
+
+/*** Selectores para seccion 'Cotizaciones' ***/
+
+/* Estilo para cotizacion de criptomoneda */
+.cotizacion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(165, 165, 161);
+    border: 2px solid black;
+    border-radius: 5%;
+    margin: 5px;
+}
+
+.cotizacion__moneda {
+    font-size: 20px;
+}
+
+.cotizacion__logo {
+    width: 100px;
+}
+
+.cotizacion__precio {
+    font-weight: bold;
+}
+
+/*** Selectores para seccion 'Mis activos' ***/
 #listaSaldos {
     display: flex;
     justify-content: center;
@@ -39,9 +282,14 @@ nav {
     background-color: green;
 }
 
+/*** Selectores para seccion 'Mis movimientos' ***/
 .movimientos__header {
     display: flex; 
     justify-content: space-between;
+}
+
+.movimientos__vacio {
+    padding-left: 15px;
 }
 
 .movimiento__container {
@@ -68,43 +316,12 @@ nav {
     width: 50px;
 }
 
-
-footer {
-    display: flex;
-    flex-direction: column;   
-    margin: 10px 0;
-    background-color: #0c88eb;
-}
-
-footer .col-12 {
-    display: flex;
-    justify-content: center;
-}
-
 #movimientos {
     background-color: white;
 }
 
-/* Estilo para cotizacion de criptomoneda */
-.cotizacion {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(165, 165, 161);
-    border: 2px solid black;
-    border-radius: 5%;
-    margin: 5px;
-}
 
-.cotizacion__moneda {
-    font-size: 20px;
-}
-
-.cotizacion__logo {
-    width: 100px;
-}
-
-.cotizacion__precio {
-    font-weight: bold;
+/*** Selectores para seccion 'Registrarme' ***/
+#formRegistro {
+    margin: 100px auto;
 }

@@ -51,37 +51,21 @@ const COTIZACION_USD = 200
  * A futuro se obtendrán vía API, al igual que la cotización del dólar en pesos argentinos.
  */
 const criptomonedas = [
-    new Criptomoneda(1, 'BTC', 'Bitcoin', 62000, '../images/criptos/btc-logo.png'),
-    new Criptomoneda(2, 'ETH', 'Ethereum', 4600, '../images/criptos/eth-logo.png'),
-    new Criptomoneda(3, 'BNB', 'Binance Coin', 570, '../images/criptos/bnb-logo.png'),
-    new Criptomoneda(4, 'SOL', 'Solana', 242, '../images/criptos/sol-logo.png'),
-    new Criptomoneda(5, 'USDT', 'Tether', 1, '../images/criptos/usdt-logo.png'),
-    new Criptomoneda(6, 'ADA', 'Cardano', 2.06, '../images/criptos/ada-logo.png'),
-    new Criptomoneda(7, 'DOT', 'Polkadot', 53.5, '../images/criptos/dot-logo.png'),
-    new Criptomoneda(8, 'DOGE', 'Dogecoin', 0.26, '../images/criptos/doge-logo.png'),
-    new Criptomoneda(9, 'DAI', 'DAI', 1.01, '../images/criptos/dai-logo.png'),
+    new Criptomoneda(1, 'BTC', 'Bitcoin', 62000, 'images/criptos/btc-logo.png'),
+    new Criptomoneda(2, 'ETH', 'Ethereum', 4600, 'images/criptos/eth-logo.png'),
+    new Criptomoneda(3, 'BNB', 'Binance Coin', 570, 'images/criptos/bnb-logo.png'),
+    new Criptomoneda(4, 'SOL', 'Solana', 242, 'images/criptos/sol-logo.png'),
+    new Criptomoneda(5, 'USDT', 'Tether', 1, 'images/criptos/usdt-logo.png'),
+    new Criptomoneda(6, 'ADA', 'Cardano', 2.06, 'images/criptos/ada-logo.png'),
+    new Criptomoneda(7, 'DOT', 'Polkadot', 53.5, 'images/criptos/dot-logo.png'),
+    new Criptomoneda(8, 'DOGE', 'Dogecoin', 0.26, 'images/criptos/doge-logo.png'),
+    new Criptomoneda(9, 'DAI', 'DAI', 1.01, 'images/criptos/dai-logo.png'),
 ]
 
 /***  Funciones utilitarias y de conversión. ***/
 const formatoMoneda = cantidad => cantidad.toFixed(2)
 const formatoCripto = cantidad => cantidad.toFixed(8)
 const convertirAPesos = dolares => formatoMoneda(dolares * COTIZACION_USD)
-
-/*** Funciones como criterio de ordenamiento de arrays. ***/
-
-// Compara colocando en primer lugar al monto mayor.
-const compararPorMontoUSD = (tr1, tr2) => {
-    if (tr1.montoEnUSD() > tr2.montoEnUSD()) return -1
-    if (tr1.montoEnUSD() < tr2.montoEnUSD()) return 1
-    return 0
-}
-
-// Compara colocando en primer lugar a la fecha más reciente.
-const compararPorFechaCarga = (tr1, tr2) => {
-    if (tr1.fechaCarga.getTime() > tr2.fechaCarga.getTime()) return -1
-    if (tr1.fechaCarga.getTime() < tr2.fechaCarga.getTime()) return 1
-    return 0
-}
 
 /*** Funciones que aplican lógica de negocio. ***/
 
@@ -109,8 +93,7 @@ const obtenerMovimientosDeUsuario = username => {
 }
 
 // Inicializa aplicación
-const initApp = () => {
-
+$(document).ready(() => {
     /* Inicializo local storage
      * Al no interactuar con un backend, se simulará la 'persistencia' de los datos de usuarios y transacciones en el storage local.
      * De esta forma, en el cliente donde se abra el sitio podrá iniciar sesión, cerrarla, y recuperar los datos al ingresar en otro momento. 
@@ -141,6 +124,4 @@ const initApp = () => {
         sessionStorage.setItem('username', 'GonzaBertinat2021')
         console.log('Sesión iniciada')
     }
-}
-
-initApp()
+})

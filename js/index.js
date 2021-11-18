@@ -1,3 +1,4 @@
+// Renderiza en la sección de Inicio la cotización de Bitcoin y Ethereum.
 const renderizarSeccionCotizaciones = () => {
     // Se muestran Bitcoin y Ethereum como cotizaciones, ya que son las monedas más importantes.
     const criptos = criptomonedas.filter(c => c.sigla === 'BTC' || c.sigla === 'ETH')
@@ -17,4 +18,11 @@ const renderizarSeccionCotizaciones = () => {
     })
 }
 
-$(document).ready(renderizarSeccionCotizaciones)
+// Inicializa documento.
+$(document).ready(() => {
+    // Se cargan las cotizaciones en vivo de las criptomonedas principales.
+    renderizarSeccionCotizaciones()
+    // Se ejecuta breve animación en el título del sitio.
+    $('.fondoIndex__titulo').animate({fontSize: '100px'},1500)
+                            .animate({fontSize: '70px'},1500)
+})

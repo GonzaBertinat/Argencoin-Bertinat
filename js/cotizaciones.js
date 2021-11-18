@@ -16,7 +16,7 @@ const renderizarCotizaciones = criptomonedas => {
     })
 }
 
-// Carga de cotizaciones en 'Cotizaciones'
+// Carga de cotizaciones en 'Cotizaciones'.
 $(document).ready(() => {
     renderizarCotizaciones(criptomonedas)
 })

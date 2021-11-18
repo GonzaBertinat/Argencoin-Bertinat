@@ -87,20 +87,21 @@ const renderizarCombosMonedas = () => {
     })
 }
 
+// Inicializa documento.
 $(document).ready(() => {
-    // Carga de movimientos en 'Mis Movimientos'
+    // Carga de movimientos en 'Mis Movimientos'.
     renderizarMovimientos(sessionStorage.getItem('username'), 'TODOS')
 
-    // Carga de combos de criptomonedas
+    // Carga de combos de criptomonedas.
     renderizarCombosMonedas()
 
     /* Carga de eventos */
-    // Registrar nuevo movimiento
+    // Registrar nuevo movimiento.
     $('#cargarMovimientoForm').submit(procesarNuevoMovimiento)
 
-    // Borrar un movimiento
+    // Borrar un movimiento.
     $('#borrarMovimientoForm').submit(borrarMovimiento)
 
-    // Filtrar movimientos
+    // Filtrar movimientos.
     $('#buttonFiltroMovimientos').click(filtrarMovimientos)
 })

@@ -38,6 +38,16 @@ nav {
     margin-left: 50px;
 }
 
+.encabezado__button {
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+.encabezado__button:hover {
+    color: black;
+}
+
 .piePagina {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -322,6 +332,91 @@ nav {
 
 
 /*** Selectores para seccion 'Registrarme' ***/
-#formRegistro {
-    margin: 100px auto;
+.fondoRegistro {
+    background-image: url(../images/fondos/registro.jpg);
+    display: flex;
+    padding-top: 100px;
+}
+
+.registro__contenedor {
+    margin: 0 auto;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 50%;
+}
+
+#registro__form {
+    margin: 50px auto;
+}
+
+.registro__contenedorLogo {
+    display: flex;   
+    flex-direction: column;
+    align-items: center;
+}
+
+.registro__logo, .login__logo {
+    margin: 10px auto;
+    width: 55%;
+}
+
+#password__icon {
+    width: 8%;
+}
+
+#form-password  {
+    width: 90%;
+    display: inline;
+}
+
+.registro__submitContenedor {
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+#registro-submit {
+    margin: 0 auto;
+}
+
+.formInputs {
+    margin: 20px auto;   
+}
+
+.formInput__contenedor {
+    border-bottom: 1px solid gray;
+    width: 90%;
+    margin: 5px auto;
+    padding: 0;
+}
+
+
+.formInput {
+    border: none;
+    border-radius: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+.formInput:focus {
+    box-shadow: none;
+    background-color: whie;
+}
+
+#mensajeAlerta {
+    display: block;
+    padding: 3px 20px; 
+    margin-bottom: 15px;
+    border-radius: 20px;
+    width: 100%; 
+    color: white; 
+    font-weight: bold;
+}
+
+/*** Selectores para sección 'Login' ***/
+.fondoLogin {
+    background-image: url(../images/fondos/login.jpg);
+    display: flex;
+    padding-top: 100px;
 }

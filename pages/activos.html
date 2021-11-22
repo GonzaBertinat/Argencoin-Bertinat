@@ -41,15 +41,33 @@
     <main>
         <h1>Mis Activos</h1>
         <section id="billetera">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <h2>Saldos en billetera</h2>
-                    </div>                    
-                    <div id="listaSaldos" class="col-12">
-                        <!-- Se completa dinámicamente con los saldos del usuario en sesión -->    
-                    </div>
+            <h2>Saldos en billetera</h2>
+            <div class="container">
+              <div id="balances" class="row">
+                <div class="col-12">
+                  <h3>Balance total</h3>
                 </div>
+                <div class="col-12">
+                  <div class="saldo">
+                    <span>ARS - Pesos</span>
+                    <span id="saldoPesos">Cargando...</span>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="saldo">
+                    <span>USD - Dólares</span>
+                    <span id="saldoDolares">Cargando...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div id="listaSaldos" class="row">
+                <div class="col-12">
+                  <h3>Activos</h3>
+                </div>
+                <!-- Se completa dinámicamente con las criptomonedas y los saldos del usuario en sesión -->    
+              </div>
             </div>
         </section>
     </main>

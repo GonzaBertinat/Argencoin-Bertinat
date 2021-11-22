@@ -5,7 +5,7 @@ const renderizarMovimientos = (username, filtro) => {
    
     // Se obtienen los movimientos del usuario. Se valida el filtro elegido en la vista.
     let movimientos = obtenerMovimientosDeUsuario(username)
-                      .filter(m => filtro === 'TODOS' ? m === m : m.criptomoneda.sigla === filtro)
+                      .filter(m => filtro === 'TODOS' ? m === m : m.moneda === filtro)
 
     // Si no hay movimientos se muestra una leyenda. Si hay, se los itera para imprimirlos en el documento.
     if(movimientos.length === 0){
@@ -19,7 +19,7 @@ const renderizarMovimientos = (username, filtro) => {
             let movimiento = new Movimiento(m)
             $('#listaMovimientos').append(
                 `<div class="movimiento__container">
-                    <span class="movimiento">${movimiento.operacion === 'C' ? '+' : '-'} ${formatoCripto(movimiento.unidades)} ${movimiento.criptomoneda.sigla} = ${formatoMoneda(movimiento.montoEnUSD())} USD</span>
+                    <span class="movimiento">${movimiento.operacion === 'C' ? '+' : '-'} ${formatoCripto(movimiento.unidades)} ${movimiento.moneda} = ${formatoMoneda(movimiento.montoEnUSD())} USD</span>
                     <button onclick="asignarId(${movimiento.id})" type="button" class="movimiento__deleteButton btn" data-bs-toggle="modal" data-bs-target="#confirmarBorradoForm" data-toggle="tooltip" data-placement="left" title="Borrar movimiento">
                         <img class="movimiento__deleteIcon" src="../images/eliminar-movimiento-icon.png">
                     </button>
@@ -44,9 +44,12 @@ const registrarMovimiento = movimiento => {
 // Procesa formulario de carga de movimiento y lo registra.
 const procesarNuevoMovimiento = () => {   
     // Se crea el movimiento y se lo persiste en el Storage.
+    let criptomoneda =  criptomonedas.find(c => c.sigla === $('#selectCriptomoneda').val())
+    
     registrarMovimiento({
         id: new Date().getTime(),
-        criptomoneda: criptomonedas.find(c => c.sigla === $('#selectCriptomoneda').val()),
+        precio: criptomoneda.cotizacion,
+        moneda: criptomoneda.sigla,
         unidades: parseFloat($('#inputCantidad').val()),
         operacion: $('#selectOperacion').val(),
         fechaCarga: new Date(),
@@ -74,8 +77,7 @@ const borrarMovimiento = () => {
 
 // Filtra en la vista movimientos según la opción elegida en el combo.
 const filtrarMovimientos = () => {
-    renderizarMovimientos(sessionStorage.getItem('username'), 
-                          $('#selectFiltroMovimientos').val())
+    renderizarMovimientos(sessionStorage.getItem('username'), $('#selectFiltroMovimientos').val())
 }
 
 // Imprime en DOM las opciones para combos de criptomonedas, para la carga y filtrado de movimientos.
@@ -94,6 +96,9 @@ $(document).ready(() => {
 
     // Carga de combos de criptomonedas.
     renderizarCombosMonedas()
+
+    // Se obtienen cotizaciones de las criptomonedas para generar movimientos con los valores más recientes.
+    obtenerCotizaciones(criptomonedas, () => {})
 
     /* Carga de eventos */
     // Registrar nuevo movimiento.

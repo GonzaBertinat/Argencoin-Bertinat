@@ -4,11 +4,10 @@
 
 // Entidades del sistema.
 class Criptomoneda {
-    constructor(id, sigla, nombre, cotizacion, rutaImagen){
+    constructor(id, sigla, nombre, rutaImagen){
         this.id = id
         this.sigla = sigla
         this.nombre = nombre
-        this.cotizacion = cotizacion
         this.rutaImagen = rutaImagen
     }
 
@@ -21,8 +20,9 @@ class Criptomoneda {
 class Movimiento {
     constructor(objeto){
         this.id = objeto.id
-        this.criptomoneda = objeto.criptomoneda
         this.unidades = objeto.unidades
+        this.precio = objeto.precio
+        this.moneda = objeto.moneda
         this.operacion = objeto.operacion
         this.fechaCarga = objeto.fechaCarga
         this.username = objeto.username
@@ -30,7 +30,7 @@ class Movimiento {
 
     // Calcula el monto en dólares de la transacción, según la cotización de la criptomoneda empleada.
     montoEnUSD(){
-        return this.criptomoneda.cotizacion * this.unidades * (this.operacion === 'C' ? 1 : -1)
+        return this.precio * this.unidades * (this.operacion === 'C' ? 1 : -1)
     }
 }
 
@@ -43,25 +43,21 @@ class Usuario {
 }
 
 // Precio DÓLAR en Pesos Argentinos.
-const COTIZACION_USD = 200
+let COTIZACION_USD
 
 // Expresión regular para validar correos.
 const mailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-/* Criptomonedas disponibles. 
- * Las cotizaciones son en USD. 
- * A futuro se obtendrán vía API, al igual que la cotización del dólar en pesos argentinos.
- */
+// Criptomonedas disponibles.
 const criptomonedas = [
-    new Criptomoneda(1, 'BTC', 'Bitcoin', 62000, 'images/criptos/btc-logo.png'),
-    new Criptomoneda(2, 'ETH', 'Ethereum', 4600, 'images/criptos/eth-logo.png'),
-    new Criptomoneda(3, 'BNB', 'Binance Coin', 570, 'images/criptos/bnb-logo.png'),
-    new Criptomoneda(4, 'SOL', 'Solana', 242, 'images/criptos/sol-logo.png'),
-    new Criptomoneda(5, 'USDT', 'Tether', 1, 'images/criptos/usdt-logo.png'),
-    new Criptomoneda(6, 'ADA', 'Cardano', 2.06, 'images/criptos/ada-logo.png'),
-    new Criptomoneda(7, 'DOT', 'Polkadot', 53.5, 'images/criptos/dot-logo.png'),
-    new Criptomoneda(8, 'DOGE', 'Dogecoin', 0.26, 'images/criptos/doge-logo.png'),
-    new Criptomoneda(9, 'DAI', 'DAI', 1.01, 'images/criptos/dai-logo.png'),
+    new Criptomoneda(1, 'BTC', 'Bitcoin', 'images/criptos/btc-logo.png'),
+    new Criptomoneda(2, 'ETH', 'Ethereum', 'images/criptos/eth-logo.png'),
+    new Criptomoneda(3, 'SOL', 'Solana', 'images/criptos/sol-logo.png'),
+    new Criptomoneda(4, 'USDT', 'Tether', 'images/criptos/usdt-logo.png'),
+    new Criptomoneda(5, 'ADA', 'Cardano', 'images/criptos/ada-logo.png'),
+    new Criptomoneda(6, 'DOT', 'Polkadot', 'images/criptos/dot-logo.png'),
+    new Criptomoneda(7, 'DOGE', 'Dogecoin', 'images/criptos/doge-logo.png'),
+    new Criptomoneda(8, 'DAI', 'DAI', 'images/criptos/dai-logo.png'),
 ]
 
 /***  Funciones utilitarias y de conversión. ***/
@@ -199,7 +195,6 @@ const actualizarInputPassword = () => {
 
 // Muestra animación con mensaje de alerta. Se usa en validaciones de formularios de Login y Registro.
 const mostrarMensaje = (tipo, mensaje) => {
-    console.log(mensaje)
     $('#mensajeAlerta').empty()
                        .append(`<span>${mensaje}</span>`)
                        .css('background-color', tipo === 'ERROR' ? 'red' : 'green')
@@ -207,6 +202,48 @@ const mostrarMensaje = (tipo, mensaje) => {
                        .delay(3000)
                        .fadeOut(1000)
                        
+}
+
+// Consulta vía API de Coinbase la cotización SPOT de las criptomonedas recibidas por parámetro.
+// Ejecuta una función de callback también recibida por parámetro para cada criptomoneda luego de obtener su cotización.
+const obtenerCotizacionesCriptomonedas = (criptomonedas, callback) => {
+    criptomonedas.forEach(c => {
+        let URL = `https://api.coinbase.com/v2/prices/${c.sigla}-USD/spot`
+        $.get(URL, (response, status) => {
+            if(status === 'success'){
+                c.cotizacion = response.data.amount
+                callback(c)
+            }
+            else {
+                // Si sucede un error se toma un valor por defecto.
+                c.cotizacion = 10000
+                callback(c)
+            }
+        })
+    })
+}
+
+// Obtiene las cotizaciones en vivo del dólar estadounidense y de criptomonedas vía APIs.
+const obtenerCotizaciones = (criptomonedas, callback) => {
+    /* Se obtiene la cotización del Dólar estadounidense en Pesos argentinos.
+    NOTA: En Argentina, al día de realizar este proyecto existen restricciones a la compra de divisas.
+    Esto fomenta la creación de mercados paralelos para saltear estas restricciones, por lo que existen
+    alrededor de 15 valores posibles para el par USD/ARS.
+    Se toma como referencia el valor conocido como DOLAR BLUE.*/
+
+    let URL = `https://api.bluelytics.com.ar/v2/latest`
+    $.get(URL, (response, status) => {
+        // En cualquier caso, luego de esta petición se obtienen las cotizaciones de las criptomonedas.
+        if(status === 'success'){
+            COTIZACION_USD = response.blue.value_sell
+            obtenerCotizacionesCriptomonedas(criptomonedas, callback)
+        }
+        else {
+            // Si sucede un error se toma un valor por defecto cercano a la cotizacion real.
+            cotizacion = 200
+            obtenerCotizacionesCriptomonedas(criptomonedas, callback)
+        }
+    })
 }
 
 // Inicializa aplicación.

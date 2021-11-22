@@ -245,6 +245,10 @@ nav {
 }
 
 /*** Selectores para seccion 'Cotizaciones' ***/
+.cotizaciones__info{
+    margin: 60px 0 20px 0;
+    text-align: center;
+}
 
 /* Estilo para cotizacion de criptomoneda */
 .cotizacion {
@@ -271,25 +275,19 @@ nav {
 }
 
 /*** Selectores para seccion 'Mis activos' ***/
-#listaSaldos {
-    display: flex;
-    justify-content: center;
+#billetera {
+    margin: 20px auto;
 }
 
-#listaSaldos span {
-    width: 40%;
-    height: 30px;
+.saldo {
+    margin: 1px;
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
     border: 2px solid black;
     text-align: center;
-    font-size: 20px;
-}
-
-.pesos {
     background-color: skyblue;
-}
-
-.dolares {
-    background-color: green;
+    font-size: 20px;
 }
 
 /*** Selectores para seccion 'Mis movimientos' ***/

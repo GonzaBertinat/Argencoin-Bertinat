@@ -14,18 +14,27 @@ const renderizarMovimientos = (username, filtro) => {
         )
     }
     else {
-        // Se cargan los movimientos en la vista
-        movimientos.forEach(m => {
+        // Se cargan los movimientos en la vista.
+        movimientos.forEach((m,index) => {
             let movimiento = new Movimiento(m)
             $('#listaMovimientos').append(
-                `<div class="movimiento__container">
-                    <span class="movimiento">${movimiento.operacion === 'C' ? '+' : '-'} ${formatoCripto(movimiento.unidades)} ${movimiento.moneda} = ${formatoMoneda(movimiento.montoEnUSD())} USD</span>
-                    <button onclick="asignarId(${movimiento.id})" type="button" class="movimiento__deleteButton btn" data-bs-toggle="modal" data-bs-target="#confirmarBorradoForm" data-toggle="tooltip" data-placement="left" title="Borrar movimiento">
-                        <img class="movimiento__deleteIcon" src="../images/eliminar-movimiento-icon.png">
-                    </button>
+                `<div id="${movimiento.id}">
+                    <div class="movimiento__container">
+                        <span class="movimiento">${movimiento.operacion === 'C' ? '+' : '-'} ${formatoCripto(movimiento.unidades)} ${movimiento.moneda} = ${formatoMoneda(movimiento.montoEnUSD())} USD</span>
+                        <button onclick="asignarId(${movimiento.id})" type="button" class="movimiento__deleteButton btn" data-bs-toggle="modal" data-bs-target="#confirmarBorradoForm" data-toggle="tooltip" data-placement="left" title="Borrar movimiento">
+                            <img class="movimiento__deleteIcon" src="../images/eliminar-movimiento-icon.png">
+                        </button>
+                    </div>
                 </div>`
             )
+            
+            // Se muestra el movimiento con una animación de slideDown de arriba hacia abajo.
+            $(`#${movimiento.id}`)
+                            .fadeOut(0)
+                            .delay(300 * index)
+                            .slideDown(1500)
         })
+        
     }
 }
 

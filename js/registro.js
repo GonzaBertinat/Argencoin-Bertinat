@@ -48,8 +48,14 @@ const limpiarCamposRegistro = () => {
     $('#form-password').val('')
 }
 
-// Inicializa documento asignando eventos a elementos del formulario de Registro
+// Inicializa documento asignando eventos a elementos del formulario de Registro.
 $(document).ready(() => {
     $('#password__icon').click(actualizarInputPassword)
     $('#registro__submit').click(procesarRegistro)
+    $('#registro__form').keypress(e => {
+        // Se envía el formulario al presionar 'Enter'.
+        if(e.which == 13) {
+            procesarRegistro()
+        }
+    })
 })

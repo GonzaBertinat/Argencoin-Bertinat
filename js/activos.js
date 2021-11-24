@@ -2,7 +2,7 @@
 const renderizarSeccionSaldos = () => {
 
     // Se agregan los saldos al DOM.
-    criptomonedas.forEach(c => {
+    criptomonedas.forEach( (c,index) => {
         $('#listaSaldos').append(  
             `<div class="col-12">
                 <div class="saldo">
@@ -11,6 +11,11 @@ const renderizarSeccionSaldos = () => {
                 </div>
              </div>`
         )
+
+        // Se muestra el saldo con una animación de fadeIn de arriba hacia abajo.
+        $(`#saldo${c.sigla}`).fadeOut(0)
+                             .delay(300 * index)
+                             .fadeIn(1000)
     })
 }
 

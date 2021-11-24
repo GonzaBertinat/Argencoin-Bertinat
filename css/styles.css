@@ -8,6 +8,22 @@ nav {
     background-color: #0c88eb;
 }
 
+.dropdown-menu {
+    background-color: #0c88eb;
+    position: absolute;
+    left: auto !important;
+    right: -15px;
+}
+
+.nav-link {
+    color: white !important;
+    font-weight: bold;
+}
+
+.nav-link:hover{
+    color: black!important;
+}
+
 /*** Selectores comunes a todos los documentos del sitio ***/
 .fondoSeccion {
     height: 100vh;
@@ -47,6 +63,17 @@ nav {
 .encabezado__button:hover {
     color: black;
 }
+
+#cerrarSesion__button {
+    background-color: #0c88eb;
+    color: white;
+    font-weight: bold;
+}
+
+#cerrarSesion__button:hover {
+    color: black;
+}
+
 
 .piePagina {
     padding-top: 0.5rem;
@@ -302,7 +329,7 @@ nav {
 
 .movimiento__container {
     width: 90%;
-    margin: 2px auto;
+    margin: 5px auto;
     border: 2px solid black;
     background-color: #0dcaf0;
     display: flex;
@@ -336,7 +363,7 @@ nav {
     padding-top: 100px;
 }
 
-.registro__contenedor {
+.registro__contenedor, .login__contenedor {
     margin: 0 auto;
     background-color: white;
     border: 1px solid black;
@@ -344,11 +371,11 @@ nav {
     width: 50%;
 }
 
-#registro__form {
+#registro__form, #login__form {
     margin: 50px auto;
 }
 
-.registro__contenedorLogo {
+.registro__contenedorLogo, .login__contenedorLogo {
     display: flex;   
     flex-direction: column;
     align-items: center;
@@ -368,7 +395,7 @@ nav {
     display: inline;
 }
 
-.registro__submitContenedor {
+.registro__submitContenedor, .login__submitContenedor {
     display: flex;
     justify-content: center;
     margin: 10px auto;
@@ -388,7 +415,6 @@ nav {
     margin: 5px auto;
     padding: 0;
 }
-
 
 .formInput {
     border: none;

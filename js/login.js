@@ -38,4 +38,10 @@ const limpiarCamposLogin = () => {
 $(document).ready(() => {
     $('#password__icon').click(actualizarInputPassword)
     $('#login__submit').click(iniciarSesion)
+    $('#login__form').keypress(e => {
+        // Se envía el formulario al presionar 'Enter'.
+        if(e.which == 13) {
+            iniciarSesion()
+        }
+    })
 })

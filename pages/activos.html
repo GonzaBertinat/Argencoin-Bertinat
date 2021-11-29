@@ -41,22 +41,24 @@
     <main>
         <h1>Mis Activos</h1>
         <section id="billetera">
-            <h2>Saldos en billetera</h2>
-            <div class="container">
-              <div id="balances" class="row">
+            <h2 class="activos__titulo">Saldos en billetera</h2>
+            <div id="balance" class="container">
+              <div class="row">
                 <div class="col-12">
-                  <h3>Balance total</h3>
+                  <h3 class="activos__subtitulo">Balance total</h3>
                 </div>
-                <div class="col-12">
-                  <div class="saldo">
-                    <span>ARS - Pesos</span>
-                    <span id="saldoPesos">Cargando...</span>
+                <div class="col-10 col-lg-6 saldo">
+                  <div class="saldo__info">
+                    <div class="saldo__imagen">
+                      <img src="../images/monedas/ars.png" alt="Peso Argentino">
+                    </div>
+                    <div class="saldo__moneda">
+                      <div class="saldo__nombre">Pesos</div>
+                      <div class="saldo__sigla">(ARS)</div>                    
+                    </div>
                   </div>
-                </div>
-                <div class="col-12">
-                  <div class="saldo">
-                    <span>USD - Dólares</span>
-                    <span id="saldoDolares">Cargando...</span>
+                  <div class="saldo__monto">
+                    <span id="saldoPesos">Cargando...</span>
                   </div>
                 </div>
               </div>
@@ -64,7 +66,7 @@
             <div class="container">
               <div id="listaSaldos" class="row">
                 <div class="col-12">
-                  <h3>Activos</h3>
+                  <h3 class="activos__subtitulo">Activos</h3>
                 </div>
                 <!-- Se completa dinámicamente con las criptomonedas y los saldos del usuario en sesión -->    
               </div>

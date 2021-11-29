@@ -3,29 +3,36 @@ const renderizarCotizaciones = criptomonedas => {
     // Para cada criptomoneda generamos su HTML correspondiente.
     criptomonedas.forEach( (c,index) => {
         $('#listaCotizaciones').append(
-            `<div class="col-6 col-md-3">
-                <div class="cotizacion">
-                    <span class="cotizacion__moneda">${c.nombreFormateado()}</span>
-                    <img class="cotizacion__logo" src="../${c.rutaImagen}">
-                    <span id="${c.sigla}-USD" class="cotizacion__precio">Cargando...</span>
+            `<div class="col-12 col-md-10" id="precio${c.sigla}">
+                <div class="cotizacion__contenedor ${index % 2 === 0 ? 'cotizacion__contenedor-light' : 'cotizacion__contenedor-normal'}">
+                    <div class="cotizacion__info">
+                        <div class="cotizacion__logo">
+                            <img src="../${c.rutaImagen}" alt="Logo ${c.nombre}">
+                        </div>
+                        <div class="cotizacion__nombre">
+                            <span class="cotizacion__moneda">${c.nombre}</span>
+                            <span class="cotizacion__sigla">(${c.sigla})</span>
+                        </div>
+                    </div>
+                    <div class="cotizacion__precios">
+                        <div class="cotizacion__usd" id="${c.sigla}-USD">Cargando...</div>
+                        <div class="cotizacion__ars" id="${c.sigla}-ARS">Cargando...</div>
+                    </div>
                 </div>
             </div>`
         )
-        
+
         // Se muestra la cotización con una animación de fadeIn y se carga después de la anterior.
-        $(`#${c.sigla}-USD`).parent() 
-                            .parent() // Se accede al div col-6
-                            .fadeOut(0) 
-                            .delay(300 * index)   
-                            .fadeIn(1000)
-
+        $(`#precio${c.sigla}`).fadeOut(0) 
+                              .delay(300 * index)   
+                              .fadeIn(1500)
     })
-
 }
 
 // Función utilizada como callback que reemplaza en el DOM el precio de una criptomoneda. 
 const renderizarCotizacion = (criptomoneda) => {
-    $(`#${criptomoneda.sigla}-USD`).empty().append(`${criptomoneda.cotizacion} USD`)
+    $(`#${criptomoneda.sigla}-USD`).empty().append(`$ ${criptomoneda.cotizacion}`)
+    $(`#${criptomoneda.sigla}-ARS`).empty().append(`$ ${convertirAPesos(criptomoneda.cotizacion)}`)
 }
 
 // Carga de cotizaciones en 'Cotizaciones'.

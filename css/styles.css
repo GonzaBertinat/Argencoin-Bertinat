@@ -4,6 +4,7 @@ html {
     padding: 0;
 }
 
+/*** Selectores comunes a todos los documentos del sitio ***/
 nav {
     background-color: #0c88eb;
 }
@@ -24,7 +25,6 @@ nav {
     color: black!important;
 }
 
-/*** Selectores comunes a todos los documentos del sitio ***/
 .fondoSeccion {
     height: 100vh;
     background-repeat: no-repeat;
@@ -73,7 +73,6 @@ nav {
 #cerrarSesion__button:hover {
     color: black;
 }
-
 
 .piePagina {
     padding-top: 0.5rem;
@@ -277,6 +276,10 @@ nav {
     text-align: center;
 }
 
+.cotizaciones__info .row {
+    justify-content: center;
+}
+
 /* Estilo para cotizacion de criptomoneda */
 .cotizacion {
     display: flex;
@@ -302,59 +305,363 @@ nav {
 }
 
 /*** Selectores para seccion 'Mis activos' ***/
+.activos__titulo {
+    text-align: center;
+    font-weight: bold;
+}
+
+.activos__subtitulo {
+    font-style: italic;
+    text-align: center;
+}
+
+#balance .row {
+    margin: 0 auto;
+}
+
 #billetera {
     margin: 20px auto;
 }
 
 .saldo {
-    margin: 1px;
-    padding: 2px;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    height: 70px;
+    padding: 2px;
     border: 2px solid black;
     text-align: center;
-    background-color: skyblue;
+    background-color: rgb(75, 168, 205);
     font-size: 20px;
 }
 
+.saldo__info {
+    width: 30%;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.saldo__monto {
+    text-align: end;
+    width: 70%;
+    padding: 20px 10px;
+    font-weight: bold;
+}
+
+.saldo__imagen {
+    max-width: 50px;
+}
+
+.saldo__imagen img {
+    width: 100%;
+}
+
+.saldo__moneda {
+    width: 70%;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.saldo__nombre {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.saldo__sigla {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+}
+
 /*** Selectores para seccion 'Mis movimientos' ***/
+
+#movimientos {
+    margin: 20px 0;
+}
+
 .movimientos__header {
     display: flex; 
     justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.movimientos__titulo {
+    text-align: center;
+    font-weight: bold;
+}
+
+.movimientos__agregar, .movimientos__filtros {
+    border: 1px solid #0c88eb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    background-color: #0c88eb;
+    color: white;
+    font-weight: bold;
+}
+
+.movimientos__boton {
+    margin: 10px;
+    width: 40px;
+}
+
+.movimientos__agregar button {
+    border-radius: 100%;
+    padding: 0;
+    background-color: white;
+    border: 2px solid black;
+}
+
+.movimientos__agregar button:focus{
+    box-shadow: none;
+}
+
+.movimientos__agregar img {
+    width: 100%;
+}
+
+.movimientos__filtros {
+    flex-direction: column;
+    padding: 5px;
+    text-align: left;
+}
+
+.movimientos__filtros select {
+    background-color: #0c88eb;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.movimientos__filtros select:focus-visible {
+    outline: none;
+}
+
+.movimientos__seleccionFiltro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.movimientos__logoFiltro {
+    width: 25px;
+    margin: 3px;
+}
+
+.movimientos__logoFiltro img {
+    width: 100%;
 }
 
 .movimientos__vacio {
-    padding-left: 15px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    background-color: #0c88eb;
+    border-radius: 10px;
+    color: white;
+    padding: 5px 0;
 }
 
-.movimiento__container {
-    width: 90%;
-    margin: 5px auto;
-    border: 2px solid black;
-    background-color: #0dcaf0;
+.movimiento__contenedor {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(75, 168, 205);
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 10px;
 }
 
-.movimiento {
-    color: black;
-    font-size: 25px;
+.movimiento__contenedor-light {
+    background-color: #d6d8da;
+}
+
+.movimiento__contenedor-normal {
+    background-color: #c1c3c4;
+}
+
+.movimiento__operacion {
+    width: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 10%;
+}
+
+.movimiento__imagenOperacion {
+    border: 1px solid black;
+    border-radius: 100%;
+    padding: 7px;
+    width: 40%;
+}
+
+.movimiento__imagenOperacion img {
+    width: 100%;
+}
+
+.movimiento__tipoOperacion {
+    font-weight: bold;
+}
+
+.movimiento__compra {
+    background-color: rgb(18, 135, 18);
+}
+
+.movimiento__venta {
+    background-color: rgb(186, 23, 23);
+}
+
+.movimiento__moneda {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 10%;
+}
+
+.movimiento__moneda div {
+    padding-right: 8px;
+}
+
+.movimiento__imagenMoneda {
+    width: 40px;
+}
+
+.movimiento__imagenMoneda img {
+    width: 100%;
+}
+
+.movimiento__nombreMoneda {
+    font-weight: bold;
+}
+
+.movimiento__fecha {
+    text-align: center;
+    font-weight: bold;
+    width: 10%;
+}
+
+.movimiento__unidades {
+    width: 10%;
+    text-align: left;
+    font-weight: bold;
+}
+
+.movimiento__precio {
+    width: 10%;
+    text-align: left;
+    font-weight: bold;
+}
+
+.movimiento__eliminar {
+    padding: 10px;
+}
+
+.movimiento__eliminar button:focus{
+    box-shadow: none;
 }
 
 .movimiento__deleteButton {
-    background-color: #0dcaf0;
-    border: solid 2px black;
-    border-radius: 10%;
+    border-radius: 10px;
+    width: 60px;
 }
 
 .movimiento__deleteIcon {
-    width: 50px;
+    width: 100%;
 }
 
-#movimientos {
-    background-color: white;
+/* Form de carga de movmiento */
+.modal-content {
+    background-color: #0c88eb;
+    color: white;
+    border: 1px solid black;
 }
 
+.modalForm__header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+.modalForm__titulo {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    font-weight: bold;
+}
+
+.modalForm__contenido {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.modalForm__campos {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.modalForm__campo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.modalForm__campo select, .modalForm__campo input {
+    width: 50%;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid white;
+    font-weight: bold;
+}
+
+.modalForm__campo select:focus-visible {
+    outline: none;
+}
+
+.modalForm__boton {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.modalForm__boton button {
+    background-color: black;
+    border: 1px solid #0c88eb;
+    border-radius: 10px;
+    padding: 3px 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.modalForm__texto {
+    text-align: center;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+
+.modalForm__advertencia {
+    display: block;
+    color: red;
+    font-weight: bold;
+    font-style: italic;
+    background-color: black;
+    padding: 5px 0;
+    width: 90%;
+    border-radius: 10px;
+    margin: 10px auto;
+}
 
 /*** Selectores para seccion 'Registrarme' ***/
 .fondoRegistro {
@@ -444,3 +751,100 @@ nav {
     display: flex;
     padding-top: 100px;
 }
+
+/*************************/
+
+#listaCotizaciones {
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.cotizacion__header {
+    background-color: #0c88eb;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px;
+    font-weight: bold;
+}
+
+.cotizacion__grupoTitulos {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.cotizacion__precios {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.cotizacion__precios div {
+    width: 50%;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 13%;
+}
+
+.cotizacion__contenedor {
+    border: 1px solid black;
+    height: 60px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cotizacion__contenedor-light {
+    background-color: #d6d8da;
+}
+
+.cotizacion__contenedor-normal {
+    background-color: #c1c3c4;
+}
+
+.cotizacion__info {
+    display: flex;
+    
+    justify-content: flex-start;
+    align-items: center;
+    width: 30%;
+    margin-left: 15%;
+}
+
+.cotizacion__titulo {
+    display: flex;
+}
+
+.cotizacion__logo {
+    width: 50px;
+    margin-right: 5%;
+}
+
+.cotizacion__logo img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.cotizacion__nombre {
+    text-align: left;
+}
+
+.cotizacion__moneda {
+    font-weight: bold;
+}
+
+.cotizacion__sigla {
+    font-size: 13px;
+}
+
+.cotizacion__usd {
+    color: rgb(12, 112, 12);
+}
+
+.cotizacion__ars {
+    color: #1f4ed3;
+}
+

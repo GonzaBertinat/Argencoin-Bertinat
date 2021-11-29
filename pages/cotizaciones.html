@@ -39,17 +39,42 @@
       </nav>
     </header>
     <main>
-        <div class="cotizaciones__info">
-          <h1>Cotizaciones en vivo</h1>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit reprehenderit sed praesentium sapiente, quos doloribus illo perspiciatis dolorum fuga voluptatum corrupti voluptates ratione fugiat minima, placeat aut dolor laboriosam facilis?</p>  
-        </div>
-        <section>
-            <div class="container">
-                <div id="listaCotizaciones" class="row">
-                  <!-- Se completa dinámicamente con las criptomonedas disponibles -->
-                </div>
+      <section class="cotizaciones__info">
+        <div class="container">
+          <div class="row">
+            <div class="col-10">
+              <h1>Cotizaciones en vivo</h1>
             </div>
-        </section>
+            <div class="col-10">
+              <p>Precios de las principales criptomonedas del mercado. En vivo. Al instante.</p>  
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+          <div class="container">
+              <div id="listaCotizaciones" class="row">
+                <div class="col-12 col-md-10">
+                  <div class="cotizacion__header">
+                    <div class="cotizacion__grupoTitulos">
+                      <div class="cotizacion__titulo">
+                        <span>CRIPTOMONEDA</span>
+                      </div>
+                    </div>
+                    <div class="cotizacion__grupoTitulos">
+                      <div class="cotizacion__titulo">
+                        <span>PRECIO USD</span>
+                      </div>
+                      <div class="cotizacion__titulo">
+                        <span>PRECIO ARS</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Se completa dinámicamente con las criptomonedas disponibles -->
+              </div>
+          </div>
+      </section>
     </main>
     <footer class="piePagina">
       <div class="container">

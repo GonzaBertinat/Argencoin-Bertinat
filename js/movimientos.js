@@ -10,20 +10,87 @@ const renderizarMovimientos = (username, filtro) => {
     // Si no hay movimientos se muestra una leyenda. Si hay, se los itera para imprimirlos en el documento.
     if(movimientos.length === 0){
         $('#listaMovimientos').append(
-            `<span class="movimientos__vacio">No se registran movimientos.</span>`
+            `<div class="movimientos__vacio">
+                <span>No se encontraron movimientos</span>
+             </div>`
         )
     }
     else {
+        // Se carga header
+        $('#listaMovimientos').append(
+            `<div class="col-12">
+                <div class="cotizacion__header">
+                    <div class="cotizacion__grupoTitulos">
+                        <div class="cotizacion__titulo">
+                            <span>OPERACIÓN</span>
+                        </div>
+                    </div>
+                    <div class="cotizacion__grupoTitulos">
+                        <div class="cotizacion__titulo">
+                            <span>MONEDA</span>
+                        </div>
+                    </div>
+                    <div class="cotizacion__grupoTitulos">
+                        <div class="cotizacion__titulo">
+                            <span>FECHA</span>
+                        </div>
+                    </div>
+                    <div class="cotizacion__grupoTitulos">
+                        <div class="cotizacion__titulo">
+                            <span>MONTO</span>
+                        </div>
+                    </div>
+                    <div class="cotizacion__grupoTitulos">
+                        <div class="cotizacion__titulo">
+                            <span>COTIZACIÓN</span>
+                        </div>
+                    </div>
+                    <div class="cotizacion__grupoTitulos">
+                        <div class="cotizacion__titulo">
+                            <span>ELIMINAR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+        )
         // Se cargan los movimientos en la vista.
         movimientos.forEach((m,index) => {
             let movimiento = new Movimiento(m)
+            let criptomoneda = criptomonedas.find(c => c.sigla === movimiento.moneda)
+            
             $('#listaMovimientos').append(
-                `<div id="${movimiento.id}">
-                    <div class="movimiento__container">
-                        <span class="movimiento">${movimiento.operacion === 'C' ? '+' : '-'} ${formatoCripto(movimiento.unidades)} ${movimiento.moneda} = ${formatoMoneda(movimiento.montoEnUSD())} USD</span>
-                        <button onclick="asignarId(${movimiento.id})" type="button" class="movimiento__deleteButton btn" data-bs-toggle="modal" data-bs-target="#confirmarBorradoForm" data-toggle="tooltip" data-placement="left" title="Borrar movimiento">
-                            <img class="movimiento__deleteIcon" src="../images/eliminar-movimiento-icon.png">
-                        </button>
+                `<div id="${movimiento.id}" class="col-12">
+                    <div class="movimiento__contenedor ${index % 2 === 0 ? 'movimiento__contenedor-light' : 'movimiento__contenedor-normal'}">
+                        <div class="movimiento__operacion">
+                            <div class="movimiento__imagenOperacion ${movimiento.operacion === 'C' ? 'movimiento__compra' : 'movimiento__venta'}">
+                                ${movimiento.operacion === 'C' ? '<img src="../images/icons/compra-icon.png" alt="Compra">' : '<img src="../images/icons/venta-icon.png" alt="Venta">'}
+                            </div>
+                            <div class="movimiento__tipoOperacion">
+                                ${movimiento.operacion === 'C' ? '<span>Compra</span>' : '<span>Venta</span>'}
+                            </div>
+                        </div>
+                        <div class="movimiento__moneda">
+                            <div class="movimiento__imagenMoneda">
+                                <img src="../${criptomoneda.rutaImagen}" alt="${criptomoneda.sigla}">
+                            </div>
+                            <div class="movimiento__nombreMoneda">
+                                <span>${criptomoneda.sigla}</span>
+                            </div>
+                        </div>
+                        <div class="movimiento__fecha">
+                            <span>${new Date(movimiento.fechaCarga).toLocaleString()}</span>
+                        </div>
+                        <div class="movimiento__unidades">
+                            <span>${formatoCripto(movimiento.unidades)}</span>
+                        </div>
+                        <div class="movimiento__precio">
+                            <span>${movimiento.precio}</span>
+                        </div>
+                        <div class="movimiento__eliminar">
+                            <button onclick="asignarId(${movimiento.id})" type="button" class="movimiento__deleteButton btn" data-bs-toggle="modal" data-bs-target="#confirmarBorradoForm" data-toggle="tooltip" data-placement="left" title="Borrar movimiento">
+                                <img class="movimiento__deleteIcon" src="../images/icons/borrar-icon.png">
+                            </button>
+                        </div>
                     </div>
                 </div>`
             )
@@ -52,8 +119,9 @@ const registrarMovimiento = movimiento => {
 
 // Procesa formulario de carga de movimiento y lo registra.
 const procesarNuevoMovimiento = () => {   
+    
     // Se crea el movimiento y se lo persiste en el Storage.
-    let criptomoneda =  criptomonedas.find(c => c.sigla === $('#selectCriptomoneda').val())
+    let criptomoneda = criptomonedas.find(c => c.sigla === $('#selectCriptomoneda').val())
     
     registrarMovimiento({
         id: new Date().getTime(),
@@ -84,9 +152,30 @@ const borrarMovimiento = () => {
     renderizarMovimientos(sessionStorage.getItem('username'),'TODOS')
 }
 
+// Actualiza logo de criptomoneda elegida en el filtro de movimientos
+const actualizarLogoCombo = (valor) => {
+    let rutaImagen
+    let alt
+    if(valor === 'TODOS'){
+        rutaImagen = '../images/monedas/usd.png'
+        alt = "Logo dinero"
+    }
+    else {
+        let criptomoneda = criptomonedas.find(c => c.sigla === valor)
+        rutaImagen = `../${criptomoneda.rutaImagen}`
+        alt = `Logo ${criptomoneda.nombre}`
+    }
+    
+    $('.movimientos__logoFiltro').empty().append(`
+        <img src="${rutaImagen}" alt="${alt}">                    
+    `)
+}
+
 // Filtra en la vista movimientos según la opción elegida en el combo.
 const filtrarMovimientos = () => {
-    renderizarMovimientos(sessionStorage.getItem('username'), $('#selectFiltroMovimientos').val())
+    let valor = $('#selectFiltroMovimientos').val()
+    actualizarLogoCombo(valor)
+    renderizarMovimientos(sessionStorage.getItem('username'), valor)
 }
 
 // Imprime en DOM las opciones para combos de criptomonedas, para la carga y filtrado de movimientos.
@@ -117,5 +206,5 @@ $(document).ready(() => {
     $('#borrarMovimientoForm').submit(borrarMovimiento)
 
     // Filtrar movimientos.
-    $('#buttonFiltroMovimientos').click(filtrarMovimientos)
+    $('#selectFiltroMovimientos').change(filtrarMovimientos)
 })

@@ -4,12 +4,20 @@ const renderizarSeccionSaldos = () => {
     // Se agregan los saldos al DOM.
     criptomonedas.forEach( (c,index) => {
         $('#listaSaldos').append(  
-            `<div class="col-12">
-                <div class="saldo">
-                    <span>${c.nombreFormateado()}</span>
+            `<div class="col-10 col-lg-6 saldo">
+                <div class="saldo__info">
+                    <div class="saldo__imagen">
+                        <img src="../${c.rutaImagen}" alt="${c.nombre}">
+                    </div>
+                    <div class="saldo__moneda">
+                        <div class="saldo__nombre">${c.nombre}</div>
+                        <div class="saldo__sigla">(${c.sigla})</div>                    
+                    </div>
+                </div>
+                <div class="saldo__monto">
                     <span id="saldo${c.sigla}">Cargando...</span>
                 </div>
-             </div>`
+            </div>`
         )
 
         // Se muestra el saldo con una animación de fadeIn de arriba hacia abajo.
@@ -19,7 +27,7 @@ const renderizarSeccionSaldos = () => {
     })
 }
 
-/* Actualiza en el DOM el saldo total en USD y Pesos Argentinos del usuario. 
+/* Actualiza en el DOM el saldo total Pesos Argentinos del usuario. 
    Utiliza un acumulador almacenado en Session Storage para sumar el balance calculado hasta el momento, 
    independiente del orden en que lleguen las respuestas de las cotizaciones vía API. */
 const actualizarSaldoTotal = (saldoCripto, criptomoneda) => {
@@ -31,8 +39,7 @@ const actualizarSaldoTotal = (saldoCripto, criptomoneda) => {
     total += saldoCripto * criptomoneda.cotizacion
 
     // Se actualiza el DOM.
-    $(`#saldoPesos`).empty().append(`${convertirAPesos(total)}`)
-    $(`#saldoDolares`).empty().append(`${formatoMoneda(total)}`)
+    $(`#saldoPesos`).empty().append(`$ ${convertirAPesos(total)}`)
     
     // Se persiste en Storage el nuevo saldo total acumulado.
     sessionStorage.setItem('saldo', total)

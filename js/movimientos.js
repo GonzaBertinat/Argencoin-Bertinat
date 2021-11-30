@@ -1,5 +1,90 @@
+// Cantidad de movimientos visualizados por página
+const MOVIMIENTOS_POR_PAGINA = 3
+
+// Se carga encabezado con nombre de columnas para la tabla de movimientos
+const renderizarHeaderMovimientos = () => {
+    $('#listaMovimientos').append(
+        `<div class="col-12">
+            <div class="cotizacion__header">
+                <div class="cotizacion__grupoTitulos">
+                    <div class="cotizacion__titulo">
+                        <span>OPERACIÓN</span>
+                    </div>
+                </div>
+                <div class="cotizacion__grupoTitulos">
+                    <div class="cotizacion__titulo">
+                        <span>MONEDA</span>
+                    </div>
+                </div>
+                <div class="cotizacion__grupoTitulos">
+                    <div class="cotizacion__titulo">
+                        <span>FECHA</span>
+                    </div>
+                </div>
+                <div class="cotizacion__grupoTitulos">
+                    <div class="cotizacion__titulo">
+                        <span>MONTO</span>
+                    </div>
+                </div>
+                <div class="cotizacion__grupoTitulos">
+                    <div class="cotizacion__titulo">
+                        <span>COTIZACIÓN</span>
+                    </div>
+                </div>
+                <div class="cotizacion__grupoTitulos">
+                    <div class="cotizacion__titulo">
+                        <span>ELIMINAR</span>
+                    </div>
+                </div>
+            </div>
+        </div>`
+    )
+}
+
+// Devuelve los movimientos correspondientes a una página seleccionada en la vista.
+const obtenerMovimientosPagina = (movimientos, pagina) => {
+    let inicio = pagina * MOVIMIENTOS_POR_PAGINA
+    let fin = inicio + MOVIMIENTOS_POR_PAGINA
+    return movimientos.slice(inicio, fin)
+}
+
+// Renderiza en el DOM un paginador para ver los movimientos en páginas.
+const renderizarPaginador = (paginaActual, cantidadMovimientos) => {
+    
+    let cantidadPaginas = parseInt(cantidadMovimientos / MOVIMIENTOS_POR_PAGINA) + 1
+    let habilitarAnterior = paginaActual !== 0
+    let habilitarSiguiente = paginaActual !== (cantidadPaginas - 1)
+    
+    $('#paginador').empty()
+                   .append(`
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-12 col-md-5 paginador__contenedor">
+                            <button id="paginaAnteriorButton" ${!habilitarAnterior ? 'disabled = "true" class="paginador__deshabilitado"' : ''}>Anterior</button>
+                            <div class="paginador__info">
+                                <p>Página <span id="paginaActual">${paginaActual+1}</span> de <span id="ultimaPagina">${cantidadPaginas}</span></p>
+                                <span>Movimientos encontrados: ${cantidadMovimientos}</span>
+                            </div>
+                            <button id="paginaSiguienteButton" ${!habilitarSiguiente ? 'disabled = "true" class="paginador__deshabilitado"' : ''}>Siguiente</button>
+                        </div>    
+                      </div>  
+                    </div>`)
+
+    // Cargo eventos para botones de página siguiente y anterior
+    let filtro = $('#selectFiltroMovimientos').val()
+    $('#paginaAnteriorButton').click( () => {
+        renderizarMovimientos(sessionStorage.getItem('username'),filtro,paginaActual-1)
+    })
+
+    $('#paginaSiguienteButton').click(() => {
+        renderizarMovimientos(sessionStorage.getItem('username'),filtro,paginaActual+1)
+    })
+              
+}
+
 // Imprime en el DOM los movimientos de un usuario, mostrando la moneda cripto y el monto en USD de cada movimiento.
-const renderizarMovimientos = (username, filtro) => {  
+const renderizarMovimientos = (username, filtro, numeroPagina) => {  
+    
     // Se limpia la vista.
     $('#listaMovimientos').empty()
    
@@ -7,52 +92,29 @@ const renderizarMovimientos = (username, filtro) => {
     let movimientos = obtenerMovimientosDeUsuario(username)
                       .filter(m => filtro === 'TODOS' ? m === m : m.moneda === filtro)
 
+
+    let cantidadMovimientos = movimientos.length
     // Si no hay movimientos se muestra una leyenda. Si hay, se los itera para imprimirlos en el documento.
-    if(movimientos.length === 0){
+    if(cantidadMovimientos === 0){
         $('#listaMovimientos').append(
             `<div class="movimientos__vacio">
                 <span>No se encontraron movimientos</span>
              </div>`
         )
+        
+        // No se carga paginador ya que no hay movimientos
+        $('#paginador').empty()
     }
     else {
         // Se carga header
-        $('#listaMovimientos').append(
-            `<div class="col-12">
-                <div class="cotizacion__header">
-                    <div class="cotizacion__grupoTitulos">
-                        <div class="cotizacion__titulo">
-                            <span>OPERACIÓN</span>
-                        </div>
-                    </div>
-                    <div class="cotizacion__grupoTitulos">
-                        <div class="cotizacion__titulo">
-                            <span>MONEDA</span>
-                        </div>
-                    </div>
-                    <div class="cotizacion__grupoTitulos">
-                        <div class="cotizacion__titulo">
-                            <span>FECHA</span>
-                        </div>
-                    </div>
-                    <div class="cotizacion__grupoTitulos">
-                        <div class="cotizacion__titulo">
-                            <span>MONTO</span>
-                        </div>
-                    </div>
-                    <div class="cotizacion__grupoTitulos">
-                        <div class="cotizacion__titulo">
-                            <span>COTIZACIÓN</span>
-                        </div>
-                    </div>
-                    <div class="cotizacion__grupoTitulos">
-                        <div class="cotizacion__titulo">
-                            <span>ELIMINAR</span>
-                        </div>
-                    </div>
-                </div>
-            </div>`
-        )
+        renderizarHeaderMovimientos()
+
+        // Se carga paginador
+        renderizarPaginador(numeroPagina, cantidadMovimientos)
+
+        // Se obtienen los movimientos a mostrar según el paginado
+        movimientos = obtenerMovimientosPagina(movimientos, numeroPagina)
+        
         // Se cargan los movimientos en la vista.
         movimientos.forEach((m,index) => {
             let movimiento = new Movimiento(m)
@@ -101,7 +163,7 @@ const renderizarMovimientos = (username, filtro) => {
                             .delay(300 * index)
                             .slideDown(1500)
         })
-        
+
     }
 }
 
@@ -134,7 +196,7 @@ const procesarNuevoMovimiento = () => {
     })
     
     // Se actualiza vista con el nuevo movimiento incluido.
-    renderizarMovimientos(username,'TODOS')
+    renderizarMovimientos(username,'TODOS',0)
 }
 
 // Elimina un movimiento registrado por un usuario.
@@ -149,7 +211,7 @@ const borrarMovimiento = () => {
     localStorage.setItem('movimientos', JSON.stringify(movimientos))
     
     // Se actualiza la vista.
-    renderizarMovimientos(sessionStorage.getItem('username'),'TODOS')
+    renderizarMovimientos(sessionStorage.getItem('username'),'TODOS',0)
 }
 
 // Actualiza logo de criptomoneda elegida en el filtro de movimientos
@@ -175,7 +237,7 @@ const actualizarLogoCombo = (valor) => {
 const filtrarMovimientos = () => {
     let valor = $('#selectFiltroMovimientos').val()
     actualizarLogoCombo(valor)
-    renderizarMovimientos(sessionStorage.getItem('username'), valor)
+    renderizarMovimientos(sessionStorage.getItem('username'), valor, 0)
 }
 
 // Imprime en DOM las opciones para combos de criptomonedas, para la carga y filtrado de movimientos.
@@ -190,7 +252,7 @@ const renderizarCombosMonedas = () => {
 // Inicializa documento.
 $(document).ready(() => {
     // Carga de movimientos en 'Mis Movimientos'.
-    renderizarMovimientos(sessionStorage.getItem('username'), 'TODOS')
+    renderizarMovimientos(sessionStorage.getItem('username'), 'TODOS', 0)
 
     // Carga de combos de criptomonedas.
     renderizarCombosMonedas()

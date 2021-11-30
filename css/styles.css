@@ -577,6 +577,54 @@ nav {
     width: 100%;
 }
 
+.paginador__contenedor {
+    display: flex;
+    margin: 15px auto 0 auto;
+    justify-content: space-between;
+    padding: 0;
+    margin-top: 15px;
+}
+
+#paginaAnteriorButton {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#paginaSiguienteButton {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.paginador__contenedor button {
+    background-color: #0c88eb;
+    color: white;
+    font-weight: bold;
+    border: 2px solid black;
+}
+
+.paginador__contenedor button.paginador__deshabilitado {
+    opacity: 0.5;
+}
+
+.paginador__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    width: 100%;
+}
+
+.paginador__info p {
+    margin: 0;
+}
+
+.paginador__info p span {
+    font-weight: bold;
+}
+
 /* Form de carga de movmiento */
 .modal-content {
     background-color: #0c88eb;
@@ -649,7 +697,6 @@ nav {
     margin: 10px 0;
     font-weight: bold;
 }
-
 
 .modalForm__advertencia {
     display: block;

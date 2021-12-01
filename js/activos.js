@@ -39,23 +39,28 @@ const actualizarSaldoTotal = (saldoCripto, criptomoneda) => {
     total += saldoCripto * criptomoneda.cotizacion
 
     // Se actualiza el DOM.
-    $(`#saldoPesos`).empty().append(`$ ${convertirAPesos(total)}`)
+    let monedaElegida = criptomonedas.concat(fiat)
+                                     .find(m => m.sigla === sessionStorage.getItem('monedaSaldoTotal'))
+    let saldoTotalFinal
+    switch(monedaElegida.sigla){
+        case 'ARS':
+            saldoTotalFinal = convertirAPesos(total)
+            break
+        case 'USD':
+            saldoTotalFinal = formatoMoneda(total)
+            break
+        default:
+            saldoTotalFinal = formatoCripto(total / monedaElegida.cotizacion)
+    }
+
+    $(`#saldoTotal`).empty().append(`$ ${saldoTotalFinal}`)
     
     // Se persiste en Storage el nuevo saldo total acumulado.
     sessionStorage.setItem('saldo', total)
 }
 
-// Calcula el total de unidades de una criptomoneda en posesión del usuario según sus movimientos.
-const calcularSaldo = (criptomoneda, usuario) => {
-    return obtenerMovimientosDeUsuario(usuario)
-            .filter(m => m.moneda === criptomoneda.sigla)
-            .map(m => new Movimiento(m))
-            .map(m => m.unidades * (m.operacion === 'V' ? -1 : 1))
-            .reduce((x,y) => x + y, 0)
-}
-
 /* Función utilizada como callback que reemplaza en el DOM el saldo total de una criptomoneda
-   y actualiza el total equivalente en Pesos y en Dólares. */
+   y actualiza el total equivalente en la moneda elegida por el usuario */
 const renderizarSaldo = (criptomoneda) => {
     // Calcula saldo total de la criptomoneda.
     let saldoCripto = calcularSaldo(criptomoneda, sessionStorage.getItem('username'))
@@ -63,15 +68,63 @@ const renderizarSaldo = (criptomoneda) => {
     // Se actualiza el balance de la criptomoneda en el DOM.
     $(`#saldo${criptomoneda.sigla}`).empty().append(`${formatoCripto(saldoCripto)}`)
 
-    // Se actualiza el balance total en PESOS y USD en el DOM.
+    // Se actualiza el balance total en el DOM.
     actualizarSaldoTotal(saldoCripto, criptomoneda)
+}
+
+const renderizarSaldoTotal = (siglaMoneda) => {
+
+    let todasLasMonedas = fiat.concat(criptomonedas)
+    let moneda = todasLasMonedas.find(m => m.sigla === siglaMoneda)
+
+    let opcionesCombo = ``
+    todasLasMonedas.forEach(m => {
+        opcionesCombo += `<option value="${m.sigla}" ${m.sigla === siglaMoneda ? 'selected="true"' : ''}>
+                            ${m.sigla}
+                          </option>`
+    })
+    
+    $('#saldo__total').empty()
+                      .append(`
+                        <div class="saldo__info">
+                            <div class="saldo__imagen">
+                                <img src="../${moneda.rutaImagen}" alt="${moneda.nombre}">
+                            </div>
+                            <div class="saldo__moneda">
+                                <div class="saldo__nombre">${moneda.nombre}</div>
+                                <div class="saldo__sigla">
+                                    <select id="saldo__combo">
+                                        ${opcionesCombo}
+                                    </select>
+                                </div>                    
+                            </div>
+                        </div>
+                        <div class="saldo__monto">
+                            <span id="saldoTotal">Cargando...</span>
+                        </div>
+                      `)
+    
+    $('#saldo__combo').change( () => {
+        let monedaCombo = $('#saldo__combo').val()
+        sessionStorage.setItem('monedaSaldoTotal', monedaCombo)
+        sessionStorage.setItem('saldo', 0)
+        renderizarSaldoTotal(monedaCombo)
+        obtenerCotizaciones(criptomonedas, renderizarSaldo)
+    })
 }
 
 // Carga de saldos en 'Mis Activos'
 $(document).ready(() => {
-    // Se cargan los elementos HTML para visualizar los saldos.
+    // Se cargan los elementos HTML para visualizar los saldos de las criptomonedas disponibles.
     renderizarSeccionSaldos(sessionStorage.getItem('username'))
     
+    // Se inicializa moneda elegida a Peso Argentino en caso de no tener ninguna guardada
+    if(!sessionStorage.getItem('monedaSaldoTotal')){
+        sessionStorage.setItem('monedaSaldoTotal', 'ARS')
+    }
+    // Se carga los elementos HTML para visualizar el saldo TOTAL según la moneda elegida por el usuario en combo
+    renderizarSaldoTotal(sessionStorage.getItem('monedaSaldoTotal'))
+
     /* Se guarda en Storage un acumulador de saldo total.
        Dado que las cotizaciones se obtienen de forma asincrónica, a medida que lleguen las respuestas vía API
        se calculará la posesión del usuario en USD correpondiente a la criptomoneda consultada y se la sumará
@@ -80,7 +133,7 @@ $(document).ready(() => {
     sessionStorage.setItem('saldo', 0)
 
     /* Se obtienen vía API las cotizaciones de las criptomonedas y de tipo de cambio USD-ARS,
-       y se las utiliza para calcular el saldo total en USD y en Pesos Argentinos */
+       y se las utiliza para calcular el saldo total en USD y convertirlo a la moneda elegida por el usuario */
     obtenerCotizaciones(criptomonedas, renderizarSaldo)
 })
 

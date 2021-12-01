@@ -3,7 +3,7 @@
  */
 
 // Entidades del sistema.
-class Criptomoneda {
+class Moneda {
     constructor(id, sigla, nombre, rutaImagen){
         this.id = id
         this.sigla = sigla
@@ -11,7 +11,7 @@ class Criptomoneda {
         this.rutaImagen = rutaImagen
     }
 
-    // Retorna el par Sigla + Nombre de la criptomoneda.
+    // Retorna el par Sigla + Nombre de la moneda.
     nombreFormateado(){
         return `${this.sigla} - ${this.nombre}` 
     }
@@ -50,14 +50,20 @@ const mailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(
 
 // Criptomonedas disponibles.
 const criptomonedas = [
-    new Criptomoneda(1, 'BTC', 'Bitcoin', 'images/criptos/btc-logo.png'),
-    new Criptomoneda(2, 'ETH', 'Ethereum', 'images/criptos/eth-logo.png'),
-    new Criptomoneda(3, 'SOL', 'Solana', 'images/criptos/sol-logo.png'),
-    new Criptomoneda(4, 'USDT', 'Tether', 'images/criptos/usdt-logo.png'),
-    new Criptomoneda(5, 'ADA', 'Cardano', 'images/criptos/ada-logo.png'),
-    new Criptomoneda(6, 'DOT', 'Polkadot', 'images/criptos/dot-logo.png'),
-    new Criptomoneda(7, 'DOGE', 'Dogecoin', 'images/criptos/doge-logo.png'),
-    new Criptomoneda(8, 'DAI', 'DAI', 'images/criptos/dai-logo.png'),
+    new Moneda(1, 'BTC', 'Bitcoin', 'images/criptos/btc-logo.png'),
+    new Moneda(2, 'ETH', 'Ethereum', 'images/criptos/eth-logo.png'),
+    new Moneda(3, 'SOL', 'Solana', 'images/criptos/sol-logo.png'),
+    new Moneda(4, 'USDT', 'Tether', 'images/criptos/usdt-logo.png'),
+    new Moneda(5, 'ADA', 'Cardano', 'images/criptos/ada-logo.png'),
+    new Moneda(6, 'DOT', 'Polkadot', 'images/criptos/dot-logo.png'),
+    new Moneda(7, 'DOGE', 'Dogecoin', 'images/criptos/doge-logo.png'),
+    new Moneda(8, 'DAI', 'DAI', 'images/criptos/dai-logo.png'),
+]
+
+// Monedas fiat disponibles
+const fiat = [
+    new Moneda(9, 'ARS', 'Pesos', 'images/monedas/ars.png'),
+    new Moneda(10, 'USD', 'Dólares', 'images/monedas/usd.png')
 ]
 
 /***  Funciones utilitarias y de conversión. ***/
@@ -112,9 +118,19 @@ const obtenerMovimientosDeUsuario = username => {
     return movimientos.filter(movimiento => movimiento.username === username)
 }
 
+// Calcula el total de unidades de una criptomoneda en posesión del usuario según sus movimientos.
+const calcularSaldo = (criptomoneda, usuario) => {
+    return obtenerMovimientosDeUsuario(usuario)
+            .filter(m => m.moneda === criptomoneda.sigla)
+            .map(m => new Movimiento(m))
+            .map(m => m.unidades * (m.operacion === 'V' ? -1 : 1))
+            .reduce((x,y) => x + y, 0)
+}
+
 // Cierra la sesión del usuario conectado y redirige a página de inicio.
 const cerrarSesionActual = () => {
     sessionStorage.removeItem('username')
+    sessionStorage.removeItem('monedaSaldoTotal')
     let prefix = (window.location.pathname === '/' || window.location.pathname.includes('index.html')) ? '' : '../'
     setTimeout(() => window.location.replace(`${prefix}index.html`), 500);
 }

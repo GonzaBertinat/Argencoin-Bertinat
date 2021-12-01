@@ -54,7 +54,7 @@
                         <span>Filtrar por: </span>
                         <div class="movimientos__seleccionFiltro">
                           <div class="movimientos__logoFiltro">
-                            <img src="../images/monedas/usd.png" alt="">
+                            <img src="../images/monedas/dinero.png" alt="">
                             <!-- Carga dinámicamente el logo de la moneda elegida -->
                           </div>
                           <select id="selectFiltroMovimientos" class="comboCriptomonedas">
@@ -139,7 +139,6 @@
                             <p class="modalForm__texto">
                               ¿Está seguro que desea borrar este movimiento? <br>
                               <span class="modalForm__advertencia">ATENCIÓN: Esta acción NO se puede deshacer.</span>
-                            </div>
                           </div>
                           <div class="modalForm__boton">
                             <button type="submit">Confirmar</button>
@@ -149,6 +148,29 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal con mensaje de error al borrar -->
+            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modalForm__header">
+                      <h5 class="modalForm__titulo">Error al realizar la operación</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modalForm__contenido">
+                      <form id="borrarMovimientoForm">
+                        <div class="modalForm__campos">
+                          <p id="texto__error" class="modalForm__texto">
+                          <!-- Se completa dinámicamente con texto de error según el escenario de negocio -->
+                          </p> 
+                        </div>
+                        <div class="modalForm__boton">
+                          <button type="submit">Aceptar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+              </div>
+          </div>
         </section>
     </main>
     <!-- Pie de página -->

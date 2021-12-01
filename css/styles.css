@@ -377,6 +377,17 @@ nav {
     font-style: italic;
 }
 
+#saldo__combo {
+    background-color: rgb(75, 168, 205);
+    border: none;
+    color: black;
+    font-weight: bold;
+}
+
+#saldo__combo:focus-visible { 
+    outline: none;
+}
+
 /*** Selectores para seccion 'Mis movimientos' ***/
 
 #movimientos {

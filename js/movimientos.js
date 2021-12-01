@@ -199,38 +199,103 @@ const registrarMovimiento = movimiento => {
 }
 
 // Procesa formulario de carga de movimiento y lo registra.
-const procesarNuevoMovimiento = () => {   
-    
+const procesarNuevoMovimiento = (e) => {   
+    // Se anula comportamiento por defecto de formulario
+    e.preventDefault()
+
     // Se crea el movimiento y se lo persiste en el Storage.
+    let username = sessionStorage.getItem('username')
     let criptomoneda = criptomonedas.find(c => c.sigla === $('#selectCriptomoneda').val())
     
+    // Se valida que no sea una venta que deje un saldo negativo
+    let operacion = $('#selectOperacion').val()
+    let unidades = parseFloat($('#inputCantidad').val())
+    
+    if(operacion === 'V'){
+        let saldo = calcularSaldo(criptomoneda,username)
+
+        if((saldo - unidades) < 0){
+            // Se muestra mensaje de error
+            $('#texto__error').empty()
+                             .append(`
+                             No se pudo registrar su operación de venta.
+                             <br>
+                             Su balance de ${criptomoneda.sigla} no puede ser negativo.
+                             <br>
+                             Por favor, revise los datos e inténtelo de nuevo.
+                             `)
+            $('#errorModal').modal('show')
+            // Se cierra el modal de carga
+            $('#cargaMovimientoForm').modal('hide')
+            return
+        }
+    }
+    
+    // Se registra el movimiento en el Storage
     registrarMovimiento({
         id: new Date().getTime(),
         precio: criptomoneda.cotizacion,
         moneda: criptomoneda.sigla,
-        unidades: parseFloat($('#inputCantidad').val()),
-        operacion: $('#selectOperacion').val(),
+        unidades: unidades,
+        operacion: operacion,
         fechaCarga: new Date(),
-        username: sessionStorage.getItem('username')
+        username: username
     })
     
+    // Se cierra el modal de carga
+    $('#cargaMovimientoForm').modal('hide')
+
     // Se actualiza vista con el nuevo movimiento incluido.
-    renderizarMovimientos(username,'TODOS',0)
+    $('#selectFiltroMovimientos').val('TODOS')
+    actualizarLogoCombo('TODOS')
+    renderizarMovimientos(username,'TODOS',0) 
 }
 
 // Elimina un movimiento registrado por un usuario.
-const borrarMovimiento = () => {
+const borrarMovimiento = (e) => {
+    
+    // Se anula comportamiento por defecto de formulario
+    e.preventDefault()
+
     // Se obtiene id del movimiento a borrar.
     let idMovimiento = parseInt($('#movimientoId').attr('movimiento_id'))
+    let username = sessionStorage.getItem('username')
     
     // Se elimina movimiento.
     const movimientos = obtenerTodosLosMovimientos()
     const index = movimientos.findIndex(m => m.id === idMovimiento)
+    const movimiento = movimientos[index]
     movimientos.splice(index, 1)
+
+    // Se valida que no quede saldo negativo al eliminar el movimiento.
+    let saldo = calcularSaldo({sigla: movimiento.moneda},username)
+    
+    if((saldo - movimiento.unidades) < 0){
+        // Se muestra mensaje de error
+        $('#texto__error').empty()
+                         .append(`
+                            No se pudo borrar el movimiento.
+                            <br>
+                            Su balance de ${movimiento.moneda} no puede ser negativo.
+                            <br>
+                            Por favor, revise los datos e inténtelo de nuevo.
+                        `)
+        $('#errorModal').modal('show')
+
+        // Se cierra modal de confirmación
+        $('#confirmarBorradoForm').modal('hide')
+        return
+    }
+    // Se guardan los movimientos actualizados
     localStorage.setItem('movimientos', JSON.stringify(movimientos))
     
+    // Se cierra modal de confirmación
+    $('#confirmarBorradoForm').modal('hide')
+
     // Se actualiza la vista.
-    renderizarMovimientos(sessionStorage.getItem('username'),'TODOS',0)
+    $('#selectFiltroMovimientos').val('TODOS')
+    actualizarLogoCombo('TODOS')
+    renderizarMovimientos(username,'TODOS',0)
 }
 
 // Actualiza logo de criptomoneda elegida en el filtro de movimientos
@@ -238,7 +303,7 @@ const actualizarLogoCombo = (valor) => {
     let rutaImagen
     let alt
     if(valor === 'TODOS'){
-        rutaImagen = '../images/monedas/usd.png'
+        rutaImagen = '../images/monedas/dinero.png'
         alt = "Logo dinero"
     }
     else {

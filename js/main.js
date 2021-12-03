@@ -140,57 +140,65 @@ const cargarNavbar = (sesionActiva) => {
 
     let prefix = (window.location.pathname.endsWith('/') || window.location.pathname.includes('index.html')) ? 'pages/' : ''
     if(sesionActiva){
-        // Se cargan las secciones 'Cotizaciones', Mis Activos' y 'Mis Movimientos'.
-        $('#enlacesNav').empty()
-                        .append(
-            `<li class="nav-item">
-                <a class="nav-link" aria-current="page" href="${prefix}cotizaciones.html">Cotizaciones</a>
-            </li>   
-            <li class="nav-item">
-                <a class="nav-link" href="${prefix}activos.html">Mis Activos</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${prefix}movimientos.html">Mis Movimientos</a>
-            </li>`)
 
+        // Se cargan las secciones 'Cotizaciones', Mis Activos' y 'Mis Movimientos'.
+        const enlacesNav = 
+        `<li class="nav-item">
+            <a class="nav-link" aria-current="page" href="${prefix}cotizaciones.html">Cotizaciones</a>
+        </li>   
+        <li class="nav-item">
+            <a class="nav-link" href="${prefix}activos.html">Mis Activos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="${prefix}movimientos.html">Mis Movimientos</a>
+        </li>`
+
+        $('#enlacesNav').empty().append(enlacesNav)
+        $('#enlacesNavLateral').empty().append(enlacesNav)
+        
         // Se ocultan botones 'Iniciar Sesión' y 'Registrarse'
         // Se muestra el username y un botón para cerrar sesión.
-        $('#enlacesLogin').empty()
-                          .append(
-            `<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ${sessionStorage.getItem('username')}
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a id="cerrarSesion__button" class="dropdown-item" href="#">Cerrar sesión</a></li>
-                </ul>
-            </li>`
-        )
+        let enlacesLogin = 
+        `<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ${sessionStorage.getItem('username')}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="cerrarSesion__button" class="dropdown-item" href="#">Cerrar sesión</a></li>
+            </ul>
+        </li>`
+        
+        $('#enlacesLogin').empty().append(enlacesLogin)
+        $('#enlacesLoginLateral').empty().append(enlacesLogin)
+        
         // Se asocia evento para cerrar sesión
-        $('#cerrarSesion__button').click(cerrarSesionActual)
+        $('.cerrarSesion__button').click(cerrarSesionActual)
     }
     else {
         // Se muestra sólo sección 'Cotizaciones'
-        $('#enlacesNav').empty()
-                        .append(
-            `<li class="nav-item">
-                <a class="nav-link" aria-current="page" href="${prefix}cotizaciones.html">Cotizaciones</a>
-            </li>`)
+        const enlacesNav =
+        `<li class="nav-item">
+            <a class="nav-link" aria-current="page" href="${prefix}cotizaciones.html">Cotizaciones</a>
+        </li>`
+        $('#enlacesNav').empty().append(enlacesNav)
+        $('#enlacesNavLateral').empty().append(enlacesNav)
+        
         // Se muestran botones 'Iniciar Sesión' y 'Registrarse'
-        $('#enlacesLogin').empty()
-                          .append(
-            `<li class="nav-item">
-                <button type="button" class="btn btn-success">
-                    <a class="encabezado__button" href="${prefix}login.html">Iniciar sesión</a>
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="btn btn-danger">
-                    <a class="encabezado__button" href="${prefix}registro.html">Registrarse</a>
-                </button>
-            </li>`
-        )
-    }
+        const enlacesLogin =
+        `<li class="nav-item">
+            <button type="button" class="btn btn-success">
+                <a class="encabezado__button" href="${prefix}login.html">Iniciar sesión</a>
+            </button>
+        </li>
+        <li class="nav-item">
+            <button type="button" class="btn btn-danger">
+                <a class="encabezado__button" href="${prefix}registro.html">Registrarse</a>
+            </button>
+        </li>`
+
+        $('#enlacesLogin').empty().append(enlacesLogin)
+        $('#enlacesLoginLateral').empty().append(enlacesLogin)
+   }
 }
 
 // Switch para visualizar u ocultar la contraseña en el form de Login y de Registro.

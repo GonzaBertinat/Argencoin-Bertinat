@@ -16,6 +16,7 @@
 </head>
 <body>
     <header>
+      <!-- Menú de navegación superior -->
       <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
           <div class="encabezado container-fluid">
             <div class="encabezado__contenedorLogo">
@@ -24,7 +25,7 @@
               </a>
             </div>
             <div>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse encabezado__enlaces" id="navbarNavDropdown">
@@ -42,6 +43,21 @@
             </div>       
           </div>
       </nav>
+      <!-- Menú de navegación lateral -->
+      <div class="encabezado__menu-lateral offcanvas offcanvas-start" id="menuLateral" tabindex="-1"  aria-labelledby="menuLateralLabel">
+        <div class="offcanvas-body">
+            <div class="encabezado__grupoEnlacesLateral">
+              <ul id="enlacesNavLateral">
+                <!-- Se carga dinámicamente en función de si existe o no una sesión iniciada -->
+              </ul>
+            </div>
+            <div class="encabezado__grupoEnlacesLateral">
+              <ul id="enlacesLoginLateral">
+                <!-- Se carga dinámicamente en función de si existe o no una sesión iniciada -->
+              </ul>
+            </div>
+        </div>
+      </div>
     </header>
     <main>
         <section id="billetera">

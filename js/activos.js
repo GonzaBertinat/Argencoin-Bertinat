@@ -53,7 +53,7 @@ const actualizarSaldoTotal = (saldoCripto, criptomoneda) => {
             saldoTotalFinal = formatoCripto(total / monedaElegida.cotizacion)
     }
 
-    $(`#saldoTotal`).empty().append(`$ ${saldoTotalFinal}`)
+    $(`#saldoTotal`).empty().append(`${saldoTotalFinal}`)
     
     // Se persiste en Storage el nuevo saldo total acumulado.
     sessionStorage.setItem('saldo', total)

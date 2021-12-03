@@ -1,12 +1,24 @@
 /* Reseteo CSS*/
-html {
+* {
     margin: 0;
     padding: 0;
+    font-family: "Glory", sans-serif;
+    font-size: 1.1rem;
 }
 
 /*** Selectores comunes a todos los documentos del sitio ***/
 nav {
     background-color: #0c88eb;
+}
+
+
+section {
+    padding: 25px 0;
+}
+
+.bordes__negros {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .dropdown-menu {
@@ -26,7 +38,6 @@ nav {
 }
 
 .fondoSeccion {
-    height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -35,6 +46,13 @@ nav {
 .encabezado {
     display: flex;
     justify-content: space-between;
+}
+
+.titulo__seccion {
+    font-weight: 700;
+    font-style: italic;
+    font-size: 2.5rem;
+    font-family: 'Lato', sans-serif;
 }
 
 .encabezado__contenedorLogo {
@@ -123,11 +141,19 @@ nav {
     margin: 0 auto;
     padding: 5px 3px;
     border-radius: 10px;
+    transition: all 0.5s;
+}
+
+.botonIndex:hover {
+    font-weight: bold;
+    color: white;
+    transform: scale(1.2,1.2);
 }
 
 .fondoIndex {
     background-image: url(../images/fondos/index.jpg);
     display: flex;
+    height: 100vh;
 }
 
 .fondoIndex__contenedor {
@@ -135,17 +161,30 @@ nav {
     flex-direction: column;
     height: 100%;
     overflow: hidden;
-    justify-content: center;
-    align-items:flex-end;
+    justify-content: flex-start;
+    padding-top: 20vh;
+    align-items: center;
     color: #ffcc3b;
 }
 
 .fondoIndex__titulo {
-    font-size: 4rem;
+    font-size: 6rem;
+    color: #ffa500;
+    -webkit-text-stroke-width: 7px;
+    letter-spacing: -5px;
 }
 
 .fondoIndex__slogan {
-    font-size: 2rem;
+    font-size: 3rem;
+    -webkit-text-stroke-width: 4px;
+    letter-spacing: -2px;
+    text-align: center;
+}
+
+.fondoIndex__titulo, .fondoIndex__slogan {
+    -webkit-text-stroke-color: #000000;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
 }
 
 /* Estilos para sección de Cotizaciones en Index*/
@@ -153,8 +192,6 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
     text-align: center;
 }
 
@@ -184,8 +221,6 @@ nav {
 .opcionesIndex {
     background-color: #0c88eb;
     text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
 }
 
 .opcionesIndex__titulo {
@@ -193,8 +228,13 @@ nav {
 }
 
 .opcionesIndex__texto {
-    width: 70%;
     margin: 0 auto;
+    font-weight: bold;
+}
+
+.opcionesIndex__nota {
+    font-weight: bold;
+    font-size: 1rem;
 }
 
 .opciones__contenedor {
@@ -208,7 +248,7 @@ nav {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 10px;
+    margin: 20px 5px;
     border-radius: 10px;
     padding: 10px;
 }
@@ -238,8 +278,6 @@ nav {
 /* Estilos para sección 'Comenzá ya!' en Index */
 .registroIndex {
     text-align: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
 }
 
 .registroIndex__imagen {
@@ -272,7 +310,7 @@ nav {
 
 /*** Selectores para seccion 'Cotizaciones' ***/
 .cotizaciones__info{
-    margin: 60px 0 20px 0;
+    padding: 15vh 0 0 0;
     text-align: center;
 }
 
@@ -281,38 +319,46 @@ nav {
 }
 
 /* Estilo para cotizacion de criptomoneda */
-.cotizacion {
+.cotizacionIndex {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(165, 165, 161);
+    background-color: #d6d8da;
     border: 2px solid black;
     border-radius: 5%;
     margin: 5px;
-}
-
-.cotizacion__moneda {
-    font-size: 20px;
-}
-
-.cotizacion__logo {
-    width: 100px;
-}
-
-.cotizacion__precio {
+    padding: 8px 0;
     font-weight: bold;
+}
+
+.cotizacionIndex__moneda {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.cotizacionIndex__logo {
+    width: 75px;
+    margin: 10px 0;
+}
+
+.cotizacionIndex__precio {
+    margin: 10px 0;
 }
 
 /*** Selectores para seccion 'Mis activos' ***/
 .activos__titulo {
     text-align: center;
-    font-weight: bold;
 }
 
 .activos__subtitulo {
     font-style: italic;
-    text-align: center;
+    text-align: start;
+}
+
+
+#balance {
+    padding: 20px 0 10px 0;
 }
 
 #balance .row {
@@ -320,11 +366,36 @@ nav {
 }
 
 #billetera {
-    margin: 20px auto;
+    padding-top: 15vh;
+}
+
+.balance__activos {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.balance__activos .activos__subtitulo {
+    padding-left: 10px;
+}
+
+#saldo__total {
+    width: 100%;
+}
+
+#listaSaldos {
+    justify-content: center;
+}
+
+#listaSaldos .activos__subtitulo {
+    padding-left: 20px;
 }
 
 .saldo {
-    margin: 0 auto;
+    width: 47.5%;
+    margin: 3px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -391,7 +462,7 @@ nav {
 /*** Selectores para seccion 'Mis movimientos' ***/
 
 #movimientos {
-    margin: 20px 0;
+    padding-top: 15vh;
 }
 
 .movimientos__header {
@@ -747,7 +818,8 @@ nav {
 .fondoRegistro {
     background-image: url(../images/fondos/registro.jpg);
     display: flex;
-    padding-top: 100px;
+    padding-top: 15vh;
+    padding-bottom: 15vh;
 }
 
 .registro__contenedor, .login__contenedor {
@@ -821,7 +893,8 @@ nav {
     margin-bottom: 15px;
     border-radius: 20px;
     width: 100%; 
-    color: white; 
+    color: white;
+    opacity: 0; 
     font-weight: bold;
 }
 
@@ -829,7 +902,8 @@ nav {
 .fondoLogin {
     background-image: url(../images/fondos/login.jpg);
     display: flex;
-    padding-top: 100px;
+    padding-top: 15vh;
+    padding-bottom: 15vh;
 }
 
 /*************************/

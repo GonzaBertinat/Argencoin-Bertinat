@@ -138,7 +138,7 @@ const cerrarSesionActual = () => {
 // Actualiza los enlaces y botones de la barra de navegación dependiendo si hay un usuario en sesión o no. 
 const cargarNavbar = (sesionActiva) => {
 
-    let prefix = (window.location.pathname === '/' || window.location.pathname.includes('index.html')) ? 'pages/' : ''
+    let prefix = (window.location.pathname.endsWith('/') || window.location.pathname.includes('index.html')) ? 'pages/' : ''
     if(sesionActiva){
         // Se cargan las secciones 'Cotizaciones', Mis Activos' y 'Mis Movimientos'.
         $('#enlacesNav').empty()
@@ -214,10 +214,12 @@ const mostrarMensaje = (tipo, mensaje) => {
     $('#mensajeAlerta').empty()
                        .append(`<span>${mensaje}</span>`)
                        .css('background-color', tipo === 'ERROR' ? 'red' : 'green')
+                       .css('opacity', 1)
                        .fadeIn(1000)
-                       .delay(3000)
-                       .fadeOut(1000)
-                       
+                       .delay(2000)
+                       .animate({
+                        opacity: 0,
+                      }, 2000)                       
 }
 
 // Consulta vía API de Coinbase la cotización SPOT de las criptomonedas recibidas por parámetro.
@@ -289,5 +291,12 @@ $(document).ready(() => {
     if(!sessionStorage.getItem('username') && 
        (documento.includes('activos.html') || documento.includes('movimientos.html'))){
         window.location.replace("login.html")
+    }
+
+    /* Si ya existe una sesión iniciada y se quiere abrir 'Login' o 'Registro'
+       se redirige a 'Mis Activos ya que son páginas que no tiene sentido acceder estando en sesión */
+    if(sessionStorage.getItem('username') && 
+        (documento.includes('login.html') || documento.includes('registro.html'))){
+        window.location.replace("activos.html")
     }
 })

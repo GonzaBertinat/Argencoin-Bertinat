@@ -7,10 +7,10 @@ const renderizarSeccionCotizaciones = () => {
     criptos.forEach(c => {
         $('.cotizacionesIndex__contenedor').append(
             `<div class="col-6 col-md-3">
-                <div class="cotizacion">
-                    <span class="cotizacion__moneda">${c.nombreFormateado()}</span>
-                    <img class="cotizacion__logo" src="${c.rutaImagen}">
-                    <span id="cotizacion__precio_${c.sigla}" class="cotizacion__precio">Cargando...</span>
+                <div class="cotizacionIndex">
+                    <span class="cotizacionIndex__moneda">${c.nombreFormateado()}</span>
+                    <img class="cotizacionIndex__logo" src="${c.rutaImagen}">
+                    <span id="cotizacionIndex__precio_${c.sigla}" class="cotizacionIndex__precio">Cargando...</span>
                 </div>
             </div>`
         )
@@ -19,7 +19,7 @@ const renderizarSeccionCotizaciones = () => {
 
 // Función utilizada como callback que reemplaza en el DOM el precio de una criptomoneda. 
 const renderizarCotizacion = (criptomoneda) => {
-    $(`#cotizacion__precio_${criptomoneda.sigla}`).empty().append(`${criptomoneda.cotizacion} USD`)
+    $(`#cotizacionIndex__precio_${criptomoneda.sigla}`).empty().append(`${criptomoneda.cotizacion} USD`)
 }
 
 // Inicializa documento.
@@ -32,6 +32,6 @@ $(document).ready(() => {
     obtenerCotizaciones(criptos, renderizarCotizacion)
     
     // Se ejecuta breve animación en el título del sitio.
-    $('.fondoIndex__titulo').animate({fontSize: '100px'},1500)
-                            .animate({fontSize: '70px'},1500)
+    $('.fondoIndex__titulo').animate({fontSize: '7rem'},1500)
+                            .animate({fontSize: '6rem'},1500)
 })

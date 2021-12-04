@@ -11,20 +11,24 @@ const procesarRegistro = () => {
 
     // Se realizan validaciones de campos vacíos y además para el email se utiliza una expresión regular.
     if(!mail){
-        mostrarMensaje('ERROR','Debe ingresar un mail')
+        mostrarMensaje('ERROR','Debe ingresar un mail.')
         return    
     }
     if (!mailRegex.test((mail).toLowerCase())){
-        mostrarMensaje('ERROR','El formato del mail ingresado es incorrecto')
+        mostrarMensaje('ERROR','El formato del mail ingresado es incorrecto.')
         return
     }
     if(!user){
-        mostrarMensaje('ERROR','Debe ingresar un nombre de usuario')
+        mostrarMensaje('ERROR','Debe ingresar un nombre de usuario.')
         return    
     }
     if(!pass){
-        mostrarMensaje('ERROR','Debe ingresar una contraseña')
+        mostrarMensaje('ERROR','Debe ingresar una contraseña.')
         return    
+    }
+    if(user.length > 15){
+        mostrarMensaje('ERROR','El nombre de usuario no puede superar los 15 caracteres.')
+        return
     }
 
     // Se valida existencia del usuario. Si no existe, se crea al usuario y se lo persiste en el Local Storage.

@@ -1,0 +1,76 @@
+
+/* Selectores para hacer responsive al sitio en distintos dispositivos */
+/* Complementan responsividad generada con sistema de grillas de Boostrap */
+/* Se utilizan tres breakpoints de Bootstrap para facilitar aplicación de estilos
+   y un breakpoint extra para resoluciones de móviles bien pequeños */
+
+/* Breakpoint Medium (md) --> Large (lg) de Bootstrap */
+@media only screen and (max-width: 991px){
+    .fondoIndex__titulo {
+        font-size: 5rem;
+        -webkit-text-stroke-width: 5px;
+        letter-spacing: -3px;
+    }
+    
+    .fondoIndex__slogan {
+        font-size: 2.5rem;
+        -webkit-text-stroke-width: 3px;
+        letter-spacing: -2px;
+    }
+}
+
+/* Breakpoint Small (sm) --> Medium (md) de Bootstrap */
+@media only screen and (max-width: 767px){
+    .fondoIndex__titulo {
+        font-size: 4rem;
+        -webkit-text-stroke-width: 5px;
+        letter-spacing: -3px;
+    }
+    
+    .fondoIndex__slogan {
+        font-size: 2rem;
+        -webkit-text-stroke-width: 2px;
+        letter-spacing: -2px;
+    }
+
+    .titulo__seccion {
+        font-size: 2rem;
+    }
+
+    .registroIndex .row div {
+        margin-top: 10px;
+    }
+}
+
+/* Breakpoint X-Small --> Small (sm) de Bootstrap */
+@media only screen and (max-width: 575px){
+    
+    .fondoIndex__titulo {
+        font-size: 3.5rem;
+        -webkit-text-stroke-width: 4px;
+        letter-spacing: -3px;
+    }
+
+    .cotizacionIndex__moneda {
+        font-size: 20px;
+        margin: 5px 0;
+    }
+    
+    .cotizacionIndex__logo {
+        width: 60px;
+        margin: 5px 0;
+    }
+    
+    .cotizacionIndex__precio {
+        margin: 5px 0;
+    }
+}
+
+/* Breakpoint extra para resoluciones muy pequeñas de hasta 375px de ancho */
+@media only screen and (max-width: 375px){
+    .fondoIndex__titulo {
+        font-size: 3rem;
+        -webkit-text-stroke-width: 3px;
+        letter-spacing: -3px;
+    }
+}

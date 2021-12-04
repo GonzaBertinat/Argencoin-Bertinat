@@ -127,9 +127,12 @@ section {
 /**/
 
 .cerrarSesion__button {
+    display: block;
+    text-align: center;
     background-color: #0c88eb;
     color: white;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .cerrarSesion__button:hover {
@@ -182,10 +185,12 @@ section {
 .botonIndex {
     text-decoration: none;
     text-align: center;
-    margin: 0 auto;
-    padding: 5px 3px;
+    margin: 10px auto;
+    padding: 8px 0;
     border-radius: 10px;
     transition: all 0.5s;
+    display: block;
+    width: 50%;
 }
 
 .botonIndex:hover {
@@ -203,19 +208,18 @@ section {
 .fondoIndex__contenedor {
     display: flex;
     flex-direction: column;
-    height: 100%;
     overflow: hidden;
     justify-content: flex-start;
     padding-top: 20vh;
     align-items: center;
-    color: #ffcc3b;
+    color: #ffa500;
 }
 
 .fondoIndex__titulo {
     font-size: 6rem;
-    color: #ffa500;
     -webkit-text-stroke-width: 7px;
     letter-spacing: -5px;
+    text-align: center;
 }
 
 .fondoIndex__slogan {
@@ -240,7 +244,6 @@ section {
 }
 
 .cotizacionesIndex p {
-    width: 60%;
     margin: 0 auto;
     padding: 10px;
 }
@@ -255,10 +258,13 @@ section {
     justify-content: center;
 }
 
+.cotizacionesIndex__contenedorBoton {
+    margin: 0 auto;
+}
+
 .cotizacionesIndex__link {
     color: white;
     background-color: #0c88eb;
-    width: 20%;
 }
 
 /* Estilos para sección 'Gestioná tus activos' en Index */
@@ -272,7 +278,7 @@ section {
 }
 
 .opcionesIndex__texto {
-    margin: 0 auto;
+    text-align: center;
     font-weight: bold;
 }
 
@@ -282,8 +288,8 @@ section {
 }
 
 .opciones__contenedor {
-    display: flex;
     justify-content: center;
+    margin: 0 auto;
 }
 
 .opcion {
@@ -305,6 +311,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
 }
 
 .opcion__imagen {
@@ -312,11 +319,13 @@ section {
 }
 
 .opcion__titulo {
+    margin: 10px 0;
     font-weight: bold;
+    text-align: center;
 }
 
 .opcion__texto {
-    width: 80%;
+    text-align: center;
 }
 
 /* Estilos para sección 'Comenzá ya!' en Index */
@@ -340,16 +349,20 @@ section {
 
 .registroIndex__titulo {
     font-weight: bold;
+    margin: 10px 0;
 }
 
 .registroIndex__texto {
-    width: 80%;
+    margin: 10px 0;
 }
 
 .registroIndex__link {
     color: white;
     background-color: black;
-    width: 33%;
+}
+
+.registroIndex .row div {
+    margin-top: 25px;
 }
 
 /*** Selectores para seccion 'Cotizaciones' ***/
@@ -374,6 +387,9 @@ section {
     margin: 5px;
     padding: 8px 0;
     font-weight: bold;
+}
+.cotizacionesIndex__contenedor .container .row {
+    justify-content: center;
 }
 
 .cotizacionIndex__moneda {

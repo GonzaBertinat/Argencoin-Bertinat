@@ -887,7 +887,6 @@ section {
     background-color: white;
     border: 1px solid black;
     border-radius: 10px;
-    width: 50%;
 }
 
 #registro__form, #login__form {
@@ -898,6 +897,8 @@ section {
     display: flex;   
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .registro__logo, .login__logo {
@@ -920,7 +921,7 @@ section {
     margin: 10px auto;
 }
 
-#registro-submit {
+#registro__submit, #login__submit {
     margin: 0 auto;
 }
 

@@ -64,6 +64,7 @@
     .cotizacionIndex__precio {
         margin: 5px 0;
     }
+
 }
 
 /* Breakpoint extra para resoluciones muy pequeñas de hasta 375px de ancho */
@@ -72,5 +73,13 @@
         font-size: 3rem;
         -webkit-text-stroke-width: 3px;
         letter-spacing: -3px;
+    }
+    
+    .registro__logo, .login__logo {
+        width: 75%;
+    }
+
+    .registro__contenedorLogo h1, .login__contenedorLogo h1 {
+        width: 90%;
     }
 }

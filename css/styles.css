@@ -520,16 +520,23 @@ section {
 }
 
 /*** Selectores para seccion 'Mis movimientos' ***/
-
 #movimientos {
     padding-top: 15vh;
 }
 
 .movimientos__header {
-    display: flex; 
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
+}
+
+.movimientos__header span {
+    display: block;
+    text-align: center;
+}
+
+.movimientos__header col-11 {
+    margin: 0 auto;
 }
 
 .movimientos__titulo {
@@ -543,10 +550,12 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-left: 10px;
     background-color: #0c88eb;
     color: white;
     font-weight: bold;
+    height: 65px;
+    text-align: center;
+    padding: 10px;
 }
 
 .movimientos__boton {
@@ -612,6 +621,12 @@ section {
     padding: 5px 0;
 }
 
+.movimientos__tablaHeader div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .cantidad__contenedor {
     background-color: #0c88eb;
     color: white;
@@ -620,6 +635,7 @@ section {
     padding: 5px;
     display: flex;
     justify-content: center;
+    margin: 0 auto;
 }
 
 .cantidad__contenedor select {
@@ -635,13 +651,19 @@ section {
 }
 
 .movimiento__contenedor {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: rgb(75, 168, 205);
     border-radius: 10px;
     border: 1px solid black;
     padding: 10px;
+    justify-content: center;
+}
+
+.movimiento__contenedor .col-12 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    text-align: center;
 }
 
 .movimiento__contenedor-light {
@@ -652,19 +674,22 @@ section {
     background-color: #c1c3c4;
 }
 
+.movimiento__label {
+    display: none;
+}
+
 .movimiento__operacion {
-    width: 50px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 10%;
 }
 
 .movimiento__imagenOperacion {
     border: 1px solid black;
     border-radius: 100%;
     padding: 7px;
-    width: 40%;
+    width: 35%;
+    display: flex;
 }
 
 .movimiento__imagenOperacion img {
@@ -685,9 +710,8 @@ section {
 
 .movimiento__moneda {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    width: 10%;
 }
 
 .movimiento__moneda div {
@@ -706,39 +730,19 @@ section {
     font-weight: bold;
 }
 
-.movimiento__fecha {
-    text-align: center;
-    font-weight: bold;
-    width: 10%;
+.movimiento__deleteButton {
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.movimiento__unidades {
-    width: 10%;
-    text-align: left;
-    font-weight: bold;
-}
-
-.movimiento__precio {
-    width: 10%;
-    text-align: left;
-    font-weight: bold;
-}
-
-.movimiento__eliminar {
-    padding: 10px;
-}
-
-.movimiento__eliminar button:focus{
+.movimiento__deleteButton:focus{
     box-shadow: none;
 }
 
-.movimiento__deleteButton {
-    border-radius: 10px;
-    width: 60px;
-}
-
 .movimiento__deleteIcon {
-    width: 100%;
+    width: 35px;
 }
 
 .paginador__contenedor {
@@ -774,7 +778,7 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    text-align: center;
     margin: 0;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
@@ -974,13 +978,13 @@ section {
     margin-bottom: 50px;
 }
 
-.cotizacion__header {
+.cotizacion__header, .movimientos__tablaHeader {
     background-color: #0c88eb;
     color: white;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
-    padding: 10px 10px;
+    padding: 10px;
     font-weight: bold;
 }
 

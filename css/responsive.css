@@ -17,6 +17,10 @@
         -webkit-text-stroke-width: 3px;
         letter-spacing: -2px;
     }
+
+    .movimiento__imagenOperacion {
+        width: 60%;
+    }
 }
 
 /* Breakpoint Small (sm) --> Medium (md) de Bootstrap */
@@ -39,6 +43,50 @@
 
     .registroIndex .row div {
         margin-top: 10px;
+    }
+    
+    #listaMovimientos .movimientos__tablaHeader {
+        display: none;
+    }
+
+    .movimiento__contenedor {
+        margin-bottom: 10px;
+    }
+
+    .movimiento__contenedor span {
+        font-size: 1rem;
+    }
+
+    .movimiento__contenedor .col-12 {
+        justify-content: space-between;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        padding: 6px 0;
+    }
+    
+    .movimiento__contenedor .col-12:first-child {
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    .movimiento__contenedor .col-12:last-child {
+        border-bottom: 0;
+        justify-content: center;
+    }
+
+    .movimiento__operacion {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .movimiento__label {
+        display: block;
+    }
+
+    .movimiento__imagenOperacion {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
     }
 }
 
@@ -65,6 +113,22 @@
         margin: 5px 0;
     }
 
+    .movimientos__header {
+        justify-content: center;
+    }
+
+    .movimientos__agregar, .movimientos__filtros {
+        margin-bottom: 10px;
+    }
+
+    .movimiento__imagenOperacion {
+        width: 40%;
+        max-width: 100px;
+    }
+
+    .movimiento__contenedor span {
+        font-size: 0.9rem;
+    }
 }
 
 /* Breakpoint extra para resoluciones muy pequeñas de hasta 375px de ancho */
@@ -82,4 +146,14 @@
     .registro__contenedorLogo h1, .login__contenedorLogo h1 {
         width: 90%;
     }
+
+    .cantidad__contenedor span {
+        font-size: 1rem;
+    }
+
+    #paginaAnteriorButton, #paginaSiguienteButton, .paginador__info p, .paginador__info span {
+        font-size: 1rem;
+    }
+
+
 }

@@ -1,41 +1,28 @@
 // Se carga encabezado con nombre de columnas para la tabla de movimientos
 const renderizarHeaderMovimientos = () => {
     $('#listaMovimientos').append(
-        `<div class="col-12">
-            <div class="cotizacion__header">
-                <div class="cotizacion__grupoTitulos">
-                    <div class="cotizacion__titulo">
-                        <span>OPERACIÓN</span>
-                    </div>
+        `<div class="container">
+            <div class="row movimientos__tablaHeader">
+                <div class="col-2">
+                    <span>OPERACIÓN</span>
                 </div>
-                <div class="cotizacion__grupoTitulos">
-                    <div class="cotizacion__titulo">
-                        <span>MONEDA</span>
-                    </div>
+                <div class="col-2">
+                    <span>MONEDA</span>
                 </div>
-                <div class="cotizacion__grupoTitulos">
-                    <div class="cotizacion__titulo">
-                        <span>FECHA</span>
-                    </div>
+                <div class="col-2">
+                    <span>FECHA</span>
                 </div>
-                <div class="cotizacion__grupoTitulos">
-                    <div class="cotizacion__titulo">
-                        <span>MONTO</span>
-                    </div>
+                <div class="col-3">
+                    <span>MONTO</span>
                 </div>
-                <div class="cotizacion__grupoTitulos">
-                    <div class="cotizacion__titulo">
-                        <span>COTIZACIÓN</span>
-                    </div>
+                <div class="col-2">
+                    <span>COTIZACIÓN</span>
                 </div>
-                <div class="cotizacion__grupoTitulos">
-                    <div class="cotizacion__titulo">
-                        <span>ELIMINAR</span>
-                    </div>
+                <div class="col-1">
+                    <span></span>
                 </div>
             </div>
-        </div>`
-    )
+        </div>`)
 }
 
 // Devuelve los movimientos correspondientes a una página seleccionada en la vista.
@@ -55,9 +42,7 @@ const renderizarPaginador = (paginaActual, cantidadMovimientos) => {
     
     $('#paginador').empty()
                    .append(`
-                    <div class="container">
-                      <div class="row">
-                        <div class="col-12 col-md-5 paginador__contenedor">
+                        <div class="col-12 col-sm-9 col-md-7 paginador__contenedor">
                             <button id="paginaAnteriorButton" ${!habilitarAnterior ? 'disabled = "true" class="paginador__deshabilitado"' : ''}>Anterior</button>
                             <div class="paginador__info">
                                 <p>Página <span id="paginaActual">${paginaActual+1}</span> de <span id="ultimaPagina">${cantidadPaginas}</span></p>
@@ -65,8 +50,7 @@ const renderizarPaginador = (paginaActual, cantidadMovimientos) => {
                             </div>
                             <button id="paginaSiguienteButton" ${!habilitarSiguiente ? 'disabled = "true" class="paginador__deshabilitado"' : ''}>Siguiente</button>
                         </div>    
-                      </div>  
-                    </div>`)
+                    `)
 
     // Cargo eventos para botones de página siguiente y anterior
     let filtro = $('#selectFiltroMovimientos').val()
@@ -83,7 +67,7 @@ const renderizarPaginador = (paginaActual, cantidadMovimientos) => {
     let cantidadCombo = parseInt(sessionStorage.getItem('movimientosPorPagina'))
     $('#movimientos__cantidad').empty()
                                .append(
-                                `<div class="cantidad__contenedor">   
+                                `<div class="col-12 col-sm-9 col-md-7 cantidad__contenedor">   
                                     <span>Mostrar</span>
                                         <select id="selectCantidadMovimientos" class="comboCantidad">
                                             <option value="3" ${cantidadCombo === 3 ? 'selected="true"' : ''}>3</option>
@@ -139,40 +123,49 @@ const renderizarMovimientos = (username, filtro, numeroPagina) => {
             let movimiento = new Movimiento(m)
             let criptomoneda = criptomonedas.find(c => c.sigla === movimiento.moneda)
             
-            $('#listaMovimientos').append(
-                `<div id="${movimiento.id}" class="col-12">
-                    <div class="movimiento__contenedor ${index % 2 === 0 ? 'movimiento__contenedor-light' : 'movimiento__contenedor-normal'}">
-                        <div class="movimiento__operacion">
-                            <div class="movimiento__imagenOperacion ${movimiento.operacion === 'C' ? 'movimiento__compra' : 'movimiento__venta'}">
-                                ${movimiento.operacion === 'C' ? '<img src="../images/icons/compra-icon.png" alt="Compra">' : '<img src="../images/icons/venta-icon.png" alt="Venta">'}
-                            </div>
-                            <div class="movimiento__tipoOperacion">
-                                ${movimiento.operacion === 'C' ? '<span>Compra</span>' : '<span>Venta</span>'}
-                            </div>
-                        </div>
-                        <div class="movimiento__moneda">
-                            <div class="movimiento__imagenMoneda">
-                                <img src="../${criptomoneda.rutaImagen}" alt="${criptomoneda.sigla}">
-                            </div>
-                            <div class="movimiento__nombreMoneda">
-                                <span>${criptomoneda.sigla}</span>
+            $('#listaMovimientos .container').append(
+                `<div id="${movimiento.id}" class="row movimiento__contenedor ${index % 2 === 0 ? 'movimiento__contenedor-light' : 'movimiento__contenedor-normal'}">
+                    
+                        <div class="col-12 col-md-2">
+                            <span class="movimiento__label">OPERACIÓN</span>
+                            <div class="movimiento__operacion">
+                                <div class="movimiento__imagenOperacion ${movimiento.operacion === 'C' ? 'movimiento__compra' : 'movimiento__venta'}">
+                                    ${movimiento.operacion === 'C' ? '<img src="../images/icons/compra-icon.png" alt="Compra">' : '<img src="../images/icons/venta-icon.png" alt="Venta">'}
+                                </div>
+                                <div class="movimiento__tipoOperacion">
+                                    ${movimiento.operacion === 'C' ? '<span>Compra</span>' : '<span>Venta</span>'}
+                                </div>
                             </div>
                         </div>
-                        <div class="movimiento__fecha">
+                        <div class="col-12 col-md-2">
+                            <span class="movimiento__label">MONEDA</span>
+                            <div class="movimiento__moneda">
+                                <div class="movimiento__imagenMoneda">
+                                    <img src="../${criptomoneda.rutaImagen}" alt="${criptomoneda.sigla}">
+                                </div>
+                                <div class="movimiento__nombreMoneda">
+                                    <span>${criptomoneda.sigla}</span>
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="col-12 col-md-2">
+                            <span class="movimiento__label">FECHA</span>
                             <span>${new Date(movimiento.fechaCarga).toLocaleString()}</span>
                         </div>
-                        <div class="movimiento__unidades">
+                        <div class="col-12 col-md-3">
+                            <span class="movimiento__label">MONTO</span>
                             <span>${formatoCripto(movimiento.unidades)}</span>
                         </div>
-                        <div class="movimiento__precio">
+                        <div class="col-12 col-md-2">
+                            <span class="movimiento__label">COTIZACIÓN</span>
                             <span>${movimiento.precio}</span>
                         </div>
-                        <div class="movimiento__eliminar">
+                        <div class="col-12 col-md-1">    
                             <button onclick="asignarId(${movimiento.id})" type="button" class="movimiento__deleteButton btn" data-bs-toggle="modal" data-bs-target="#confirmarBorradoForm" data-toggle="tooltip" data-placement="left" title="Borrar movimiento">
                                 <img class="movimiento__deleteIcon" src="../images/icons/borrar-icon.png">
                             </button>
                         </div>
-                    </div>
+                    
                 </div>`
             )
             
@@ -182,7 +175,7 @@ const renderizarMovimientos = (username, filtro, numeroPagina) => {
                             .delay(300 * index)
                             .slideDown(1500)
         })
-
+        
     }
 }
 

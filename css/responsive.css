@@ -19,7 +19,7 @@
     }
 
     .movimiento__imagenOperacion {
-        width: 60%;
+        width: 35px;
     }
 }
 
@@ -84,9 +84,11 @@
     }
 
     .movimiento__imagenOperacion {
-        width: 35px;
-        height: 35px;
         margin-right: 10px;
+    }
+    
+    .cotizacion__info {
+        padding-left: 5px;
     }
 }
 
@@ -121,13 +123,67 @@
         margin-bottom: 10px;
     }
 
-    .movimiento__imagenOperacion {
-        width: 40%;
-        max-width: 100px;
-    }
-
     .movimiento__contenedor span {
         font-size: 0.9rem;
+    }
+
+    .cotizacion__header {
+        display: none;
+    }
+
+    .cotizacion__contenedor {
+        flex-direction: column;
+        margin-bottom: 10px;
+        padding: 5px 5px;
+        justify-content: center;
+        margin: 15px 10px;
+    }
+    
+    .cotizacion__contenedor .col-12 {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        font-size: 0.9rem;
+    }
+
+    .cotizacion__contenedor .col-12:first-child {
+        justify-content: center;
+        border-top: 0;
+        padding-top: 0;
+    }
+
+    .cotizacion__contenedor .col-12:last-child {
+        border-bottom: 0;
+    }
+
+    .cotizacion__info {
+        justify-content: center;
+    }
+
+    .cotizacion__label {
+        display: block;
+        font-size: 1rem;
+    }
+
+    .cotizacion__nombre {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+    }
+
+    .cotizacion__moneda {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+
+    .cotizacion__sigla {
+        font-size: 1.2rem;
+    }
+    
+    .cotizacion__usd span, .cotizacion__ars span {
+        font-size: 1rem;
+        padding: 10px 0;
     }
 }
 

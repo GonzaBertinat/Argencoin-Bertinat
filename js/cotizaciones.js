@@ -3,8 +3,8 @@ const renderizarCotizaciones = criptomonedas => {
     // Para cada criptomoneda generamos su HTML correspondiente.
     criptomonedas.forEach( (c,index) => {
         $('#listaCotizaciones').append(
-            `<div class="col-12 col-md-10" id="precio${c.sigla}">
-                <div class="cotizacion__contenedor ${index % 2 === 0 ? 'cotizacion__contenedor-light' : 'cotizacion__contenedor-normal'}">
+            `<div class="row cotizacion__contenedor ${index % 2 === 0 ? 'cotizacion__contenedor-light' : 'cotizacion__contenedor-normal'}" id="precio${c.sigla}">
+                <div class="col-12 col-sm-5">
                     <div class="cotizacion__info">
                         <div class="cotizacion__logo">
                             <img src="../${c.rutaImagen}" alt="Logo ${c.nombre}">
@@ -14,13 +14,16 @@ const renderizarCotizaciones = criptomonedas => {
                             <span class="cotizacion__sigla">(${c.sigla})</span>
                         </div>
                     </div>
-                    <div class="cotizacion__precios">
-                        <div class="cotizacion__usd" id="${c.sigla}-USD">Cargando...</div>
-                        <div class="cotizacion__ars" id="${c.sigla}-ARS">Cargando...</div>
-                    </div>
                 </div>
-            </div>`
-        )
+                <div class="col-12 col-sm-3 cotizacion__usd">
+                    <span class="cotizacion__label">PRECIO USD</span>
+                    <span id="${c.sigla}-USD">Cargando...</span>            
+                </div>
+                <div class="col-12 col-sm-4 cotizacion__ars">
+                    <span class="cotizacion__label">PRECIO ARS</span>
+                    <span id="${c.sigla}-ARS">Cargando...</span>        
+                </div>
+            </div>`)
 
         // Se muestra la cotización con una animación de fadeIn y se carga después de la anterior.
         $(`#precio${c.sigla}`).fadeOut(0) 

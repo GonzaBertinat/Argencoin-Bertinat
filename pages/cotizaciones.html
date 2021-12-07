@@ -7,6 +7,7 @@
     <title>Cotizaciones</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/responsive.css">
     <link rel="icon" type="image/png" sizes="32x32" href="../images/icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,37 +64,33 @@
       <section class="cotizaciones__info">
         <div class="container">
           <div class="row">
-            <div class="col-10">
+            <div class="col-12">
               <h1 class="titulo__seccion">Cotizaciones</h1>
             </div>
-            <div class="col-10">
+            <div class="col-12">
               <p>Precios en tiempo real de las principales criptomonedas del mercado. En vivo. Al instante.</p>  
             </div>
           </div>
         </div>
       </section>
       <section>
-          <div class="container">
-              <div id="listaCotizaciones" class="row">
-                <div class="col-12 col-md-10">
-                  <div class="cotizacion__header">
-                    <div class="cotizacion__grupoTitulos">
-                      <div class="cotizacion__titulo">
-                        <span>CRIPTOMONEDA</span>
-                      </div>
-                    </div>
-                    <div class="cotizacion__grupoTitulos">
-                      <div class="cotizacion__titulo">
-                        <span>PRECIO USD</span>
-                      </div>
-                      <div class="cotizacion__titulo">
-                        <span>PRECIO ARS</span>
-                      </div>
-                    </div>
-                  </div>
+          <div id="cotizaciones">
+            <div class="container">
+              <div class="row cotizacion__header">
+                <div class="col-5">
+                  <span>CRIPTOMONEDA</span>
                 </div>
-                <!-- Se completa dinámicamente con las criptomonedas disponibles -->
+                <div class="col-3">
+                  <span>PRECIO USD</span>
+                </div>
+                <div class="col-4">
+                  <span>PRECIO ARS</span>
+                </div>
               </div>
+              <div id="listaCotizaciones">
+                <!-- Se completa dinámicamente con las criptomonedas disponibles -->  
+              </div>
+            </div>
           </div>
       </section>
     </main>

@@ -621,7 +621,7 @@ section {
     padding: 5px 0;
 }
 
-.movimientos__tablaHeader div {
+.movimientos__tablaHeader div, .cotizacion__header div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -674,7 +674,7 @@ section {
     background-color: #c1c3c4;
 }
 
-.movimiento__label {
+.movimiento__label, .cotizacion__label {
     display: none;
 }
 
@@ -688,7 +688,7 @@ section {
     border: 1px solid black;
     border-radius: 100%;
     padding: 7px;
-    width: 35%;
+    width: 45px;
     display: flex;
 }
 
@@ -974,7 +974,6 @@ section {
 /*************************/
 
 #listaCotizaciones {
-    justify-content: center;
     margin-bottom: 50px;
 }
 
@@ -988,28 +987,8 @@ section {
     font-weight: bold;
 }
 
-.cotizacion__grupoTitulos {
-    display: flex;
-    justify-content: space-around;
-    width: 50%;
-}
-
-.cotizacion__precios {
-    display: flex;
-    justify-content: space-between;
-    width: 50%;
-}
-
-.cotizacion__precios div {
-    width: 50%;
-    font-weight: bold;
-    text-align: left;
-    padding-left: 13%;
-}
-
 .cotizacion__contenedor {
     border: 1px solid black;
-    height: 60px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
@@ -1026,19 +1005,14 @@ section {
 
 .cotizacion__info {
     display: flex;
-    
     justify-content: flex-start;
     align-items: center;
-    width: 30%;
-    margin-left: 15%;
-}
-
-.cotizacion__titulo {
-    display: flex;
+    padding-left: 30px;
 }
 
 .cotizacion__logo {
-    width: 50px;
+    width: 45px;
+    padding: 5px;
     margin-right: 5%;
 }
 
@@ -1057,6 +1031,11 @@ section {
 
 .cotizacion__sigla {
     font-size: 13px;
+}
+
+.cotizacion__usd, .cotizacion__ars {
+    font-weight: bold;
+    text-align: center;
 }
 
 .cotizacion__usd {

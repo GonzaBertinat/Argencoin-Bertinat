@@ -90,6 +90,10 @@
     .cotizacion__info {
         padding-left: 5px;
     }
+
+    .saldo, #saldo__total {
+        width: 95%;
+    }
 }
 
 /* Breakpoint X-Small --> Small (sm) de Bootstrap */

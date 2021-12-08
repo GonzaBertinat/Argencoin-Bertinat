@@ -4,7 +4,7 @@ const renderizarSeccionSaldos = () => {
     // Se agregan los saldos al DOM.
     criptomonedas.forEach( (c,index) => {
         $('#listaSaldos').append(  
-            `<div class="col-10 col-lg-6 saldo">
+            `<div class="col-12 col-md-6 saldo">
                 <div class="saldo__info">
                     <div class="saldo__imagen">
                         <img src="../${c.rutaImagen}" alt="${c.nombre}">

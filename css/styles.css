@@ -431,33 +431,27 @@ section {
 
 .balance__activos {
     margin: 0 auto;
+    padding: 0;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: flex-start;
 }
 
 .balance__activos .activos__subtitulo {
-    padding-left: 10px;
-}
-
-#saldo__total {
-    width: 100%;
+    padding-left: 13px;
 }
 
 #listaSaldos {
     justify-content: center;
 }
 
-#listaSaldos .activos__subtitulo {
-    padding-left: 20px;
+#saldo__total {
+    width: 100%;
 }
-
 .saldo {
-    width: 47.5%;
-    margin: 3px;
+    margin: 3px auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     border-radius: 10px;
     height: 70px;
@@ -469,8 +463,7 @@ section {
 }
 
 .saldo__info {
-    width: 30%;
-    padding: 20px 10px;
+    padding: 10px 10px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -478,17 +471,17 @@ section {
 
 .saldo__monto {
     text-align: end;
-    width: 70%;
     padding: 20px 10px;
     font-weight: bold;
 }
 
 .saldo__imagen {
-    max-width: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 .saldo__imagen img {
-    width: 100%;
+    height: 100%;
 }
 
 .saldo__moneda {

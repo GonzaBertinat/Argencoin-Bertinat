@@ -45,9 +45,6 @@ class Usuario {
 // Precio DÓLAR en Pesos Argentinos.
 let COTIZACION_USD
 
-// Expresión regular para validar correos.
-const mailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
 // Criptomonedas disponibles.
 const criptomonedas = [
     new Moneda(1, 'BTC', 'Bitcoin', 'images/criptos/btc-logo.png'),
@@ -73,25 +70,13 @@ const convertirAPesos = dolares => formatoMoneda(dolares * COTIZACION_USD)
 
 /*** Funciones que aplican lógica de negocio. ***/
 
-// Crea un usuario y lo guarda en el Local Storage.
-const registrarUsuario = usuario => {
-    let usuarios = obtenerUsuariosRegistrados()
-    usuarios.push(new Usuario(usuario))
-    localStorage.setItem('usuarios', JSON.stringify(usuarios))
-}
-
-// Valida si existe un usuario con el email o el username indicados.
-const existeUsuario = (email, username) => {
-    let usuarios = obtenerUsuariosRegistrados()
-    if(usuarios.findIndex(u => u.email === email) >= 0)
-        return true
-    if(usuarios.findIndex(u => u.username === username) >= 0)
-        return true
-    return false
+// Devuelve los datos de los usuarios registrados en el sitio.
+const obtenerUsuariosRegistrados = () => {
+    return JSON.parse(localStorage.getItem('usuarios'))
 }
 
 // Retorna un usuario registrado en el sistema. El parámetro id puede ser tanto el username como el email.
-const obtenerUsuario = (id) => {
+const obtenerUsuario = id => {
     let usuarios = obtenerUsuariosRegistrados()
     let index = usuarios.findIndex(u => u.email === id)
     if(index >= 0)
@@ -102,9 +87,14 @@ const obtenerUsuario = (id) => {
     return null
 }
 
-// Devuelve los datos de los usuarios registrados en el sitio.
-const obtenerUsuariosRegistrados = () => {
-    return JSON.parse(localStorage.getItem('usuarios'))
+// Valida si existe un usuario con el email o el username indicados.
+const existeUsuario = (email, username) => {
+    let usuarios = obtenerUsuariosRegistrados()
+    if(usuarios.findIndex(u => u.email === email) >= 0)
+        return true
+    if(usuarios.findIndex(u => u.username === username) >= 0)
+        return true
+    return false
 }
 
 // Devuelve los movimientos registrados por los usuarios en el sitio.
@@ -131,16 +121,18 @@ const calcularSaldo = (criptomoneda, usuario) => {
 const cerrarSesionActual = () => {
     sessionStorage.removeItem('username')
     sessionStorage.removeItem('monedaSaldoTotal')
-    let prefix = (window.location.pathname === '/' || window.location.pathname.includes('index.html')) ? '' : '../'
+    sessionStorage.removeItem('movimientosPorPagina')
+    // Obtiene prefijo para contemplar ruta relativa al documento actual
+    let prefix = (window.location.pathname.endsWith('/') || window.location.pathname.includes('index.html')) ? '' : '../'
     setTimeout(() => window.location.replace(`${prefix}index.html`), 500);
 }
 
 // Actualiza los enlaces y botones de la barra de navegación dependiendo si hay un usuario en sesión o no. 
-const cargarNavbar = (sesionActiva) => {
-
+const cargarNavbar = sesionActiva => {
+    // Obtiene prefijo para contemplar ruta relativa al documento actual
     let prefix = (window.location.pathname.endsWith('/') || window.location.pathname.includes('index.html')) ? 'pages/' : ''
+    
     if(sesionActiva){
-
         // Se cargan las secciones 'Cotizaciones', Mis Activos' y 'Mis Movimientos'.
         const enlacesNav = 
         `<li class="nav-item">
@@ -198,7 +190,7 @@ const cargarNavbar = (sesionActiva) => {
 
         $('#enlacesLogin').empty().append(enlacesLogin)
         $('#enlacesLoginLateral').empty().append(enlacesLogin)
-   }
+    }
 }
 
 // Switch para visualizar u ocultar la contraseña en el form de Login y de Registro.
@@ -218,16 +210,15 @@ const actualizarInputPassword = () => {
 }
 
 // Muestra animación con mensaje de alerta. Se usa en validaciones de formularios de Login y Registro.
-const mostrarMensaje = (tipo, mensaje) => {
-    $('#mensajeAlerta').empty()
-                       .append(`<span>${mensaje}</span>`)
-                       .css('background-color', tipo === 'ERROR' ? 'red' : 'green')
-                       .css('opacity', 1)
-                       .fadeIn(1000)
-                       .delay(2000)
-                       .animate({
-                        opacity: 0,
-                      }, 2000)                       
+const mostrarAlerta = (tipo, mensaje) => {
+    $('#mensajeAlerta')
+    .empty()
+    .append(`<span>${mensaje}</span>`)
+    .css('background-color', tipo === 'ERROR' ? 'red' : 'green')
+    .css('opacity', 1)
+    .fadeIn(1000)
+    .delay(2000)
+    .animate({opacity: 0}, 2000)                       
 }
 
 // Consulta vía API de Coinbase la cotización SPOT de las criptomonedas recibidas por parámetro.
@@ -237,6 +228,7 @@ const obtenerCotizacionesCriptomonedas = (criptomonedas, callback) => {
         let URL = `https://api.coinbase.com/v2/prices/${c.sigla}-USD/spot`
         $.get(URL, (response, status) => {
             if(status === 'success'){
+                // Se guarda el valor y se ejecuta la función de callback.
                 c.cotizacion = response.data.amount
                 callback(c)
             }
@@ -249,14 +241,14 @@ const obtenerCotizacionesCriptomonedas = (criptomonedas, callback) => {
     })
 }
 
-// Obtiene las cotizaciones en vivo del dólar estadounidense y de criptomonedas vía APIs.
+// Obtiene las cotizaciones en vivo del dólar estadounidense en pesos argentinos y de criptomonedas vía APIs.
 const obtenerCotizaciones = (criptomonedas, callback) => {
+    
     /* Se obtiene la cotización del Dólar estadounidense en Pesos argentinos.
     NOTA: En Argentina, al día de realizar este proyecto existen restricciones a la compra de divisas.
     Esto fomenta la creación de mercados paralelos para saltear estas restricciones, por lo que existen
     alrededor de 15 valores posibles para el par USD/ARS.
     Se toma como referencia el valor conocido como DOLAR BLUE.*/
-
     let URL = `https://api.bluelytics.com.ar/v2/latest`
     $.get(URL, (response, status) => {
         // En cualquier caso, luego de esta petición se obtienen las cotizaciones de las criptomonedas.
@@ -266,7 +258,7 @@ const obtenerCotizaciones = (criptomonedas, callback) => {
         }
         else {
             // Si sucede un error se toma un valor por defecto cercano a la cotizacion real.
-            cotizacion = 200
+            COTIZACION_USD = 200
             obtenerCotizacionesCriptomonedas(criptomonedas, callback)
         }
     })
@@ -278,15 +270,14 @@ $(document).ready(() => {
      * Al no interactuar con un backend, se simulará la 'persistencia' de los datos de usuarios y transacciones en el storage local.
      * De esta forma, en el cliente donde se abra el sitio podrá iniciar sesión, cerrarla, y recuperar los datos al ingresar en otro momento. */ 
     
+    // Si es la primera vez que se ingresa, se carga un array vacío de usuarios y de movimientos.
     // Array de Usuarios registrados.
     if(!localStorage.getItem('usuarios')) {
         localStorage.setItem('usuarios', JSON.stringify([]))
-        console.log('Array de usuarios inicializado')
     }
-    // Array de transacciones cargadas.
+    // Array de movimientos cargados.
     if(!localStorage.getItem('movimientos')) {
         localStorage.setItem('movimientos', JSON.stringify([]))
-        console.log('Array de movimientos inicializado')
     }
 
     // El usuario en sesión se guarda en el Session Storage. 
@@ -294,7 +285,7 @@ $(document).ready(() => {
     cargarNavbar(sessionStorage.getItem('username'))
 
     /* Si no existe una sesión iniciada y se quiere abrir 'Mis Activos' o 'Mis movimientos'
-       se redirige a Login ya que son paginas que sólo se puede acceder con sesión activa. */ 
+       se redirige a Login ya que son páginas que sólo se puede acceder con sesión activa. */ 
     const documento = window.location.pathname
     if(!sessionStorage.getItem('username') && 
        (documento.includes('activos.html') || documento.includes('movimientos.html'))){
@@ -302,7 +293,7 @@ $(document).ready(() => {
     }
 
     /* Si ya existe una sesión iniciada y se quiere abrir 'Login' o 'Registro'
-       se redirige a 'Mis Activos ya que son páginas que no tiene sentido acceder estando en sesión */
+       se redirige a 'Mis Activos' ya que son páginas que no tiene sentido acceder estando en sesión */
     if(sessionStorage.getItem('username') && 
         (documento.includes('login.html') || documento.includes('registro.html'))){
         window.location.replace("activos.html")

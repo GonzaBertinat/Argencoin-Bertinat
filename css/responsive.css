@@ -1,6 +1,6 @@
 
 /* Selectores para hacer responsive al sitio en distintos dispositivos */
-/* Complementan responsividad generada con sistema de grillas de Boostrap */
+/* Complementan responsividad generada con sistema de grillas de Bootstrap */
 /* Se utilizan tres breakpoints de Bootstrap para facilitar aplicación de estilos
    y un breakpoint extra para resoluciones de móviles bien pequeños */
 
@@ -98,7 +98,6 @@
 
 /* Breakpoint X-Small --> Small (sm) de Bootstrap */
 @media only screen and (max-width: 575px){
-    
     .fondoIndex__titulo {
         font-size: 3.5rem;
         -webkit-text-stroke-width: 4px;
@@ -214,6 +213,4 @@
     #paginaAnteriorButton, #paginaSiguienteButton, .paginador__info p, .paginador__info span {
         font-size: 1rem;
     }
-
-
 }

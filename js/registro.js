@@ -1,7 +1,23 @@
+// Expresión regular para validar correos.
+const mailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+// Crea un usuario y lo guarda en el Local Storage.
+const registrarUsuario = usuario => {
+    let usuarios = obtenerUsuariosRegistrados()
+    usuarios.push(new Usuario(usuario))
+    localStorage.setItem('usuarios', JSON.stringify(usuarios))
+}
+
+// Limpia campos del formulario de Registro.
+const limpiarCamposRegistro = () => {
+    $('#form-email').val('')
+    $('#form-username').val('')
+    $('#form-password').val('')
+}
+
 /* Procesa formulario de registro. 
-   Si el username y el email ingresados están libres, se crea al usuario y se lo persiste en Local Storage.
-   En caso contrario se muestra mensaje de error.
-*/
+Si el username y el email ingresados están libres, se crea al usuario y se lo persiste en Local Storage.
+En caso contrario se muestra mensaje de error. */
 const procesarRegistro = () => {
     
     // Se obtienen los valores ingresados en el form.
@@ -11,23 +27,27 @@ const procesarRegistro = () => {
 
     // Se realizan validaciones de campos vacíos y además para el email se utiliza una expresión regular.
     if(!mail){
-        mostrarMensaje('ERROR','Debe ingresar un mail.')
+        mostrarAlerta('ERROR','Debe ingresar un mail.')
         return    
     }
     if (!mailRegex.test((mail).toLowerCase())){
-        mostrarMensaje('ERROR','El formato del mail ingresado es incorrecto.')
+        mostrarAlerta('ERROR','El formato del mail ingresado es incorrecto.')
         return
     }
     if(!user){
-        mostrarMensaje('ERROR','Debe ingresar un nombre de usuario.')
+        mostrarAlerta('ERROR','Debe ingresar un nombre de usuario.')
         return    
     }
     if(!pass){
-        mostrarMensaje('ERROR','Debe ingresar una contraseña.')
+        mostrarAlerta('ERROR','Debe ingresar una contraseña.')
         return    
     }
     if(user.length > 15){
-        mostrarMensaje('ERROR','El nombre de usuario no puede superar los 15 caracteres.')
+        mostrarAlerta('ERROR','El nombre de usuario no puede superar los 15 caracteres.')
+        return
+    }
+    if(pass.length < 6){
+        mostrarAlerta('ERROR','La contraseña debe tener al menos 6 caracteres.')
         return
     }
 
@@ -38,18 +58,11 @@ const procesarRegistro = () => {
             username: user,
             password: pass 
         })
-        mostrarMensaje('OK','Registrado con éxito. Por favor, iniciá sesión para continuar.')
+        mostrarAlerta('OK','Registrado con éxito. Por favor, iniciá sesión para continuar.')
         limpiarCamposRegistro()
     } else {
-        mostrarMensaje('ERROR','El email o el nombre de usuario ya se encuentran asociados a una cuenta.')
+        mostrarAlerta('ERROR','El email o el nombre de usuario ya se encuentran asociados a una cuenta.')
     }
-}
-
-// Limpia campos del formulario de Registro.
-const limpiarCamposRegistro = () => {
-    $('#form-email').val('')
-    $('#form-username').val('')
-    $('#form-password').val('')
 }
 
 // Inicializa documento asignando eventos a elementos del formulario de Registro.

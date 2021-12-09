@@ -1,4 +1,4 @@
-// Se carga encabezado con nombre de columnas para la tabla de movimientos
+// Se carga encabezado con nombre de columnas para la tabla de movimientos.
 const renderizarHeaderMovimientos = () => {
     $('#listaMovimientos').append(
         `<div class="container">
@@ -25,18 +25,11 @@ const renderizarHeaderMovimientos = () => {
         </div>`)
 }
 
-// Devuelve los movimientos correspondientes a una página seleccionada en la vista.
-const obtenerMovimientosPagina = (movimientos, pagina) => {
-    let movimientosPorPagina = parseInt(sessionStorage.getItem('movimientosPorPagina'))
-    let inicio = pagina * movimientosPorPagina
-    let fin = inicio + movimientosPorPagina
-    return movimientos.slice(inicio, fin)
-}
-
 // Renderiza en el DOM un paginador para ver los movimientos en páginas.
 const renderizarPaginador = (paginaActual, cantidadMovimientos) => {
     let movimientosPorPagina = parseInt(sessionStorage.getItem('movimientosPorPagina'))
     let cantidadPaginas = cantidadMovimientos % movimientosPorPagina === 0 ? parseInt(cantidadMovimientos / movimientosPorPagina) : parseInt(cantidadMovimientos / movimientosPorPagina) + 1
+    // Las páginas se cuentan desde el 0.
     let habilitarAnterior = paginaActual !== 0
     let habilitarSiguiente = paginaActual !== (cantidadPaginas - 1)
     
@@ -61,9 +54,13 @@ const renderizarPaginador = (paginaActual, cantidadMovimientos) => {
 
     $('#paginaSiguienteButton').click(() => {
         renderizarMovimientos(usuario,filtro,paginaActual+1)
-    })
+    }) 
+}
 
-    // Renderiza selección de cantidad de movimientos por página
+// Renderiza en el DOM la selección de cantidad de movimientos por página.
+const renderizarSelectorCantidad = () => {
+    let filtro = $('#selectFiltroMovimientos').val()
+    let usuario = sessionStorage.getItem('username')
     let cantidadCombo = parseInt(sessionStorage.getItem('movimientosPorPagina'))
     $('#movimientos__cantidad').empty()
                                .append(
@@ -77,31 +74,37 @@ const renderizarPaginador = (paginaActual, cantidadMovimientos) => {
                                     <span>movimientos por página</span>
                                 </div>`)    
                                 .change(() => {
+                                    // Se asigna evento. Si cambia la cantidad elegida se vuelven a renderizar los movimientos según el valor.
                                     let nuevaCantidad = $('#selectCantidadMovimientos').val()
                                     sessionStorage.setItem('movimientosPorPagina', nuevaCantidad)
                                     renderizarMovimientos(usuario,filtro,0)
-                                })         
+                                })        
 }
 
-// Imprime en el DOM los movimientos de un usuario, mostrando la moneda cripto y el monto en USD de cada movimiento.
+// Devuelve los movimientos correspondientes a una página seleccionada en la vista.
+const obtenerMovimientosPagina = (movimientos, pagina) => {
+    let movimientosPorPagina = parseInt(sessionStorage.getItem('movimientosPorPagina'))
+    let inicio = pagina * movimientosPorPagina
+    let fin = inicio + movimientosPorPagina
+    return movimientos.slice(inicio, fin)
+}
+
+// Imprime en el DOM los movimientos de un usuario, mostrando la moneda cripto, fecha, operación y el monto en USD de cada movimiento.
 const renderizarMovimientos = (username, filtro, numeroPagina) => {  
     
     // Se limpia la vista.
     $('#listaMovimientos').empty()
-   
-    // Se obtienen los movimientos del usuario. Se valida el filtro elegido en la vista.
-    let movimientos = obtenerMovimientosDeUsuario(username)
-                      .filter(m => filtro === 'TODOS' ? m === m : m.moneda === filtro)
 
+    // Se obtienen los movimientos del usuario. Se valida el filtro elegido en la vista.
+    let movimientos = obtenerMovimientosDeUsuario(username).filter(m => filtro === 'TODOS' ? m === m : m.moneda === filtro)
 
     let cantidadMovimientos = movimientos.length
-    
     // Si no hay movimientos se muestra una leyenda. Si hay, se los itera para imprimirlos en el documento.
     if(cantidadMovimientos === 0){
         $('#listaMovimientos').append(
             `<div class="movimientos__vacio">
                 <span>No se encontraron movimientos</span>
-             </div>`
+            </div>`
         )
         
         // No se carga paginador ya que no hay movimientos
@@ -109,17 +112,18 @@ const renderizarMovimientos = (username, filtro, numeroPagina) => {
         $('#movimientos__cantidad').empty()
     }
     else {
-        // Se carga header
+        // Se carga header con nombre de columnas
         renderizarHeaderMovimientos()
 
         // Se carga paginador
         renderizarPaginador(numeroPagina, cantidadMovimientos)
 
-        // Se obtienen los movimientos a mostrar según el paginado
-        movimientos = obtenerMovimientosPagina(movimientos, numeroPagina)
-        
-        // Se cargan los movimientos en la vista.
-        movimientos.forEach((m,index) => {
+        // Se carga selector de cantidad de movimientos
+        renderizarSelectorCantidad()
+
+        // Se obtienen los movimientos a mostrar según el paginado y se los carga en la vista.
+        obtenerMovimientosPagina(movimientos, numeroPagina)
+        .forEach((m,index) => {
             let movimiento = new Movimiento(m)
             let criptomoneda = criptomonedas.find(c => c.sigla === movimiento.moneda)
             
@@ -164,22 +168,37 @@ const renderizarMovimientos = (username, filtro, numeroPagina) => {
                             <img class="movimiento__deleteIcon" src="../images/icons/borrar-icon.png">
                         </button>
                     </div>
-                </div>`
-            )
+                </div>`)
             
-            // Se muestra el movimiento con una animación de slideDown de arriba hacia abajo.
+            // Se muestra el movimiento con una animación de slideDown.
             $(`#${movimiento.id}`)
-                            .fadeOut(0)
-                            .delay(300 * index)
-                            .slideDown(1500)
+                .fadeOut(0)
+                .delay(300 * index)
+                .slideDown(1500)
         })
-        
     }
+}
+
+// Imprime en el DOM las opciones para combos de criptomonedas, para la carga y filtrado de movimientos.
+const renderizarCombosMonedas = () => {
+    criptomonedas.forEach(c => {
+        $('.comboCriptomonedas').append(
+            `<option value="${c.sigla}">${c.nombreFormateado()}</option>`
+        )
+    })
 }
 
 // Asigna un id oculto al modal de confirmación para eliminar movimiento, en el momento de presionar el ícono de borrar.
 const asignarId = idMovimiento => {
     $('#movimientoId').attr('movimiento_id', idMovimiento)
+}
+
+// Limpia campos del formulario de carga de nuevo movimiento.
+const limpiarCamposMovimiento = () => {
+    $('#selectCriptomoneda').val('BTC')
+    $('#selectOperacion').val('C')
+    $('#inputCantidad').val('')
+    $('#inputCotizacion').val('') 
 }
 
 // Crea un movimiento y lo guarda en el Local Storage.
@@ -189,15 +208,39 @@ const registrarMovimiento = movimiento => {
     localStorage.setItem('movimientos', JSON.stringify(movimientos))
 }
 
+// Actualiza logo de criptomoneda elegida en el filtro de movimientos.
+const actualizarLogoCombo = valor => {
+    let rutaImagen
+    let alt
+    if(valor === 'TODOS'){
+        rutaImagen = '../images/monedas/dinero.png'
+        alt = "Logo dinero"
+    }
+    else {
+        let criptomoneda = criptomonedas.find(c => c.sigla === valor)
+        rutaImagen = `../${criptomoneda.rutaImagen}`
+        alt = `Logo ${criptomoneda.nombre}`
+    }
+    
+    $('.movimientos__logoFiltro').empty().append(`
+        <img src="${rutaImagen}" alt="${alt}">                    
+    `)
+}
+
+// Muestra modal con mensaje de error. Se utiliza al realizar validaciones.
+const mostrarModalError = mensaje => {
+    $('#texto__error').empty().append(mensaje)
+    $('#errorModal').modal('show')
+}
+
 // Procesa formulario de carga de movimiento y lo registra.
-const procesarNuevoMovimiento = (e) => {   
+const procesarNuevoMovimiento = e => {   
     // Se anula comportamiento por defecto de formulario
     e.preventDefault()
 
     // Se crea el movimiento y se lo persiste en el Storage.
     let username = sessionStorage.getItem('username')
     let criptomoneda = criptomonedas.find(c => c.sigla === $('#selectCriptomoneda').val())
-    
     let operacion = $('#selectOperacion').val()
     let unidades = parseFloat($('#inputCantidad').val())
     let cotizacion = $('#inputCotizacion').val() 
@@ -208,15 +251,9 @@ const procesarNuevoMovimiento = (e) => {
 
         if((saldo - unidades) < 0){
             // Se muestra mensaje de error
-            $('#texto__error').empty()
-                             .append(`
-                             No se pudo registrar su operación de venta.
-                             <br>
-                             Su balance de ${criptomoneda.sigla} no puede ser negativo.
-                             <br>
-                             Por favor, revise los datos e inténtelo de nuevo.
-                             `)
-            $('#errorModal').modal('show')
+            mostrarModalError(`No se pudo registrar su operación de venta.
+                                <br> Su balance de ${criptomoneda.sigla} no puede ser negativo.
+                                <br> Por favor, revise los datos e inténtelo de nuevo.`)
             // Se cierra el modal de carga
             $('#cargaMovimientoForm').modal('hide')
             limpiarCamposMovimiento()
@@ -245,16 +282,8 @@ const procesarNuevoMovimiento = (e) => {
     renderizarMovimientos(username,'TODOS',0) 
 }
 
-// Limpia campos del formulario de carga de nuevo movimiento.
-const limpiarCamposMovimiento = () => {
-    $('#selectCriptomoneda').val('BTC')
-    $('#selectOperacion').val('C')
-    $('#inputCantidad').val('')
-    $('#inputCotizacion').val('') 
-}
-
 // Elimina un movimiento registrado por un usuario.
-const borrarMovimiento = (e) => {
+const borrarMovimiento = e => {
     
     // Se anula comportamiento por defecto de formulario
     e.preventDefault()
@@ -263,7 +292,7 @@ const borrarMovimiento = (e) => {
     let idMovimiento = parseInt($('#movimientoId').attr('movimiento_id'))
     let username = sessionStorage.getItem('username')
     
-    // Se elimina movimiento.
+    // Se obtiene nuevo array sin el movimiento a borrar.
     const movimientos = obtenerTodosLosMovimientos()
     const index = movimientos.findIndex(m => m.id === idMovimiento)
     const movimiento = movimientos[index]
@@ -274,15 +303,9 @@ const borrarMovimiento = (e) => {
     
     if((saldo - movimiento.unidades) < 0){
         // Se muestra mensaje de error
-        $('#texto__error').empty()
-                         .append(`
-                            No se pudo borrar el movimiento.
-                            <br>
-                            Su balance de ${movimiento.moneda} no puede ser negativo.
-                            <br>
-                            Por favor, revise los datos e inténtelo de nuevo.
-                        `)
-        $('#errorModal').modal('show')
+        mostrarModalError(`No se pudo borrar el movimiento.
+                            <br>Su balance de ${movimiento.moneda} no puede ser negativo.
+                            <br>Por favor, revise los datos e inténtelo de nuevo.`)
 
         // Se cierra modal de confirmación
         $('#confirmarBorradoForm').modal('hide')
@@ -300,25 +323,6 @@ const borrarMovimiento = (e) => {
     renderizarMovimientos(username,'TODOS',0)
 }
 
-// Actualiza logo de criptomoneda elegida en el filtro de movimientos
-const actualizarLogoCombo = (valor) => {
-    let rutaImagen
-    let alt
-    if(valor === 'TODOS'){
-        rutaImagen = '../images/monedas/dinero.png'
-        alt = "Logo dinero"
-    }
-    else {
-        let criptomoneda = criptomonedas.find(c => c.sigla === valor)
-        rutaImagen = `../${criptomoneda.rutaImagen}`
-        alt = `Logo ${criptomoneda.nombre}`
-    }
-    
-    $('.movimientos__logoFiltro').empty().append(`
-        <img src="${rutaImagen}" alt="${alt}">                    
-    `)
-}
-
 // Filtra en la vista movimientos según la opción elegida en el combo.
 const filtrarMovimientos = () => {
     let valor = $('#selectFiltroMovimientos').val()
@@ -326,28 +330,16 @@ const filtrarMovimientos = () => {
     renderizarMovimientos(sessionStorage.getItem('username'), valor, 0)
 }
 
-// Imprime en DOM las opciones para combos de criptomonedas, para la carga y filtrado de movimientos.
-const renderizarCombosMonedas = () => {
-    criptomonedas.forEach(c => {
-        $('.comboCriptomonedas').append(
-            `<option value="${c.sigla}">${c.nombreFormateado()}</option>`
-        )
-    })
-}
-
 // Inicializa documento.
 $(document).ready(() => {
-    // Asignación de cantidad de movimientos por página por defecto (si no existía)
-    if(!sessionStorage.getItem('movimientosPorPagina')){
-        sessionStorage.setItem('movimientosPorPagina', 3)
-    }
-    // Carga de movimientos en 'Mis Movimientos'.
+    // Carga de TODOS los movimientos en 'Mis Movimientos'.
     renderizarMovimientos(sessionStorage.getItem('username'), 'TODOS', 0)
 
     // Carga de combos de criptomonedas.
     renderizarCombosMonedas()
 
     // Se obtienen cotizaciones de las criptomonedas para generar movimientos con los valores más recientes.
+    // Para este escenario, no se necesita ejecutar un callback por lo que se envía como parámetro una función sin cuerpo.
     obtenerCotizaciones(criptomonedas, () => {})
 
     /* Carga de eventos */

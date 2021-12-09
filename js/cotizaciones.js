@@ -1,9 +1,9 @@
 // Imprime en el DOM los elementos HTML para visualizar las cotizaciones de las diferentes criptomonedas del sitio.
 const renderizarCotizaciones = criptomonedas => {
-    // Para cada criptomoneda generamos su HTML correspondiente.
+    // Para cada criptomoneda se genera su HTML correspondiente.
     criptomonedas.forEach( (c,index) => {
         $('#listaCotizaciones').append(
-            `<div class="row cotizacion__contenedor ${index % 2 === 0 ? 'cotizacion__contenedor-light' : 'cotizacion__contenedor-normal'}" id="precio${c.sigla}">
+            `<div id="precio${c.sigla}" class="row cotizacion__contenedor ${index % 2 === 0 ? 'cotizacion__contenedor-light' : 'cotizacion__contenedor-normal'}">
                 <div class="col-12 col-sm-5">
                     <div class="cotizacion__info">
                         <div class="cotizacion__logo">
@@ -25,7 +25,7 @@ const renderizarCotizaciones = criptomonedas => {
                 </div>
             </div>`)
 
-        // Se muestra la cotización con una animación de fadeIn y se carga después de la anterior.
+        // Se muestra la cotización con una animación de fadeIn.
         $(`#precio${c.sigla}`).fadeOut(0) 
                               .delay(300 * index)   
                               .fadeIn(1500)
@@ -33,7 +33,7 @@ const renderizarCotizaciones = criptomonedas => {
 }
 
 // Función utilizada como callback que reemplaza en el DOM el precio de una criptomoneda. 
-const renderizarCotizacion = (criptomoneda) => {
+const renderizarCotizacion = criptomoneda => {
     $(`#${criptomoneda.sigla}-USD`).empty().append(`$ ${criptomoneda.cotizacion}`)
     $(`#${criptomoneda.sigla}-ARS`).empty().append(`$ ${convertirAPesos(criptomoneda.cotizacion)}`)
 }
@@ -43,6 +43,6 @@ $(document).ready(() => {
     // Se cargan los elementos HTML para visualizar las cotizaciones.
     renderizarCotizaciones(criptomonedas)
 
-    // Se obtienen vía API las cotizaciones de las criptomonedas.
+    // Se obtienen vía API las cotizaciones de las criptomonedas y se reemplaza su valor en el DOM con la función de callback.
     obtenerCotizaciones(criptomonedas, renderizarCotizacion)
 })

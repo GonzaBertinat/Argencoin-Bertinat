@@ -18,7 +18,7 @@ const renderizarSeccionCotizaciones = () => {
 }
 
 // Función utilizada como callback que reemplaza en el DOM el precio de una criptomoneda. 
-const renderizarCotizacion = (criptomoneda) => {
+const renderizarCotizacionIndex = criptomoneda => {
     $(`#cotizacionIndex__precio_${criptomoneda.sigla}`).empty().append(`${criptomoneda.cotizacion} USD`)
 }
 
@@ -27,7 +27,7 @@ $(document).ready(() => {
     // Se cargan los elementos HTML en el DOM para cotizaciones de principales criptomonedas.
     renderizarSeccionCotizaciones()
     
-    // Se obtienen vía API las cotizaciones de las criptomonedas.
+    // Se obtienen vía API las cotizaciones de las criptomonedas BTC y ETH y se reemplaza su valor en el DOM con la función de callback.
     const criptos = criptomonedas.filter(c => c.sigla === 'BTC' || c.sigla === 'ETH')
-    obtenerCotizaciones(criptos, renderizarCotizacion)
+    obtenerCotizaciones(criptos, renderizarCotizacionIndex)
 })

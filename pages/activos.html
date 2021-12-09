@@ -1,134 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Activos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/responsive.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="../images/icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Glory:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Activos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Glory:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-      <!-- Menú de navegación superior -->
-      <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
-          <div class="encabezado container-fluid">
-            <div class="encabezado__contenedorLogo">
-              <a class="navbar-brand" href="../index.html">
-                <img class="encabezado__logo img-fluid" src="../images/logo-header.png" alt="Logo de la marca">
-              </a>
+  <!-- Encabezado con menú de navegación -->
+  <header>
+    <!-- Menú de navegación superior -->
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
+      <div class="encabezado container-fluid">
+        <div class="encabezado__contenedorLogo">
+          <a class="navbar-brand" href="../index.html">
+            <img class="encabezado__logo img-fluid" src="../images/logo-header.png" alt="Logo de la marca">
+          </a>
+        </div>
+        <div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse encabezado__enlaces" id="navbarNavDropdown">
+            <div class="encabezado__grupoEnlaces">
+              <ul id="enlacesNav" class="navbar-nav">
+                <!-- Se carga dinámicamente en función de si existe o no una sesión iniciada -->
+              </ul>
             </div>
-            <div>
-              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral" aria-controls="menuLateral" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse encabezado__enlaces" id="navbarNavDropdown">
-                <div class="encabezado__grupoEnlaces">
-                  <ul id="enlacesNav" class="navbar-nav">
-                    <!-- Se carga dinámicamente en función de si existe o no una sesión iniciada -->
-                  </ul>
-                </div>
-                <div class="encabezado__grupoEnlaces">
-                  <ul id="enlacesLogin" class="navbar-nav">
-                    <!-- Se carga dinámicamente en función de si existe o no una sesión iniciada -->
-                  </ul>
-                </div>
-              </div>
-            </div>       
+            <div class="encabezado__grupoEnlaces">
+              <ul id="enlacesLogin" class="navbar-nav">
+                <!-- Se carga dinámicamente en función de si existe o no una sesión iniciada -->
+              </ul>
+            </div>
           </div>
-      </nav>
-      <!-- Menú de navegación lateral -->
-      <div class="encabezado__menu-lateral offcanvas offcanvas-start" id="menuLateral" tabindex="-1"  aria-labelledby="menuLateralLabel">
-        <div class="offcanvas-body">
-            <div class="encabezado__grupoEnlacesLateral">
-              <ul id="enlacesNavLateral">
-                <!-- Se carga dinámicamente en función de si existe o no una sesión iniciada -->
-              </ul>
-            </div>
-            <div class="encabezado__grupoEnlacesLateral">
-              <ul id="enlacesLoginLateral">
-                <!-- Se carga dinámicamente en función de si existe o no una sesión iniciada -->
-              </ul>
-            </div>
+        </div>       
+      </div>
+    </nav>
+    <!-- Menú de navegación lateral -->
+    <div class="encabezado__menu-lateral offcanvas offcanvas-start" id="menuLateral" tabindex="-1"  aria-labelledby="menuLateralLabel">
+      <div class="offcanvas-body">
+        <div class="encabezado__grupoEnlacesLateral">
+          <ul id="enlacesNavLateral">
+            <!-- Se carga dinámicamente en función de si existe o no una sesión iniciada -->
+          </ul>
+        </div>
+        <div class="encabezado__grupoEnlacesLateral">
+          <ul id="enlacesLoginLateral">
+            <!-- Se carga dinámicamente en función de si existe o no una sesión iniciada -->
+          </ul>
         </div>
       </div>
-    </header>
-    <main>
-        <section id="billetera">
-            <h1 class="activos__titulo titulo__seccion">Mis Activos</h1>
-            <div id="balance" class="container">
-              <div class="row">
-                <div class="col-12 col-md-6 balance__activos">
-                  <h3 class="activos__subtitulo">Balance total</h3>
-                  <div id="saldo__total" class="saldo">    
-                    <!-- Se carga dinámicamente según la moneda de preferencia del usuario en sesión -->
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="container">
-              <div id="listaSaldos" class="row">
-                <div class="col-12">
-                  <h3 class="activos__subtitulo">Activos</h3>
-                </div>
-                <!-- Se completa dinámicamente con las criptomonedas y los saldos del usuario en sesión -->    
-              </div>
-            </div>
-        </section>
-    </main>
-    <footer class="piePagina">
-      <div class="container">
-          <div class="piePagina__contenido row">
-            <div class="piePagina__seccion col-10 col-md-4">
-              <div class="row">
-                <span class="piePagina__texto">Desarrollado por Gonzalo Bertinat</span>
-              </div>
-              <div class="row">
-                <span class="piePagina__texto">© 2021 Argencoin - Derechos reservados</span>
-              </div>
-            </div>
-            <div class="piePagina__seccion col-10 col-md-4">
-              <div class="piePagina__contenedorLogo">
-                <a href="../index.html">
-                  <img class="piePagina__logo img-fluid" src="../images/logo-footer.png" alt="Logo de la marca">
-                </a>
-              </div>
-            </div>
-            <div class="piePagina__seccion col-10 col-md-4">
-              <div class="row">
-                <span class="piePagina__texto">Seguinos en nuestras redes sociales</span>
-              </div>
-              <div class="piePagina__redes row">
-                <div class="piePagina__contenedorRedSocial col-4">
-                  <a href="https://www.facebook.com" target="_blank">
-                    <img src="../images/redes/facebook.png" class="img-fluid" alt="Facebook">
-                  </a>
-                </div>
-                <div class="piePagina__contenedorRedSocial col-4">
-                  <a href="https://www.instagram.com" target="_blank">
-                    <img src="../images/redes/instagram.png" class="img-fluid" alt="Instagram">
-                  </a>
-                </div>
-                <div class="piePagina__contenedorRedSocial col-4">
-                  <a href="https://www.twitter.com" target="_blank">
-                    <img src="../images/redes/twitter.png" class="img-fluid" alt="Twitter">
-                  </a>
-                </div>
-              </div>
+    </div>
+  </header>
+  <!-- Contenido principal -->
+  <main>
+    <section id="billetera">
+      <h1 class="activos__titulo titulo__seccion">Mis Activos</h1>
+      <!-- Sección con balance total de activos-->
+      <div id="balance" class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 balance__activos">
+            <h3 class="activos__subtitulo">Balance total</h3>
+            <div id="saldo__total" class="saldo">    
+              <!-- Se carga dinámicamente según la moneda de preferencia del usuario en sesión -->
             </div>
           </div>
+        </div>
       </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/activos.js"></script>
+      <!-- Sección con balance de cada criptomoneda -->
+      <div class="container">
+        <div id="listaSaldos" class="row">
+          <div class="col-12">
+            <h3 class="activos__subtitulo">Activos</h3>
+          </div>
+          <!-- Se completa dinámicamente con las criptomonedas y los saldos del usuario en sesión -->    
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Pie de página -->
+  <footer class="piePagina">
+    <div class="container">
+      <div class="piePagina__contenido row">
+        <div class="piePagina__seccion col-10 col-md-4">
+          <div class="row">
+            <span class="piePagina__texto">Desarrollado por Gonzalo Bertinat</span>
+          </div>
+          <div class="row">
+            <span class="piePagina__texto">© 2021 Argencoin - Derechos reservados</span>
+          </div>
+        </div>
+        <div class="piePagina__seccion col-10 col-md-4">
+          <div class="piePagina__contenedorLogo">
+            <a href="../index.html">
+              <img class="piePagina__logo img-fluid" src="../images/logo-footer.png" alt="Logo de la marca">
+            </a>
+          </div>
+        </div>
+        <div class="piePagina__seccion col-10 col-md-4">
+          <div class="row">
+            <span class="piePagina__texto">Seguinos en nuestras redes sociales</span>
+          </div>
+          <div class="piePagina__redes row">
+            <div class="piePagina__contenedorRedSocial col-4">
+              <a href="https://www.facebook.com" target="_blank">
+                <img src="../images/redes/facebook.png" class="img-fluid" alt="Facebook">
+              </a>
+            </div>
+            <div class="piePagina__contenedorRedSocial col-4">
+              <a href="https://www.instagram.com" target="_blank">
+                <img src="../images/redes/instagram.png" class="img-fluid" alt="Instagram">
+              </a>
+            </div>
+            <div class="piePagina__contenedorRedSocial col-4">
+              <a href="https://www.twitter.com" target="_blank">
+                <img src="../images/redes/twitter.png" class="img-fluid" alt="Twitter">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Carga de scripts JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/activos.js"></script>
 </body>
 </html>

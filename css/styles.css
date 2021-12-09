@@ -1,4 +1,4 @@
-/* Reseteo CSS*/
+/*** Reseteo CSS y asignación de fuente y tamaño por defecto ***/
 * {
     margin: 0;
     padding: 0;
@@ -7,33 +7,10 @@
 }
 
 /*** Selectores comunes a todos los documentos del sitio ***/
-nav {
-    background-color: #0c88eb;
-}
 
+/* Estilos para sections y títulos */
 section {
     padding: 25px 0;
-}
-
-.bordes__negros {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-}
-
-.dropdown-menu {
-    background-color: #0c88eb;
-    position: absolute;
-    left: auto !important;
-    right: -15px;
-}
-
-.nav-link {
-    color: white !important;
-    font-weight: bold;
-}
-
-.nav-link:hover{
-    color: black!important;
 }
 
 .fondoSeccion {
@@ -42,16 +19,22 @@ section {
     background-position: center;
 }
 
-.encabezado {
-    display: flex;
-    justify-content: space-between;
-}
-
 .titulo__seccion {
     font-weight: 700;
     font-style: italic;
     font-size: 2.5rem;
     font-family: 'Lato', sans-serif;
+}
+
+.bordes__negros {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+/* Estilos para header y barra de navegación */
+.encabezado {
+    display: flex;
+    justify-content: space-between;
 }
 
 .encabezado__contenedorLogo {
@@ -81,7 +64,41 @@ section {
     color: black;
 }
 
-/* Menú lateral */
+nav {
+    background-color: #0c88eb;
+}
+
+.nav-link {
+    color: white !important;
+    font-weight: bold;
+}
+
+.nav-link:hover{
+    color: black!important;
+}
+
+.dropdown-menu {
+    background-color: #0c88eb;
+    position: absolute;
+    left: auto !important;
+    right: -15px;
+}
+
+/* Estilos para Botón de Cerrar Sesión */
+.cerrarSesion__button {
+    display: block;
+    text-align: center;
+    background-color: #0c88eb;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.cerrarSesion__button:hover {
+    color: black;
+}
+
+/* Estilos para Menú lateral */
 #enlacesNavLateral, #enlacesLoginLateral {
     list-style: none;
     padding-left: 0;
@@ -98,11 +115,11 @@ section {
     border: 1px solid #0c88eb;
 }
 
-
 .encabezado__menu-lateral {
     background-color: #0c88eb;
     width: 250px; 
 }
+
 .encabezado__menu-lateral a {
     text-align: center;
 }
@@ -124,21 +141,8 @@ section {
     margin-bottom: 10px;
     width: 100%;
 }
-/**/
 
-.cerrarSesion__button {
-    display: block;
-    text-align: center;
-    background-color: #0c88eb;
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.cerrarSesion__button:hover {
-    color: black;
-}
-
+/* Estilos para Footer */
 .piePagina {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -181,24 +185,9 @@ section {
     margin: 0 auto;
 }
 
-/*** Selectores para seccion de Inicio ***/
-.botonIndex {
-    text-decoration: none;
-    text-align: center;
-    margin: 10px auto;
-    padding: 8px 0;
-    border-radius: 10px;
-    transition: all 0.5s;
-    display: block;
-    width: 50%;
-}
+/*** Selectores para documento 'Index' ***/
 
-.botonIndex:hover {
-    font-weight: bold;
-    color: white;
-    transform: scale(1.2,1.2);
-}
-
+/* Estilos para imagen de fondo, título y slogan */
 .fondoIndex {
     background-image: url(../images/fondos/index.jpg);
     display: flex;
@@ -235,7 +224,25 @@ section {
     font-weight: 700;
 }
 
-/* Estilos para sección de Cotizaciones en Index*/
+/* Estilos para enlaces a otros documentos */
+.botonIndex {
+    text-decoration: none;
+    text-align: center;
+    margin: 10px auto;
+    padding: 8px 0;
+    border-radius: 10px;
+    transition: all 0.5s;
+    display: block;
+    width: 50%;
+}
+
+.botonIndex:hover {
+    font-weight: bold;
+    color: white;
+    transform: scale(1.2,1.2);
+}
+
+/* Estilos para sección de Cotizaciones en Index */
 .cotizacionesIndex {
     display: flex;
     flex-direction: column;
@@ -258,6 +265,10 @@ section {
     justify-content: center;
 }
 
+.cotizacionesIndex__contenedor .container .row {
+    justify-content: center;
+}
+
 .cotizacionesIndex__contenedorBoton {
     margin: 0 auto;
 }
@@ -267,7 +278,34 @@ section {
     background-color: #0c88eb;
 }
 
-/* Estilos para sección 'Gestioná tus activos' en Index */
+.cotizacionIndex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #d6d8da;
+    border: 2px solid black;
+    border-radius: 5%;
+    margin: 5px;
+    padding: 8px 0;
+    font-weight: bold;
+}
+
+.cotizacionIndex__moneda {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.cotizacionIndex__logo {
+    width: 75px;
+    margin: 10px 0;
+}
+
+.cotizacionIndex__precio {
+    margin: 10px 0;
+}
+
+/* Estilos para sección '¿Qué puedo hacer en Argencoin?' en Index */
 .opcionesIndex {
     background-color: #0c88eb;
     text-align: center;
@@ -328,7 +366,7 @@ section {
     text-align: center;
 }
 
-/* Estilos para sección 'Comenzá ya!' en Index */
+/* Estilos para sección '¡Comenzá ya!' en Index */
 .registroIndex {
     text-align: center;
 }
@@ -365,8 +403,10 @@ section {
     margin-top: 25px;
 }
 
-/*** Selectores para seccion 'Cotizaciones' ***/
-.cotizaciones__info{
+/*** Selectores para documento 'Cotizaciones' ***/
+
+/* Estilos para información previa a listado de cotizaciones */
+.cotizaciones__info {
     padding: 15vh 0 0 0;
     text-align: center;
 }
@@ -375,38 +415,90 @@ section {
     justify-content: center;
 }
 
-/* Estilo para cotizacion de criptomoneda */
-.cotizacionIndex {
+/* Estilos para header con nombre de columnas para tabla de Cotizaciones y de Movimientos */
+.cotizacion__header, .movimientos__tablaHeader {
+    background-color: #0c88eb;
+    color: white;
+    border-radius: 10px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #d6d8da;
-    border: 2px solid black;
-    border-radius: 5%;
-    margin: 5px;
-    padding: 8px 0;
+    justify-content: space-between;
+    padding: 10px;
     font-weight: bold;
 }
-.cotizacionesIndex__contenedor .container .row {
+
+.cotizacion__header div, .movimientos__tablaHeader div {
+    display: flex;
     justify-content: center;
+    align-items: center;
 }
 
-.cotizacionIndex__moneda {
-    font-size: 20px;
-    margin: 10px 0;
+/* Estilos para cada cotización */
+#listaCotizaciones {
+    margin-bottom: 50px;
 }
 
-.cotizacionIndex__logo {
-    width: 75px;
-    margin: 10px 0;
+.cotizacion__contenedor {
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.cotizacionIndex__precio {
-    margin: 10px 0;
+.cotizacion__contenedor-light {
+    background-color: #d6d8da;
 }
 
-/*** Selectores para seccion 'Mis activos' ***/
+.cotizacion__contenedor-normal {
+    background-color: #c1c3c4;
+}
+
+.cotizacion__info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.cotizacion__logo {
+    width: 45px;
+    padding: 5px;
+    margin-right: 5%;
+}
+
+.cotizacion__logo img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.cotizacion__nombre {
+    text-align: left;
+}
+
+.cotizacion__moneda {
+    font-weight: bold;
+}
+
+.cotizacion__sigla {
+    font-size: 13px;
+}
+
+.cotizacion__usd, .cotizacion__ars {
+    font-weight: bold;
+    text-align: center;
+}
+
+.cotizacion__usd {
+    color: rgb(12, 112, 12);
+}
+
+.cotizacion__ars {
+    color: #1f4ed3;
+}
+
+/*** Selectores para documento 'Mis Activos' ***/
+
+/* Estilos para título y subtítulos de secciones */
 .activos__titulo {
     text-align: center;
 }
@@ -416,17 +508,17 @@ section {
     text-align: start;
 }
 
+#billetera {
+    padding-top: 15vh;
+}
 
+/* Estilos para balance total de activos */ 
 #balance {
     padding: 20px 0 10px 0;
 }
 
 #balance .row {
     margin: 0 auto;
-}
-
-#billetera {
-    padding-top: 15vh;
 }
 
 .balance__activos {
@@ -441,13 +533,27 @@ section {
     padding-left: 13px;
 }
 
+.balance__activos #saldo__total {
+    width: 100%;
+}
+
+/* Estilos para combo que cambia la moneda en el balance total */
+#saldo__combo {
+    background-color: rgb(75, 168, 205);
+    border: none;
+    color: black;
+    font-weight: bold;
+}
+
+#saldo__combo:focus-visible { 
+    outline: none;
+}
+
+/* Estilos para saldo en una determinada moneda */
 #listaSaldos {
     justify-content: center;
 }
 
-#saldo__total {
-    width: 100%;
-}
 .saldo {
     margin: 3px auto;
     display: flex;
@@ -501,22 +607,28 @@ section {
     font-style: italic;
 }
 
-#saldo__combo {
-    background-color: rgb(75, 168, 205);
-    border: none;
-    color: black;
-    font-weight: bold;
-}
+/*** Selectores para documento 'Mis Movimientos' ***/
 
-#saldo__combo:focus-visible { 
-    outline: none;
-}
-
-/*** Selectores para seccion 'Mis movimientos' ***/
 #movimientos {
     padding-top: 15vh;
 }
 
+.movimientos__titulo {
+    text-align: center;
+    font-weight: bold;
+}
+
+.movimientos__vacio {
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+    background-color: #0c88eb;
+    border-radius: 10px;
+    color: white;
+    padding: 5px 0;
+}
+
+/* Estilos para sección interactiva de filtros y registro de movimientos */
 .movimientos__header {
     justify-content: space-between;
     align-items: center;
@@ -528,15 +640,7 @@ section {
     text-align: center;
 }
 
-.movimientos__header col-11 {
-    margin: 0 auto;
-}
-
-.movimientos__titulo {
-    text-align: center;
-    font-weight: bold;
-}
-
+/* Estilos para sección de registro de un movimiento */
 .movimientos__agregar, .movimientos__filtros {
     border: 1px solid #0c88eb;
     border-radius: 10px;
@@ -571,6 +675,7 @@ section {
     width: 100%;
 }
 
+/* Estilos para sección de filtro de movimientos */
 .movimientos__filtros {
     flex-direction: column;
     padding: 5px;
@@ -604,45 +709,7 @@ section {
     width: 100%;
 }
 
-.movimientos__vacio {
-    font-weight: bold;
-    text-align: center;
-    font-size: 20px;
-    background-color: #0c88eb;
-    border-radius: 10px;
-    color: white;
-    padding: 5px 0;
-}
-
-.movimientos__tablaHeader div, .cotizacion__header div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.cantidad__contenedor {
-    background-color: #0c88eb;
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-}
-
-.cantidad__contenedor select {
-    margin: 0 10px;
-    font-weight: bold;
-    background-color: #0c88eb;
-    color: white;
-    border: none;
-}
-
-.cantidad__contenedor select:focus-visible {
-    outline: none;
-}
-
+/* Estilos para un movimiento */
 .movimiento__contenedor {
     border-radius: 10px;
     border: 1px solid black;
@@ -723,6 +790,7 @@ section {
     font-weight: bold;
 }
 
+/* Estilos para borrar un movimiento */
 .movimiento__deleteButton {
     width: 35px;
     display: flex;
@@ -730,7 +798,7 @@ section {
     align-items: center;
 }
 
-.movimiento__deleteButton:focus{
+.movimiento__deleteButton:focus {
     box-shadow: none;
 }
 
@@ -738,6 +806,31 @@ section {
     width: 35px;
 }
 
+/* Estilos para selección de cantidad de movimientos por página */
+.cantidad__contenedor {
+    background-color: #0c88eb;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.cantidad__contenedor select {
+    margin: 0 10px;
+    font-weight: bold;
+    background-color: #0c88eb;
+    color: white;
+    border: none;
+}
+
+.cantidad__contenedor select:focus-visible {
+    outline: none;
+}
+
+/* Estilos para paginador */
 .paginador__contenedor {
     display: flex;
     margin: 15px auto 0 auto;
@@ -763,7 +856,7 @@ section {
     border: 2px solid black;
 }
 
-.paginador__contenedor button.paginador__deshabilitado {
+.paginador__contenedor button .paginador__deshabilitado {
     opacity: 0.5;
 }
 
@@ -786,7 +879,7 @@ section {
     font-weight: bold;
 }
 
-/* Form de carga de movmiento */
+/* Form de carga de movimiento */
 .modal-content {
     background-color: #0c88eb;
     color: white;
@@ -853,6 +946,7 @@ section {
     font-weight: bold;
 }
 
+/* Estilos para modal de confirmación de borrado y modal de error */
 .modalForm__texto {
     text-align: center;
     margin: 10px 0;
@@ -871,7 +965,9 @@ section {
     margin: 10px auto;
 }
 
-/*** Selectores para seccion 'Registrarme' ***/
+/*** Selectores para documento 'Registro' y 'Login' ***/
+
+/* Estilos para imagen de fondo */
 .fondoRegistro {
     background-image: url(../images/fondos/registro.jpg);
     display: flex;
@@ -879,6 +975,14 @@ section {
     padding-bottom: 15vh;
 }
 
+.fondoLogin {
+    background-image: url(../images/fondos/login.jpg);
+    display: flex;
+    padding-top: 15vh;
+    padding-bottom: 15vh;
+}
+
+/* Estilos para formulario de Login y de Registro */
 .registro__contenedor, .login__contenedor {
     margin: 0 auto;
     background-color: white;
@@ -945,6 +1049,7 @@ section {
     background-color: whie;
 }
 
+/* Estilos para mensaje de alerta que se visualiza al no pasar las validaciones de cada form con éxito */
 #mensajeAlerta {
     display: block;
     padding: 3px 20px; 
@@ -955,87 +1060,3 @@ section {
     opacity: 0; 
     font-weight: bold;
 }
-
-/*** Selectores para sección 'Login' ***/
-.fondoLogin {
-    background-image: url(../images/fondos/login.jpg);
-    display: flex;
-    padding-top: 15vh;
-    padding-bottom: 15vh;
-}
-
-/*************************/
-
-#listaCotizaciones {
-    margin-bottom: 50px;
-}
-
-.cotizacion__header, .movimientos__tablaHeader {
-    background-color: #0c88eb;
-    color: white;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    font-weight: bold;
-}
-
-.cotizacion__contenedor {
-    border: 1px solid black;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.cotizacion__contenedor-light {
-    background-color: #d6d8da;
-}
-
-.cotizacion__contenedor-normal {
-    background-color: #c1c3c4;
-}
-
-.cotizacion__info {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 30px;
-}
-
-.cotizacion__logo {
-    width: 45px;
-    padding: 5px;
-    margin-right: 5%;
-}
-
-.cotizacion__logo img {
-    width: 100%;
-    margin: 0 auto;
-}
-
-.cotizacion__nombre {
-    text-align: left;
-}
-
-.cotizacion__moneda {
-    font-weight: bold;
-}
-
-.cotizacion__sigla {
-    font-size: 13px;
-}
-
-.cotizacion__usd, .cotizacion__ars {
-    font-weight: bold;
-    text-align: center;
-}
-
-.cotizacion__usd {
-    color: rgb(12, 112, 12);
-}
-
-.cotizacion__ars {
-    color: #1f4ed3;
-}
-

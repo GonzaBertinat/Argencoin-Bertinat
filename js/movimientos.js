@@ -97,6 +97,7 @@ const renderizarMovimientos = (username, filtro, numeroPagina) => {
 
     // Se obtienen los movimientos del usuario. Se valida el filtro elegido en la vista.
     let movimientos = obtenerMovimientosDeUsuario(username).filter(m => filtro === 'TODOS' ? m === m : m.moneda === filtro)
+                                                            .reverse()
 
     let cantidadMovimientos = movimientos.length
     // Si no hay movimientos se muestra una leyenda. Si hay, se los itera para imprimirlos en el documento.

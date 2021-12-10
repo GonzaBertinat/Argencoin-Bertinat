@@ -29,10 +29,6 @@ const iniciarSesion = () => {
         mostrarAlerta('ERROR','Debe ingresar una contraseña.')
         return    
     }
-    if(pass.length < 6){
-        mostrarAlerta('ERROR','La contraseña debe tener al menos 6 caracteres.')
-        return
-    }
 
     // Se busca al usuario. Si no existe o la contraseña es incorrecta muestra mensaje de error.
     let usuario = obtenerUsuario(user)

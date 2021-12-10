@@ -42,6 +42,10 @@ const procesarRegistro = () => {
         mostrarAlerta('ERROR','Debe ingresar una contraseña.')
         return    
     }
+    if(user.length < 5){
+        mostrarAlerta('ERROR','El nombre de usuario debe tener al menos 5 caracteres.')
+        return
+    }
     if(user.length > 15){
         mostrarAlerta('ERROR','El nombre de usuario no puede superar los 15 caracteres.')
         return

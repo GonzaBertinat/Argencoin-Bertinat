@@ -856,7 +856,7 @@ nav {
     border: 2px solid black;
 }
 
-.paginador__contenedor button .paginador__deshabilitado {
+.paginador__contenedor button.paginador__deshabilitado {
     opacity: 0.5;
 }
 

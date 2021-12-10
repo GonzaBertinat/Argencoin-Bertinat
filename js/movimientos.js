@@ -161,7 +161,7 @@ const renderizarMovimientos = (username, filtro, numeroPagina) => {
                     </div>
                     <div class="col-12 col-md-2">
                         <span class="movimiento__label">COTIZACIÓN</span>
-                        <span>${movimiento.precio}</span>
+                        <span>${movimiento.precio} USD</span>
                     </div>
                     <div class="col-12 col-md-1">    
                         <button onclick="asignarId(${movimiento.id})" type="button" class="movimiento__deleteButton btn" data-bs-toggle="modal" data-bs-target="#confirmarBorradoForm" data-toggle="tooltip" data-placement="left" title="Borrar movimiento">
